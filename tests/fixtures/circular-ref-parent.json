@@ -1,0 +1,16 @@
+{
+  "definitions": {
+    "person": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "spouse": {
+          "type": {
+            "$ref": "#/definitions/person"
+          }
+        }
+      }
+    }
+  }
+}

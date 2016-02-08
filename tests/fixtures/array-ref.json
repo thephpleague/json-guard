@@ -1,0 +1,6 @@
+{
+  "items": [
+    {"type": "integer"},
+    {"$ref": "#/items/0"}
+  ]
+}

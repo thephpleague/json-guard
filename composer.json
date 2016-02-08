@@ -1,0 +1,72 @@
+{
+    "name": "machete/validation",
+    "type": "library",
+    "description": "A validator for JSON schema.",
+    "keywords": [
+        "Machete",
+        "Validation",
+        "json",
+        "schema",
+        "json-schema.org"
+    ],
+    "homepage": "https://github.com/machete-php/validation",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthew Allan",
+            "email": "matthew.james.allan@gmail.com",
+            "homepage": "https://mattallan.org",
+            "role": "Developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "json-schema/JSON-Schema-Test-Suite",
+                "version": "1.1.0",
+                "source": {
+                    "url": "https://github.com/json-schema/JSON-Schema-Test-Suite",
+                    "type": "git",
+                    "reference": "1.1.0"
+                }
+            }
+        }
+    ],
+    "require": {
+        "php" : ">=5.4.0",
+        "guzzlehttp/guzzle": "~5.3|~6.0.1|~6.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*",
+        "scrutinizer/ocular": "~1.1",
+        "squizlabs/php_codesniffer": "~2.3",
+        "json-schema/JSON-Schema-Test-Suite": "1.1.0",
+        "symfony/process": "^3.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Machete\\Validation\\": "src"
+        },
+        "files": [
+            "src/codes.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Machete\\Validation\\Test\\": "tests"
+        },
+        "files": [
+            "tests/helpers.php"
+        ]
+    },
+    "scripts": {
+        "test": "phpunit",
+        "cs": "phpcs --standard=psr2 src/"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}

@@ -37,8 +37,6 @@ $deref  = new Machete\Validation\Dereferencer();
 $schema = $deref->dereference(json_decode($json));
 ```
 
-### Schema Loaders
-
 Alternatively, you can provide a path to load the schema from.  By default `file://`, `http://`, and `https://` paths are supported.
 
 ```php
@@ -46,25 +44,13 @@ $deref  = new Machete\Validation\Dereferencer();
 $schema = $deref->dereference('http://json-schema.org/draft-04/schema#');
 ```
 
-If you would like to load schemas from a path that is not supported or customize the behavior of a default loader, you can register your own loader using the `registerLoader` method.  The first argument should be the loader instance, and the second argument should be the prefix you would like your loader to be used for.
-
-```php
-$mongoLoader = new MongoDbLoader();
-$deref->registerLoader($mongoLoader, 'mongodb');
-
-schema = $deref->dereference('mongodb://507c35dd8fada716c89d0013');
-```
-
-Custom loaders should implement the [Loader interface](src/Dereferencer/Loader.php).
-
 ### Validating
 
 To validate data, construct a new validator instance with the data and the resolved schema.
 
 ``` php
-// The data should be the result of a json_decode call.
 $schema = json_decode('{ "properties": { "id": { "type": "string", "format": "uri" } } }');
-$data = json_decode('{"id": "machete.dev/schema#"}');
+$data = json_decode('{ "id": "machete.dev/schema#" }');
 
 $validator = new Validator($data, $schema);
 
@@ -73,11 +59,7 @@ if ($validator->fails()) {
 }
 ```
 
-Validation is greedy.  Instead of stopping on the first error, the validator will continue until all errors are found.
-
-#### Errors
-
-Each validation error will contain a unique code, a message, and a path.  The above code would return:
+Each validation error will contain a unique code, a message, and a path.
 
 ```php
 [
@@ -88,18 +70,6 @@ Each validation error will contain a unique code, a message, and a path.  The ab
  ],
 ]
 ```
-
-##### Code
-
-The code can be used to localize the error in your language or provide a more user friendly error message.  You can find the complete list of codes in [codes.php](src/codes.php).
-
-#### Message
-
-The message provides a human readable error message.  It is primarily intended for developers.  You should use the `code` to localize errors for your application.
-
-##### Path
-
-The path is a JSON Pointer as defined in [RFC6901](https://tools.ietf.org/html/rfc6901), pointing to the cause of the error message.
 
 ## Change log
 

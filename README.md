@@ -55,6 +55,8 @@ $deref->registerLoader($mongoLoader, 'mongodb');
 schema = $deref->dereference('mongodb://507c35dd8fada716c89d0013');
 ```
 
+Custom loaders should implement the [Loader interface](src/Dereferencer/Loader.php).
+
 ### Validating
 
 To validate data, construct a new validator instance with the data and the resolved schema.
@@ -69,7 +71,6 @@ $validator = new Validator($data, $schema);
 if ($validator->fails()) {
     $errors = $validator->errors();
 }
-
 ```
 
 Validation is greedy.  Instead of stopping on the first error, the validator will continue until all errors are found.

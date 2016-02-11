@@ -24,7 +24,8 @@
       },
       "minItems": 1,
       "uniqueItems": true
-    }
+    },
+    "sub-product": { "$ref": "#" }
   },
   "required": ["id", "name", "price"]
 }

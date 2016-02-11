@@ -82,13 +82,17 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $data   = json_decode(file_get_contents(__DIR__ . '/fixtures/invalid.json'));
         $schema = json_decode(file_get_contents(__DIR__ . '/fixtures/schema.json'));
 
+        $deref = new Dereferencer();
+        $schema = $deref->dereference($schema);
+
         $v = new Validator($data, $schema);
 
         $errors = $v->errors();
-        $this->assertCount(1, $errors);
+        $this->assertCount(2, $errors);
         $this->assertSame(\Machete\Validation\INVALID_STRING, $errors[0]['code']);
         $this->assertSame('/name', $errors[0]['path']);
 
-        // todo: test deeply nested paths return pointers.
+        $this->assertSame(\Machete\Validation\INVALID_STRING, $errors[1]['code']);
+        $this->assertSame('/sub-product/sub-product/tags/1', $errors[1]['path']);
     }
 }

@@ -2,5 +2,17 @@
   "id": 1,
   "name": 1234,
   "price": 12.50,
-  "tags": ["home", "green"]
+  "tags": ["home", "green"],
+  "sub-product": {
+    "id": 2,
+    "name": "some sub product",
+    "price": 22.75,
+    "tags": ["home", "blue"],
+    "sub-product": {
+      "id": 3,
+      "name": "third level product",
+      "price": 55.00,
+      "tags": ["home", 2]
+    }
+  }
 }

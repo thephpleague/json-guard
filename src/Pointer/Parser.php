@@ -5,6 +5,11 @@ namespace Machete\Validation\Pointer;
 class Parser
 {
     /**
+     * @var mixed
+     */
+    private $pointer;
+
+    /**
      * @param $pointer
      */
     public function __construct($pointer)

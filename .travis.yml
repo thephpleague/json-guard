@@ -9,11 +9,6 @@ php:
 # See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
 sudo: false
 
-matrix:
-  include:
-    - php: 5.4
-      env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
-
 before_script:
   - travis_retry composer self-update
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source

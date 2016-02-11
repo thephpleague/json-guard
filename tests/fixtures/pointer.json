@@ -8,5 +8,6 @@
   "i\\j": 5,
   "k\"l": 6,
   " ": 7,
-  "m~n": 8
+  "m~n": 8,
+  "nested": [{"type": "string"}, {"type": "integer"}]
 }

@@ -52,6 +52,17 @@ class PointerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('oranges', $document->foo[0]);
     }
 
+    public function testSetInPathInsideArray()
+    {
+        // /properties/type/anyOf/1/items
+        $document = json_decode(file_get_contents(__DIR__ . '/fixtures/pointer.json'));
+        $pointer = new Pointer($document);
+        $pointer->set('/nested/0/type', 'boolean');
+        $this->assertInternalType('array', $document->nested);
+        $this->assertCount(2, $document->nested);
+        $this->assertSame('boolean', $document->nested[0]->type);
+    }
+
     protected function assertCorrectJson($expected, $actual, $message = '')
     {
         $this->assertJsonStringEqualsJsonString(json_encode($expected), json_encode($actual), $message);

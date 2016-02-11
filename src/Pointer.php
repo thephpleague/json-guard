@@ -78,9 +78,9 @@ class Pointer
 
         $replace = array_pop($pointer);
         $target  = $this->json;
-        foreach ($pointer as &$segment) {
+        foreach ($pointer as $segment) {
             if (is_array($target)) {
-                $target = $target[$segment];
+                $target =& $target[$segment];
             } else {
                 $target =& $target->$segment;
             }

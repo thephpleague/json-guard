@@ -36,10 +36,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $required = glob(schema_test_suite_path() . '/draft4/*.json');
         $optional = glob(schema_test_suite_path() . '/draft4/optional/*.json');
         $ours = [
-            __DIR__ . '/fixtures/additional-item-no-items.json'
+            __DIR__ . '/fixtures/additional-item-no-items.json',
         ];
         $files = array_merge($required, $optional, $ours);
-
+        
         return array_map(function ($file) {
             return [$file];
         }, $files);
@@ -56,11 +56,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         // immediately casts a big number to a float and it's
         // impossible to figure out if it's an int after that.
         if (strpos($file, 'bignum.json') !== false) {
-            return;
-        }
-
-        // Todo: This is actually broken :(
-        if (strpos($file, 'definitions.json') !== false) {
             return;
         }
 

@@ -532,6 +532,10 @@ class Validator
 
     protected function validateUniqueItems()
     {
+        if (!is_array($this->data)) {
+            return;
+        }
+
         Assert::unique($this->data, $this->getPointer());
     }
 

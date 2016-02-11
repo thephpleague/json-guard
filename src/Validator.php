@@ -25,6 +25,16 @@ class Validator
     private $pointer = '';
 
     /**
+     * @var int
+     */
+    private $maxDepth = 10;
+
+    /**
+     * @var int
+     */
+    private $depth = 0;
+
+    /**
      * @param mixed  $data
      * @param object $schema
      */
@@ -47,6 +57,12 @@ class Validator
     protected function validate()
     {
         $this->errors = [];
+
+        $this->depth++;
+
+        if ($this->depth > $this->maxDepth) {
+            throw new MaximumDepthExceededException();
+        }
 
         foreach ($this->schema as $rule => $parameter) {
             $method = sprintf('validate%s', ucfirst($rule));
@@ -85,6 +101,32 @@ class Validator
         $this->validate();
 
         return $this->errors;
+    }
+
+    /**
+     * Set the maximum allowed depth data will be validated until.
+     * If the data exceeds the stack depth an exception is thrown.
+     *
+     * @param int $maxDepth
+     * @return $this
+     */
+    public function setMaxDepth($maxDepth)
+    {
+        $this->maxDepth = $maxDepth;
+
+        return $this;
+    }
+
+    /**
+     * @internal
+     * @param $depth
+     * @return $this
+     */
+    public function setDepth($depth)
+    {
+        $this->depth = $depth;
+
+        return $this;
     }
 
     /**
@@ -129,8 +171,7 @@ class Validator
             // so there might not be a schema for this.
 
             if (isset($schema)) {
-                $validator = new Validator($v, $schema);
-                $validator->setPointer($this->pointer . '/' . $k);
+                $validator = $this->create($v, $schema, $this->pointer . '/' . $k);
                 if ($validator->fails()) {
                     $this->errors = array_merge($this->errors, $validator->errors());
                 }
@@ -166,8 +207,7 @@ class Validator
             // its a schema, so validate every additional item matches.
             $additional = array_slice($this->data, count($itemSchema));
             foreach ($additional as $key => $item) {
-                $validator = new Validator($item, $parameter);
-                $validator->setPointer($this->pointer . '/' . $key);
+                $validator = new Validator($item, $parameter, $this->pointer . '/' . $key);
                 if ($validator->fails()) {
                     $this->errors = array_merge($this->errors, $validator->errors());
                 }
@@ -185,8 +225,7 @@ class Validator
         }
 
         foreach ($parameter as $schema) {
-            $validator = new Validator($this->data, $schema);
-            $validator->setPointer($this->pointer);
+            $validator = $this->create($this->data, $schema, $this->pointer);
             if ($validator->fails()) {
                 $this->errors = array_merge($this->errors, $validator->errors());
             }
@@ -203,7 +242,7 @@ class Validator
         }
 
         foreach ($parameter as $schema) {
-            $validator = new Validator($this->data, $schema);
+            $validator = $this->create($this->data, $schema, $this->pointer);
             if ($validator->passes()) {
                 return;
             }
@@ -228,7 +267,7 @@ class Validator
 
         $passed = 0;
         foreach ($parameter as $schema) {
-            $validator = new Validator($this->data, $schema);
+            $validator = $this->create($this->data, $schema, $this->pointer);
             if ($validator->passes()) {
                 $passed++;
             }
@@ -269,8 +308,11 @@ class Validator
                         );
                     }
                     // validate it.
-                    $validator = new Validator($this->data->$dependentProperty, $dependencySchema);
-                    $validator->setPointer($this->pointer . '/' . $dependentProperty);
+                    $validator = $this->create(
+                        $this->data->$dependentProperty,
+                        $dependencySchema,
+                        $this->pointer . '/' . $dependentProperty
+                    );
                     if ($validator->fails()) {
                         $this->errors = array_merge($this->errors, $validator->errors());
                     }
@@ -292,7 +334,7 @@ class Validator
      */
     protected function validateNot($parameter)
     {
-        $validator = new Validator($this->data, $parameter);
+        $validator = $this->create($this->data, $parameter, $this->pointer);
         if ($validator->passes()) {
             throw new AssertionFailedException(
                 'Data should not match the schema.',
@@ -558,8 +600,7 @@ class Validator
         foreach ($parameter as $property => $schema) {
             if (is_object($this->data) && property_exists($this->data, $property)) {
                 $data      = $this->data->$property;
-                $validator = new Validator($data, $schema);
-                $validator->setPointer($this->pointer . '/' . $property);
+                $validator = $this->create($data, $schema, $this->pointer . '/' . $property);
                 if ($validator->fails()) {
                     $this->errors = array_merge($this->errors, $validator->errors());
                 }
@@ -598,5 +639,15 @@ class Validator
 
         $pattern = '/' . str_replace('/', '\\/', $pattern) . '/';
         return preg_grep($pattern, $data);
+    }
+
+    protected function create($data, $schema, $pointer)
+    {
+        $v = new Validator($data, $schema);
+        $v->setPointer($pointer);
+        $v->setDepth($this->depth);
+        $v->setMaxDepth($this->maxDepth);
+
+        return $v;
     }
 }

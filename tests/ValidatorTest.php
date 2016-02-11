@@ -3,6 +3,7 @@
 namespace Machete\Validation\Test;
 
 use Machete\Validation\Dereferencer;
+use Machete\Validation\MaximumDepthExceededException;
 use Machete\Validation\Validator;
 use Symfony\Component\Process\Process;
 
@@ -94,5 +95,18 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertSame(\Machete\Validation\INVALID_STRING, $errors[1]['code']);
         $this->assertSame('/sub-product/sub-product/tags/1', $errors[1]['path']);
+    }
+
+    public function testStackAttack()
+    {
+        $this->setExpectedException(MaximumDepthExceededException::class);
+        $schema = json_decode('{"properties": {"foo": {"$ref": "#"}}, "additionalProperties": false}');
+        $deref = new Dereferencer();
+        $schema = $deref->dereference($schema);
+
+        $data = json_decode(file_get_contents(__DIR__ . '/fixtures/stack-attack.json'));
+
+        $v = new Validator($data, $schema);
+        dd($v->errors());
     }
 }

@@ -65,7 +65,7 @@ Each validation error will contain a unique code, a message, and a path.
 [
  [
    "code" => 50,
-   "message" => ""machete.dev/schema#" is not a valid uri.",
+   "message" => "'machete.dev/schema#' is not a valid uri.",
    "path" => "/id",
  ],
 ]

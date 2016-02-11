@@ -106,7 +106,7 @@ class Dereferencer
 
             // handle any fragments
             $fragment = parse_url($ref, PHP_URL_FRAGMENT);
-            if ($this->isExternalRef($ref) && !is_null($fragment)) {
+            if ($this->isExternalRef($ref) && is_string($fragment)) {
                 $pointer  = new Pointer($resolved);
                 $resolved = $pointer->get($fragment);
             }

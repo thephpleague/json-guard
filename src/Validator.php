@@ -180,7 +180,10 @@ class Validator
      */
     protected function validateAllOf($parameter)
     {
-        Assert::isTraversable($parameter, $this->getPointer());
+        if (!is_array($parameter)) {
+            return;
+        }
+
         foreach ($parameter as $schema) {
             $validator = new Validator($this->data, $schema);
             $validator->setPointer($this->pointer);
@@ -195,7 +198,10 @@ class Validator
      */
     protected function validateAnyOf($parameter)
     {
-        Assert::isTraversable($parameter, $this->getPointer());
+        if (!is_array($parameter)) {
+            return;
+        }
+
         foreach ($parameter as $schema) {
             $validator = new Validator($this->data, $schema);
             if ($validator->passes()) {
@@ -216,7 +222,10 @@ class Validator
      */
     protected function validateOneOf($parameter)
     {
-        Assert::isTraversable($parameter, $this->getPointer());
+        if (!is_array($parameter)) {
+            return;
+        }
+
         $passed = 0;
         foreach ($parameter as $schema) {
             $validator = new Validator($this->data, $schema);

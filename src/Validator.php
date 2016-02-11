@@ -442,7 +442,7 @@ class Validator
     {
         $actualProperties = array_keys(get_object_vars($this->data));
         $missing          = array_diff($parameter, $actualProperties);
-        if ($missing) {
+        if (count($missing)) {
             throw new AssertionFailedException(
                 'Required properties missing.',
                 MISSING_REQUIRED,
@@ -490,7 +490,7 @@ class Validator
             }
         }
 
-        if ($diff) {
+        if (count($diff)) {
             if ($parameter === false) {
                 throw new AssertionFailedException(
                     'Additional properties are not allowed.',

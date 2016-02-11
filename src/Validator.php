@@ -535,7 +535,7 @@ class Validator
     }
 
     /**
-     * @param object $parameter
+     * @param array|object $parameter
      */
     protected function assertPropertiesAreValid($parameter)
     {

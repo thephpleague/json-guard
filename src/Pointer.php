@@ -12,6 +12,11 @@ use Machete\Validation\Pointer\Parser;
 class Pointer
 {
     /**
+     * @var object
+     */
+    private $json;
+
+    /**
      * Pointer constructor.
      * @param object $json
      */

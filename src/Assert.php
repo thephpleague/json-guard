@@ -464,6 +464,7 @@ class Assert
                 // If any of them match we can return.
                 return;
             } catch (AssertionFailedException $e) {
+                // Ignore failing assertions so we can continue iterating.
             }
         }
 

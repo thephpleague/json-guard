@@ -207,7 +207,7 @@ class Validator
             // its a schema, so validate every additional item matches.
             $additional = array_slice($this->data, count($itemSchema));
             foreach ($additional as $key => $item) {
-                $validator = new Validator($item, $parameter, $this->pointer . '/' . $key);
+                $validator = $this->create($item, $parameter, $this->pointer . '/' . $key);
                 if ($validator->fails()) {
                     $this->errors = array_merge($this->errors, $validator->errors());
                 }

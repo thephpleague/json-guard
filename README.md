@@ -26,50 +26,9 @@ $ composer require machete/validation
 
 ## Usage
 
-### Dereferencing
+Complete documentation is available at [http://machete-php.github.io/validation/](http://machete-php.github.io/validation/).
 
-If your schema uses the '$ref' keyword anywhere or you are not sure, you should dereference the schema first.  This will allow the validator to resolve any internal or external references.
-
-The JSON should be provided as the object resulting from a `json_decode` call, not a string or array.
-
-```php
-$deref  = new Machete\Validation\Dereferencer();
-$schema = $deref->dereference(json_decode($json));
-```
-
-Alternatively, you can provide a path to load the schema from.  By default `file://`, `http://`, and `https://` paths are supported.
-
-```php
-$deref  = new Machete\Validation\Dereferencer();
-$schema = $deref->dereference('http://json-schema.org/draft-04/schema#');
-```
-
-### Validating
-
-To validate data, construct a new validator instance with the data and the resolved schema.
-
-``` php
-$schema = json_decode('{ "properties": { "id": { "type": "string", "format": "uri" } } }');
-$data = json_decode('{ "id": "machete.dev/schema#" }');
-
-$validator = new Validator($data, $schema);
-
-if ($validator->fails()) {
-    $errors = $validator->errors();
-}
-```
-
-Each validation error will contain a unique code, a message, and a path.
-
-```php
-[
- [
-   "code" => 50,
-   "message" => "'machete.dev/schema#' is not a valid uri.",
-   "path" => "/id",
- ],
-]
-```
+Pull requests for documentation should be sent to the [gh-pages branch](https://github.com/machete-php/validation/tree/gh-pages).
 
 ## Change log
 

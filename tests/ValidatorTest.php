@@ -4,6 +4,7 @@ namespace Machete\Validation\Test;
 
 use Machete\Validation\Dereferencer;
 use Machete\Validation\MaximumDepthExceededException;
+use const Machete\Validation\NOT_ALLOWED_PROPERTY;
 use Machete\Validation\Validator;
 use Symfony\Component\Process\Process;
 
@@ -22,7 +23,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
             $cmd = 'php -S localhost:1234';
         }
 
-        $cwd = realpath(schema_test_suite_path() . '/../remotes');
+        $cwd            = realpath(schema_test_suite_path() . '/../remotes');
         static::$server = new Process($cmd, $cwd);
         static::$server->start();
     }
@@ -36,11 +37,11 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $required = glob(schema_test_suite_path() . '/draft4/*.json');
         $optional = glob(schema_test_suite_path() . '/draft4/optional/*.json');
-        $ours = [
+        $ours     = [
             __DIR__ . '/fixtures/additional-item-no-items.json',
         ];
-        $files = array_merge($required, $optional, $ours);
-        
+        $files    = array_merge($required, $optional, $ours);
+
         return array_map(function ($file) {
             return [$file];
         }, $files);
@@ -83,7 +84,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $data   = json_decode(file_get_contents(__DIR__ . '/fixtures/invalid.json'));
         $schema = json_decode(file_get_contents(__DIR__ . '/fixtures/schema.json'));
 
-        $deref = new Dereferencer();
+        $deref  = new Dereferencer();
         $schema = $deref->dereference($schema);
 
         $v = new Validator($data, $schema);
@@ -97,16 +98,62 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('/sub-product/sub-product/tags/1', $errors[1]['path']);
     }
 
+    public function testDeeplyNestedDataWithinReason()
+    {
+        $schema = json_decode('{"properties": {"foo": {"$ref": "#"}}, "additionalProperties": false}');
+        $deref  = new Dereferencer();
+        $schema = $deref->dereference($schema);
+
+        $data = json_decode('{"foo": {"foo": {"foo": {"foo": {"foo": {"foo": {"foo": {"foo": {"foo": {"bar": {}}}}}}}}}}}');
+        $v = new Validator($data, $schema);
+        $this->assertTrue($v->fails());
+        $error = $v->errors()[0];
+        $this->assertSame('/foo/foo/foo/foo/foo/foo/foo/foo/foo', $error['path']);
+        $this->assertSame(NOT_ALLOWED_PROPERTY, $error['code']);
+    }
+
     public function testStackAttack()
     {
         $this->setExpectedException(MaximumDepthExceededException::class);
         $schema = json_decode('{"properties": {"foo": {"$ref": "#"}}, "additionalProperties": false}');
-        $deref = new Dereferencer();
+        $deref  = new Dereferencer();
         $schema = $deref->dereference($schema);
 
         $data = json_decode(file_get_contents(__DIR__ . '/fixtures/stack-attack.json'));
 
         $v = new Validator($data, $schema);
-        dd($v->errors());
+        $v->passes();
+    }
+
+    public function testMaxDepth()
+    {
+        $schema = json_decode('{"properties": {"foo": {"$ref": "#"}}, "additionalProperties": false}');
+        $deref  = new Dereferencer();
+        $schema = $deref->dereference($schema);
+
+        $data = json_decode('{"foo": {"foo": {}}}');
+
+        $v = new Validator($data, $schema);
+        $v->setMaxDepth(2);
+        $v->passes(); // should not throw an assertion.
+
+        $this->setExpectedException(MaximumDepthExceededException::class);
+        $v->setMaxDepth(1);
+        $v->passes();
+    }
+
+    public function testMaxDepthIsReset()
+    {
+        $schema = json_decode('{"properties": {"foo": {"$ref": "#"}}, "additionalProperties": false}');
+        $deref  = new Dereferencer();
+        $schema = $deref->dereference($schema);
+
+        $data = json_decode('{"foo": {"foo": {}}}');
+
+        $v = new Validator($data, $schema);
+        $v->setMaxDepth(3);
+        $v->passes();
+        $v->passes();
+        $v->passes();
     }
 }

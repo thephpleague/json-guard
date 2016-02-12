@@ -25,11 +25,17 @@ class Validator
     private $pointer = '';
 
     /**
+     * Set the maximum depth the validator should recurse into $data
+     * before throwing an exception.  You should only need to modify
+     * this if you are using circular references in your schema.
+     *
      * @var int
      */
     private $maxDepth = 10;
 
     /**
+     * The depth the current validator has reached in the data.
+     *
      * @var int
      */
     private $depth = 0;
@@ -58,11 +64,7 @@ class Validator
     {
         $this->errors = [];
 
-        $this->depth++;
-
-        if ($this->depth > $this->maxDepth) {
-            throw new MaximumDepthExceededException();
-        }
+        $this->checkDepth();
 
         foreach ($this->schema as $rule => $parameter) {
             $method = sprintf('validate%s', ucfirst($rule));
@@ -530,8 +532,8 @@ class Validator
         } else {
             $definedProperties = [];
         }
-        $actualProperties  = array_keys(get_object_vars($this->data));
-        $diff              = array_diff($actualProperties, $definedProperties);
+        $actualProperties = array_keys(get_object_vars($this->data));
+        $diff             = array_diff($actualProperties, $definedProperties);
 
         // The diff doesn't account for patternProperties, so lets filter those out too.
         if (property_exists($this->schema, 'patternProperties')) {
@@ -638,16 +640,38 @@ class Validator
         }
 
         $pattern = '/' . str_replace('/', '\\/', $pattern) . '/';
+
         return preg_grep($pattern, $data);
     }
 
+    /**
+     * Create a new sub-validator.
+     *
+     * @param mixed  $data
+     * @param object $schema
+     * @param string $pointer
+     * @return Validator
+     */
     protected function create($data, $schema, $pointer)
     {
         $v = new Validator($data, $schema);
         $v->setPointer($pointer);
-        $v->setDepth($this->depth);
         $v->setMaxDepth($this->maxDepth);
+        $v->setDepth($this->depth + 1);
 
         return $v;
+    }
+
+    /**
+     * Keep track of how many levels deep we have validated.
+     * This is to prevent a really deeply nested JSON
+     * structure from causing the validator to continue
+     * validating for an incredibly long time.
+     */
+    protected function checkDepth()
+    {
+        if ($this->depth > $this->maxDepth) {
+            throw new MaximumDepthExceededException();
+        }
     }
 }

@@ -3,7 +3,7 @@
     <ul>
         {% for link in section[1] %}
             <li>
-                <a href="{{ link[1] }}">{{ link[0] }}</a>
+                <a href="{{ site.baseurl }}{{ link[1] }}">{{ link[0] }}</a>
             </li>
         {% endfor %}
     </ul>

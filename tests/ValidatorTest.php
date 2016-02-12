@@ -135,7 +135,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
         $v = new Validator($data, $schema);
         $v->setMaxDepth(2);
-        $v->passes(); // should not throw an assertion.
+        $v->passes(); // should not throw an exception.
 
         $this->setExpectedException(MaximumDepthExceededException::class);
         $v->setMaxDepth(1);

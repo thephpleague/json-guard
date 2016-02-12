@@ -1,7 +1,7 @@
 # Site settings
 title: "machete"
 description: "Powerful tooling for json schema"
-baseurl: "" # the subpath of your site, e.g. /blog/
+baseurl: "/validation/" # the subpath of your site, e.g. /blog/
 url: "http://machete-php.github.io" # the base hostname & protocol for your site
 author: "Matt Allan"
 

@@ -1,0 +1,10 @@
+{% for section in site.data.menu %}
+    <h2>{{ section[0] }}</h2>
+    <ul>
+        {% for link in section[1] %}
+            <li>
+                <a href="{{ link[1] }}">{{ link[0] }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}

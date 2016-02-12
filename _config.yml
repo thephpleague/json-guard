@@ -1,9 +1,16 @@
 # Site settings
-title: "Jekyll + Skeleton CSS"
-description: "A basic Jekyll site incorporating the Skeleton responsive CSS boilerplate."
+title: "machete"
+description: "Powerful tooling for json schema"
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://yourdomain.com" # the base hostname & protocol for your site
-author: "Site Author"
+url: "http://machete-php.github.io" # the base hostname & protocol for your site
+author: "Matt Allan"
 
 # Build settings
-markdown: kramdown
+markdown: redcarpet
+redcarpet:
+  extensions:
+    - footnotes
+    - hard_wrap
+    - no_intra_emphasis
+    - autolink
+    - strikethrough

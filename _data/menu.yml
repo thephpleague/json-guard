@@ -1,11 +1,11 @@
 Getting Started:
-    Introduction: '/'
-    Simple Example: '/simple-example/'
-    Installation: '/installation/'
+    Introduction: ''
+    Simple Example: 'simple-example/'
+    Installation: 'installation/'
 Dereferencing:
-    Overview: '/dereferencing/overview/'
-    Circular References: '/dereferencing/circular-references/'
+    Overview: 'dereferencing/overview/'
+    Circular References: 'dereferencing/circular-references/'
 Validation:
-    Overview: '/validation/overview/'
-    Errors: '/validation/errors/'
-    Extending: '/validation/extending/'
+    Overview: 'validation/overview/'
+    Errors: 'validation/errors/'
+    Extending: 'validation/extending/'

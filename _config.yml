@@ -6,11 +6,7 @@ url: "http://machete-php.github.io" # the base hostname & protocol for your site
 author: "Matt Allan"
 
 # Build settings
-markdown: redcarpet
-redcarpet:
-  extensions:
-    - footnotes
-    - hard_wrap
-    - no_intra_emphasis
-    - autolink
-    - strikethrough
+markdown: kramdown
+kramdown:
+  input: GFM
+  enable_coderay: false

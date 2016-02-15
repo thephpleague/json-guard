@@ -8,7 +8,7 @@ title: Circular References
 
 This package fully supports recursive references.  Consider the following example [^n]:
 
-```json
+{% highlight json %}
 "person": {
     "properties": {
         "name": {
@@ -21,7 +21,7 @@ This package fully supports recursive references.  Consider the following exampl
         }
     }
 }
-```
+{% endhighlight %}
 
 ## Resolving
 

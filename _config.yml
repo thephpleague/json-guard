@@ -6,7 +6,7 @@ url: "http://machete-php.github.io" # the base hostname & protocol for your site
 author: "Matt Allan"
 
 # Build settings
+highlighter: rouge
 markdown: kramdown
 kramdown:
   input: GFM
-  enable_coderay: false

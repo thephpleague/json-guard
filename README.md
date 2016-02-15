@@ -26,7 +26,7 @@ $ composer require machete/validation
 
 ## Usage
 
-Complete documentation is available at [http://machete-php.github.io/validation/](http://machete-php.github.io/validation/).
+Complete documentation is available at [http://validation.machetephp.com/](http://validation.machetephp.com/).
 
 Pull requests for documentation should be sent to the [gh-pages branch](https://github.com/machete-php/validation/tree/gh-pages).
 

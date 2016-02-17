@@ -1,9 +1,13 @@
 {% for section in site.data.menu %}
-    <h2>{{ section[0] }}</h2>
+    <h2 class="section">{{ section[0] }}</h2>
     <ul>
         {% for link in section[1] %}
             <li>
-                <a href="{{ site.baseurl }}{{ link[1] }}">{{ link[0] }}</a>
+	            {% if jekyll.environment == 'production' %}
+				  	<a href="{{ link[1] | prepend: site.github.url }}">{{ link[0] }}</a>
+				{% else %}
+				  	<a href="{{ link[1] | prepend: site.baseurl }}">{{ link[0] }}</a>
+				{% endif %}
             </li>
         {% endfor %}
     </ul>

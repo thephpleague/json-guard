@@ -14,7 +14,7 @@ Next we create the validator.  The first argument is the data we are validating.
 
 Once the validator is created you can call `$validator->passes()` or `$validator->fails()` to validate the schema.  If the validator fails, you can view the errors by calling `$validator->errors()`.
 
-{% highlight php %}
+```php
 <?php
 
 $deref  = new Machete\Validation\Dereferencer();
@@ -27,4 +27,4 @@ $validator = new Validator($data, $schema);
 if ($validator->fails()) {
     $errors = $validator->errors();
 }
-{% endhighlight %}
+```

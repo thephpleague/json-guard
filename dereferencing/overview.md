@@ -8,7 +8,7 @@ title: Overview
 
 Json Schema allows [references](https://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03) so you don't need to repeat yourself.  For example:
 
-{% highlight json %}
+```json
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {
@@ -28,7 +28,7 @@ Json Schema allows [references](https://tools.ietf.org/html/draft-pbryan-zyp-jso
     "dog": { "$ref": "#/definitions/pet" }
   }
 }
-{% endhighlight %}
+```
 
 References contain a URI, and use [JSON Pointer](https://tools.ietf.org/html/rfc6901).  References need to be resolved before the validator can be used.
 
@@ -36,16 +36,20 @@ References contain a URI, and use [JSON Pointer](https://tools.ietf.org/html/rfc
 
 To dereference your schema, create a new `Dereferencer` instance.
 
-{% highlight php %}
+```php
+<?php
+
 $deref  = new Machete\Validation\Dereferencer();
-{% endhighlight %}
+```
 
 Now call the `dereference` method with your schema.  The schema should be the result from a json_decode call.
 
-{% highlight php %}
+```php
+<?php
+
 $schema = json_decode('"properties": { "username": {"type": "string"}, "login": {"$ref": "#/properties/username"} }');
 $schema = $deref->dereference($schema);
-{% endhighlight %}
+```
 
 The resulting object is identical, but references have been replaced with Reference objects.
 
@@ -53,9 +57,11 @@ The resulting object is identical, but references have been replaced with Refere
 
 Alternatively, you can provide the dereferencer with a path to load the schema from.
 
-{% highlight php %}
+```php
+<?php
+
 $schema = $deref->dereference('http://json-schema.org/draft-04/schema#');
-{% endhighlight %}
+```
 
 By default `http://`, `https://`, and `file://` paths are supported.
 
@@ -63,17 +69,19 @@ By default `http://`, `https://`, and `file://` paths are supported.
 
 You can make your own loaders by implementing the [Loader Interface](https://github.com/machete-php/validation/blob/master/src/Dereferencer/Loader.php).  Imagine you may want to load schemas from a CouchDb database, and your references look like this:
 
-{% highlight json %}
+```json
 { "$ref":"couchdb://00a271787f89c0ef2e10e88a0c0001f4" }
-{% endhighlight %}
+```
 
 Once you have written your custom loader, you can register it with the dereferencer.  The first argument should be the loader instance, and the second argument should be the prefix you would like to load references for.
 
-{% highlight php %}
+```php
+<?php
+
 use My\App\CouchDbLoader;
 
 $couchLoader = new CouchDbLoader();
 $deref  = new Machete\Validation\Dereferencer();
 
 $deref->registerLoader($couchLoader, 'couchdb');
-{% endhighlight %}
+```

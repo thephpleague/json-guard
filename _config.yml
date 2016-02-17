@@ -1,5 +1,21 @@
-# Build settings
+# Site settings
+
+# The repository this documentation is for.
+# This will be used to automatically
+# pull data like the title, tagline,
+# and repository url. 
+repository: machete-php/validation
+
+# The color scheme to use for syntax highlighting.
+# The available color schemes are listed in
+# the _includes/css/syntax directory.
+syntax_theme: github
+
+# These build settings should be the default for github pages,
+# but are set here for consistency when building locally.
 highlighter: rouge
 markdown: kramdown
 kramdown:
   input: GFM
+gems:
+  - jekyll-github-metadata

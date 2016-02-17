@@ -14,6 +14,6 @@ You need PHP >= 5.5.0 to use `machete/validation` but the latest stable version 
 
 This package is installed using [Composer](https://getcomposer.org/):
 
-```
+```bash
 $ composer require machete/validation
 ```

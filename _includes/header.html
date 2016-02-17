@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-{% include head.html %}
 {% include github-corner.html %}
 
-<div class="row header">
-	<div class="ten columns offset-by-one">
-	<div class="logo">
-	    <h1 class="title">{{ site.data.project.title }}</h1>
-	    <span class="tagline">{{ site.data.project.tagline }}</span>
-    </div>
+<div class="row header">	
+	<div class="ten columns offset-by-one logo">
+	    <h1 class="title">
+	    	<a href="{% if jekyll.environment == 'production' %}{{ site.github.url }}{% else %}{{ site.baseurl }}{% endif %}">
+	    	{{ site.github.project_title | capitalize }}
+	    	</a>
+	    </h1>
+	    <span class="tagline">{{ site.github.project_tagline }}</span>
     </div>
 </div>
-
-<body>

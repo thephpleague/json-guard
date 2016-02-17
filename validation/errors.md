@@ -8,7 +8,7 @@ title: Errors
 
 The validator returns detailed errors for each validation failure.  Calling the `errors` method on the validator will return an array of errors:
 
-{% highlight php %}
+```php
 [
  [
    "code" => 50,
@@ -21,7 +21,7 @@ The validator returns detailed errors for each validation failure.  Calling the 
    "path" => "/name",
  ]
 ]
-{% endhighlight %}
+```
 
 ## Error Format
 

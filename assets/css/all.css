@@ -2,7 +2,9 @@
 layout: null
 ---
 
-{% include css/normalize.min.css %}
-{% include css/skeleton.min.css %}
+{% include css/normalize.css %}
+{% include css/skeleton.css %}
+{% include css/parang.css %}
+{% include css/syntax/{{ site.syntax_theme }}.css %}
 {% include css/custom.css %}
-{% include css/prism.css %}
+

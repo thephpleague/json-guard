@@ -3,7 +3,9 @@
 namespace Machete\Validation\Dereferencer\Loaders;
 
 use Guzzle\Http\Client;
+use Guzzle\Http\Exception\RequestException;
 use Machete\Validation\Dereferencer\Loader;
+use Machete\Validation;
 
 class GuzzleLoader implements Loader
 {
@@ -13,18 +15,29 @@ class GuzzleLoader implements Loader
     private $prefix;
 
     /**
-     * @param string $prefix
+     * @var Client
      */
-    public function __construct($prefix)
+    private $client;
+
+    /**
+     * @param string $prefix
+     * @param Client $client
+     */
+    public function __construct($prefix, Client $client = null)
     {
         $this->prefix = $prefix;
+        $this->client = $client ?: new Client();
     }
 
     public function load($path)
     {
-        $client = new Client();
-        $res = $client->get($this->prefix . $path)->send();
+        try {
+            $res = $this->client->get($this->prefix . $path)->send();
+        } catch (RequestException $e) {
+            throw new Validation\SchemaLoadingException($path);
+        }
+
         $body = (string) $res->getBody();
-        return json_decode($body);
+        return Validation\json_decode($body);
     }
 }

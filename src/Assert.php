@@ -52,6 +52,12 @@ class Assert
             return;
         }
 
+        // when json decoding numbers larger than PHP_INT_MAX,
+        // it's possible to receive a valid int as a string.
+        if (is_string($value) && ctype_digit($value)) {
+            return;
+        }
+
         $message = sprintf('Value "%s" is not an integer', self::asString($value));
         throw new AssertionFailedException($message, INVALID_INTEGER, $value, $propertyPath);
     }
@@ -64,7 +70,11 @@ class Assert
     public static function string($value, $propertyPath = null)
     {
         if (is_string($value)) {
-            return;
+            // Make sure the string isn't actually a number that was too large
+            // to be cast to an int on this platform.
+            if (!(ctype_digit($value) && bccomp($value, PHP_INT_MAX, 0) === 1)) {
+                return;
+            }
         }
 
         $message = sprintf('Value "%s" is not a string', self::asString($value));

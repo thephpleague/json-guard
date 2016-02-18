@@ -11,7 +11,7 @@ This package is a validator for [JSON Schema](http://json-schema.org/).  It full
 
 Notable Features:
 
-- Passes the entire [draft 4 JSON Schema Test Suite](https://github.com/json-schema/JSON-Schema-Test-Suite), except for the optional [bignum](https://github.com/json-schema/JSON-Schema-Test-Suite/blob/develop/tests/draft4/optional/bignum.json) test.
+- Passes the entire [draft 4 JSON Schema Test Suite](https://github.com/json-schema/JSON-Schema-Test-Suite).
 - Fully supports remote references.
 - Fully supports circular references.
 - Unique error codes for every validation error.

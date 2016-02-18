@@ -54,14 +54,11 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testDraft4($file)
     {
-        // We are skipping the optional "bignum" test since json_decode
-        // immediately casts a big number to a float and it's
-        // impossible to figure out if it's an int after that.
-        if (strpos($file, 'bignum.json') !== false) {
-            return;
-        }
+        // We need to use the option that treats big numbers as a
+        // string value so that the 'bignum.json' test will pass.
+        $test = json_decode(file_get_contents($file), false, 512, JSON_BIGINT_AS_STRING);
 
-        foreach (json_decode(file_get_contents($file)) as $testCase) {
+        foreach ($test as $testCase) {
             $schema      = $testCase->schema;
             $description = $testCase->description;
             $refResolver = new Dereferencer();

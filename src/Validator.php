@@ -41,6 +41,11 @@ class Validator
     private $depth = 0;
 
     /**
+     * @var array
+     */
+    private $formatExtensions = [];
+
+    /**
      * @param mixed  $data
      * @param object $schema
      */
@@ -117,6 +122,17 @@ class Validator
         $this->maxDepth = $maxDepth;
 
         return $this;
+    }
+
+    /**
+     * Register a custom format validation extension.
+     *
+     * @param string          $format
+     * @param FormatExtension $extension
+     */
+    public function registerFormat($format, FormatExtension $extension)
+    {
+        $this->formatExtensions[$format] = $extension;
     }
 
     /**
@@ -576,7 +592,25 @@ class Validator
      */
     protected function validateFormat($parameter)
     {
+        if (isset($this->formatExtensions[$parameter])) {
+            $this->validateCustomFormat($parameter);
+
+            return;
+        }
+
         Assert::format($this->data, $parameter, $this->getPointer());
+    }
+
+    /**
+     * @param string $format
+     */
+    protected function validateCustomFormat($format)
+    {
+        Assert::string($this->data, $this->pointer);
+
+        /** @var FormatExtension $extension */
+        $extension = $this->formatExtensions[$format];
+        $extension->validate($this->data, $this->getPointer());
     }
 
     /**

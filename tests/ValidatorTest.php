@@ -2,6 +2,7 @@
 
 namespace Machete\Validation\Test;
 
+use Machete\Validation\AssertionFailedException;
 use Machete\Validation\Dereferencer;
 use Machete\Validation\MaximumDepthExceededException;
 use Machete\Validation;
@@ -128,5 +129,33 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $v->passes();
         $v->passes();
         $v->passes();
+    }
+
+    public function testCustomFormat()
+    {
+        $schema = json_decode('{"format": "hello"}');
+
+        $data = 'hello world';
+        $v = new Validator($data, $schema);
+        $v->registerFormat('hello', new HelloFormatStub());
+
+        $this->assertTrue($v->passes());
+
+        $data = 'good morning world';
+        $v = new Validator($data, $schema);
+        $v->registerFormat('hello', new HelloFormatStub());
+
+        $this->assertTrue($v->fails());
+        $this->assertSame(99, $v->errors()[0]['code']);
+    }
+}
+
+class HelloFormatStub implements Validation\FormatExtension
+{
+    public function validate($value, $pointer = null)
+    {
+        if (stripos($value, 'hello') !== 0) {
+            throw new AssertionFailedException('Must start with hello', 99, $value, $pointer);
+        }
     }
 }

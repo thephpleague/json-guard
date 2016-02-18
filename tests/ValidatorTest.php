@@ -6,33 +6,9 @@ use Machete\Validation\Dereferencer;
 use Machete\Validation\MaximumDepthExceededException;
 use Machete\Validation;
 use Machete\Validation\Validator;
-use Symfony\Component\Process\Process;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Process
-     */
-    private static $server;
-
-    public static function setUpBeforeClass()
-    {
-        if (defined('HHVM_VERSION')) {
-            $cmd = 'hhvm -m server -p 1234';
-        } else {
-            $cmd = 'php -S localhost:1234';
-        }
-
-        $cwd            = realpath(schema_test_suite_path() . '/../remotes');
-        static::$server = new Process($cmd, $cwd);
-        static::$server->start();
-    }
-
-    public static function tearDownAfterClass()
-    {
-        static::$server->stop();
-    }
-
     public function draft4Tests()
     {
         $required = glob(schema_test_suite_path() . '/draft4/*.json');

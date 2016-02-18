@@ -42,8 +42,7 @@
         "phpunit/phpunit" : "4.*",
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.3",
-        "json-schema/JSON-Schema-Test-Suite": "1.1.0",
-        "symfony/process": "~2.8.2|^3.0"
+        "json-schema/JSON-Schema-Test-Suite": "1.1.0"
     },
     "autoload": {
         "psr-4": {

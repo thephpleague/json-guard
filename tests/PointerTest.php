@@ -8,7 +8,7 @@ class PointerTest extends \PHPUnit_Framework_TestCase
 {
     public function testGet()
     {
-        $document = json_decode(file_get_contents(__DIR__ . '/fixtures/pointer.json'));
+        $document = $this->getDocument();
         $pointer = new Pointer($document);
 
         $this->assertCorrectJson($document, $pointer->get(''));
@@ -36,7 +36,7 @@ class PointerTest extends \PHPUnit_Framework_TestCase
 
     public function testSet()
     {
-        $document = json_decode(file_get_contents(__DIR__ . '/fixtures/pointer.json'));
+        $document = $this->getDocument();
         $pointer = new Pointer($document);
 
         $pointer->set('/foo', [1,2,3,4]);
@@ -45,7 +45,7 @@ class PointerTest extends \PHPUnit_Framework_TestCase
 
     public function testSetInArray()
     {
-        $document = json_decode(file_get_contents(__DIR__ . '/fixtures/pointer.json'));
+        $document = $this->getDocument();
         $pointer = new Pointer($document);
 
         $pointer->set('/foo/0', 'oranges');
@@ -55,7 +55,7 @@ class PointerTest extends \PHPUnit_Framework_TestCase
     public function testSetInPathInsideArray()
     {
         // /properties/type/anyOf/1/items
-        $document = json_decode(file_get_contents(__DIR__ . '/fixtures/pointer.json'));
+        $document = $this->getDocument();
         $pointer = new Pointer($document);
         $pointer->set('/nested/0/type', 'boolean');
         $this->assertInternalType('array', $document->nested);
@@ -63,8 +63,29 @@ class PointerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('boolean', $document->nested[0]->type);
     }
 
+    public function testInvalidPointerType()
+    {
+        $this->setExpectedException(Pointer\InvalidPointerException::class);
+        $document = $this->getDocument();
+        $pointer = new Pointer($document);
+        $pointer->get(['bad' => 'type']);
+    }
+
+    public function testInvalidPointerFirstCharacter()
+    {
+        $this->setExpectedException(Pointer\InvalidPointerException::class);
+        $document = $this->getDocument();
+        $pointer = new Pointer($document);
+        $pointer->get('#hello/world');
+    }
+
     protected function assertCorrectJson($expected, $actual, $message = '')
     {
         $this->assertJsonStringEqualsJsonString(json_encode($expected), json_encode($actual), $message);
+    }
+
+    protected function getDocument()
+    {
+        return json_decode(file_get_contents(__DIR__ . '/fixtures/pointer.json'));
     }
 }

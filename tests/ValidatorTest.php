@@ -65,10 +65,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $errors = $v->errors();
         $this->assertCount(2, $errors);
         $this->assertSame(\Machete\Validation\INVALID_STRING, $errors[0]['code']);
-        $this->assertSame('/name', $errors[0]['path']);
+        $this->assertSame('/name', $errors[0]['pointer']);
 
         $this->assertSame(\Machete\Validation\INVALID_STRING, $errors[1]['code']);
-        $this->assertSame('/sub-product/sub-product/tags/1', $errors[1]['path']);
+        $this->assertSame('/sub-product/sub-product/tags/1', $errors[1]['pointer']);
     }
 
     public function testDeeplyNestedDataWithinReason()
@@ -81,7 +81,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $v = new Validator($data, $schema);
         $this->assertTrue($v->fails());
         $error = $v->errors()[0];
-        $this->assertSame('/foo/foo/foo/foo/foo/foo/foo/foo/foo', $error['path']);
+        $this->assertSame('/foo/foo/foo/foo/foo/foo/foo/foo/foo', $error['pointer']);
         $this->assertSame(Validation\NOT_ALLOWED_PROPERTY, $error['code']);
     }
 

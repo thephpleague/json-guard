@@ -32,10 +32,6 @@ class Pointer
      */
     public function get($pointer)
     {
-        if ($pointer === '') {
-            return $this->json;
-        }
-
         $pointer = (new Parser($pointer))->parse();
 
         return $this->traverse($this->json, $pointer);

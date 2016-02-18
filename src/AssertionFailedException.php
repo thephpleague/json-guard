@@ -7,7 +7,7 @@ class AssertionFailedException extends \InvalidArgumentException
     /**
      * @var string|null
      */
-    private $propertyPath;
+    private $pointer;
 
     /**
      * @var mixed
@@ -23,16 +23,16 @@ class AssertionFailedException extends \InvalidArgumentException
      * @param string      $message
      * @param int         $code
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @param array       $constraints
      */
-    public function __construct($message, $code, $value, $propertyPath = null, array $constraints = [])
+    public function __construct($message, $code, $value, $pointer = null, array $constraints = [])
     {
         parent::__construct($message, $code);
 
-        $this->propertyPath = $propertyPath;
-        $this->value        = $value;
-        $this->constraints  = $constraints;
+        $this->pointer     = $pointer;
+        $this->value       = $value;
+        $this->constraints = $constraints;
     }
 
     /**
@@ -40,9 +40,9 @@ class AssertionFailedException extends \InvalidArgumentException
      *
      * @return string|null
      */
-    public function getPropertyPath()
+    public function getPointer()
     {
-        return $this->propertyPath;
+        return $this->pointer;
     }
 
     /**

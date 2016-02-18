@@ -49,7 +49,8 @@
             "Machete\\Validation\\": "src"
         },
         "files": [
-            "src/codes.php"
+            "src/error_codes.php",
+            "src/functions.php"
         ]
     },
     "autoload-dev": {

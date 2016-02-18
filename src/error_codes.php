@@ -24,15 +24,14 @@ namespace Machete\Validation {
     const INVALID_TYPE          = 41;
     const NOT_SCHEMA            = 42;
     const MISSING_REQUIRED      = 43;
-    const UNMET_DEPENDENCY      = 44;
-    const ONE_OF_SCHEMA         = 45;
-    const ANY_OF_SCHEMA         = 46;
-    const ALL_OF_SCHEMA         = 47;
-    const NOT_ALLOWED_PROPERTY  = 48;
-    const INVALID_EMAIL         = 49;
-    const INVALID_URI           = 50;
-    const INVALID_IPV4          = 51;
-    const INVALID_IPV6          = 52;
-    const INVALID_DATE_TIME     = 53;
-    const INVALID_HOST_NAME     = 54;
+    const ONE_OF_SCHEMA         = 44;
+    const ANY_OF_SCHEMA         = 45;
+    const ALL_OF_SCHEMA         = 46;
+    const NOT_ALLOWED_PROPERTY  = 47;
+    const INVALID_EMAIL         = 48;
+    const INVALID_URI           = 49;
+    const INVALID_IPV4          = 50;
+    const INVALID_IPV6          = 51;
+    const INVALID_DATE_TIME     = 52;
+    const INVALID_HOST_NAME     = 53;
 }

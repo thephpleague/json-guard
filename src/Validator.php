@@ -73,7 +73,7 @@ class Validator
                 try {
                     $this->$method($parameter);
                 } catch (AssertionFailedException $e) {
-                    $this->errors[] = $this->exceptionToError($e);
+                    $this->errors[] = exceptionToError($e);
                 }
             }
         }
@@ -297,27 +297,15 @@ class Validator
             if (is_array($dependencies)) {
                 Assert::allInArray($dependencies, array_keys(get_object_vars($this->data)), $this->getPointer());
             } elseif (is_object($dependencies)) {
-                // if its an object they are sub-schemas. validate each dependency exists and validates.
-                foreach ($dependencies->properties as $dependentProperty => $dependencySchema) {
-                    // assert the property exists.
-                    if (!property_exists($this->data, $dependentProperty)) {
-                        throw new AssertionFailedException(
-                            'Unmet dependency.',
-                            UNMET_DEPENDENCY,
-                            $this->data,
-                            $this->pointer . '/' . $dependentProperty,
-                            ['dependencies' => $parameter]
-                        );
-                    }
-                    // validate it.
-                    $validator = $this->create(
-                        $this->data->$dependentProperty,
-                        $dependencySchema,
-                        $this->pointer . '/' . $dependentProperty
-                    );
-                    if ($validator->fails()) {
-                        $this->errors = array_merge($this->errors, $validator->errors());
-                    }
+                // if its an object it is a schema that all dependencies
+                // must validate against.
+                $validator = $this->create(
+                    $this->data,
+                    $dependencies,
+                    $this->pointer
+                );
+                if ($validator->fails()) {
+                    $this->errors = array_merge($this->errors, $validator->errors());
                 }
             }
         }
@@ -608,21 +596,6 @@ class Validator
                 }
             }
         }
-    }
-
-    /**
-     * Format an AssertionFailedException as an error array.
-     *
-     * @param AssertionFailedException $e
-     * @return array
-     */
-    protected function exceptionToError(AssertionFailedException $e)
-    {
-        return [
-            'code'    => $e->getCode(),
-            'message' => $e->getMessage(),
-            'path'    => $e->getPropertyPath(),
-        ];
     }
 
     /**

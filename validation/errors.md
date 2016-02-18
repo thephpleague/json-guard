@@ -11,14 +11,18 @@ The validator returns detailed errors for each validation failure.  Calling the 
 ```php
 [
  [
-   "code" => 50,
-   "message" => "'machete.dev/schema#' is not a valid uri.",
-   "path" => "/id",
+   "code"        => 50,
+   "message"     => "'machete.dev/schema#' is not a valid uri.",
+   "pointer"     => "/id",
+   'value'       => 'machete.dev/schema#',
+   'constraints' => null,
  ],
  [
-   "code" => 25,
-   "message" => "Value '2192191' is not a string.",
-   "path" => "/name",
+   "code"        => 25,
+   "message"     => "Value '2192191' is not a string.",
+   "pointer"     => "/name",
+   'value'       => 2192191,
+   'constraints' => null,
  ]
 ]
 ```
@@ -27,15 +31,23 @@ The validator returns detailed errors for each validation failure.  Calling the 
 
 ### Code
 
-The code is a unique identifier for this error type.  You can view the complete list of error codes [here](https://github.com/machete-php/validation/blob/master/src/codes.php).
+The code is a unique identifier for this error type.  You can view the complete list of error codes [here](https://github.com/machete-php/validation/blob/master/src/error_codes.php).
 
 ### Message
 
 The message is a developer friendly explanation of what caused the error.
 
-### Path
+### Pointer
 
-The path is a [JSON Pointer](https://tools.ietf.org/html/rfc6901) to the attribute that caused the error.
+The pointer is a [JSON Pointer](https://tools.ietf.org/html/rfc6901) to the attribute that caused the error.
+
+### Value
+
+The value that caused the error.
+
+### Constraints
+
+Any constraints applied to the validation rule.  For example, the schema `{"minimum": 2}` would return the contraint `['min' => 2]`.
 
 ## Localization
 

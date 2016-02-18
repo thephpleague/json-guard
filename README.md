@@ -71,12 +71,12 @@ If you discover any security related issues, please email matthew.james.allan@gm
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/machete-php/validation.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/machete/validation.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/machete-php/validation/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/machete-php/validation.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/machete-php/validation.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/machete-php/validation.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/machete/validation.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/machete/validation
 [link-travis]: https://travis-ci.org/machete-php/validation

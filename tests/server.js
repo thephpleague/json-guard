@@ -21,7 +21,7 @@ var remotes = {
 port = process.argv[2] ? process.argv[2] : 1234;
 
 
-http.createServer( (req, res) => {
+http.createServer(function (req, res) {
 
 	path = req.url.substr(1);
 	data = remotes[path];

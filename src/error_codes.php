@@ -34,4 +34,5 @@ namespace Machete\Validation {
     const INVALID_IPV6          = 51;
     const INVALID_DATE_TIME     = 52;
     const INVALID_HOST_NAME     = 53;
+    const INVALID_FORMAT        = 54;
 }

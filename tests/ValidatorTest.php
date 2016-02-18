@@ -4,7 +4,7 @@ namespace Machete\Validation\Test;
 
 use Machete\Validation\Dereferencer;
 use Machete\Validation\MaximumDepthExceededException;
-use const Machete\Validation\NOT_ALLOWED_PROPERTY;
+use Machete\Validation;
 use Machete\Validation\Validator;
 use Symfony\Component\Process\Process;
 
@@ -106,7 +106,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($v->fails());
         $error = $v->errors()[0];
         $this->assertSame('/foo/foo/foo/foo/foo/foo/foo/foo/foo', $error['path']);
-        $this->assertSame(NOT_ALLOWED_PROPERTY, $error['code']);
+        $this->assertSame(Validation\NOT_ALLOWED_PROPERTY, $error['code']);
     }
 
     public function testStackAttack()

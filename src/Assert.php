@@ -13,40 +13,40 @@ class Assert
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function numeric($value, $propertyPath = null)
+    public static function numeric($value, $pointer = null)
     {
         if (is_numeric($value)) {
             return;
         }
 
         $message = sprintf('Value "%s" is not numeric.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_NUMERIC, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_NUMERIC, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function null($value, $propertyPath = null)
+    public static function null($value, $pointer = null)
     {
         if (is_null($value)) {
             return;
         }
 
         $message = sprintf('Value "%s" is not null', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_NULL, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_NULL, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function integer($value, $propertyPath = null)
+    public static function integer($value, $pointer = null)
     {
         if (is_int($value)) {
             return;
@@ -59,15 +59,15 @@ class Assert
         }
 
         $message = sprintf('Value "%s" is not an integer', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_INTEGER, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_INTEGER, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function string($value, $propertyPath = null)
+    public static function string($value, $pointer = null)
     {
         if (is_string($value)) {
             // Make sure the string isn't actually a number that was too large
@@ -78,91 +78,91 @@ class Assert
         }
 
         $message = sprintf('Value "%s" is not a string', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_STRING, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_STRING, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function boolean($value, $propertyPath = null)
+    public static function boolean($value, $pointer = null)
     {
         if (is_bool($value)) {
             return;
         }
 
         $message = sprintf('Value "%s" is not boolean', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_BOOLEAN, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_BOOLEAN, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function isArray($value, $propertyPath = null)
+    public static function isArray($value, $pointer = null)
     {
         if (is_array($value)) {
             return;
         }
 
         $message = sprintf('Value "%s" is not an array.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_ARRAY, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_ARRAY, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function isObject($value, $propertyPath = null)
+    public static function isObject($value, $pointer = null)
     {
         if (is_object($value)) {
             return;
         }
 
         $message = sprintf('Value "%s" is not an object.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_OBJECT, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_OBJECT, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function isCountable($value, $propertyPath = null)
+    public static function isCountable($value, $pointer = null)
     {
         if (is_array($value) || $value instanceof \Countable) {
             return;
         }
 
         $message = sprintf('Value "%s" is not an array and does not implement Countable.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_ARRAY, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_ARRAY, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function isTraversable($value, $propertyPath = null)
+    public static function isTraversable($value, $pointer = null)
     {
         if (is_array($value) || $value instanceof \Traversable) {
             return;
         }
 
         $message = sprintf('Value "%s" is not an array and does not implement Traversable.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_ARRAY, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_ARRAY, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
      * @param array       $choices
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function inArray($value, array $choices, $propertyPath = null)
+    public static function inArray($value, array $choices, $pointer = null)
     {
         if (in_array($value, $choices, true)) {
             return;
@@ -173,51 +173,51 @@ class Assert
             static::asString($value),
             implode(', ', array_map([Assert::class, 'asString'], $choices))
         );
-        throw new AssertionFailedException($message, INVALID_ENUM, $value, $propertyPath, compact('choices'));
+        throw new AssertionFailedException($message, INVALID_ENUM, $value, $pointer, compact('choices'));
     }
 
     /**
      * @param mixed       $value
      * @param array       $choices
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function allInArray($value, array $choices, $propertyPath = null)
+    public static function allInArray($value, array $choices, $pointer = null)
     {
-        static::isTraversable($value, $propertyPath);
+        static::isTraversable($value, $pointer);
 
         foreach ($value as $element) {
-            static::inArray($element, $choices, $propertyPath);
+            static::inArray($element, $choices, $pointer);
         }
     }
 
     /**
      * @param mixed       $value
      * @param int         $min
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function min($value, $min, $propertyPath = null)
+    public static function min($value, $min, $pointer = null)
     {
-        static::numeric($value, $propertyPath);
+        static::numeric($value, $pointer);
 
         if ($value >= $min) {
             return;
         }
 
         $message = sprintf('Number "%s" is not at least "%d"', self::asString($value), self::asString($min));
-        throw new AssertionFailedException($message, INVALID_MIN, $value, $propertyPath, compact('min'));
+        throw new AssertionFailedException($message, INVALID_MIN, $value, $pointer, compact('min'));
     }
 
     /**
      * @param mixed       $value
      * @param int         $min
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function exclusiveMin($value, $min, $propertyPath = null)
+    public static function exclusiveMin($value, $min, $pointer = null)
     {
-        static::numeric($value, $propertyPath);
+        static::numeric($value, $pointer);
 
         if ($value > $min) {
             return;
@@ -232,7 +232,7 @@ class Assert
             $message,
             INVALID_EXCLUSIVE_MIN,
             $value,
-            $propertyPath,
+            $pointer,
             ['exclusive_min' => $min]
         );
     }
@@ -240,30 +240,30 @@ class Assert
     /**
      * @param mixed       $value
      * @param int         $max
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function max($value, $max, $propertyPath = null)
+    public static function max($value, $max, $pointer = null)
     {
-        static::numeric($value, $propertyPath);
+        static::numeric($value, $pointer);
 
         if ($value <= $max) {
             return;
         }
 
         $message = sprintf('Number "%s" is not at most "%d"', self::asString($value), self::asString($max));
-        throw new AssertionFailedException($message, INVALID_MAX, $value, $propertyPath, compact('max'));
+        throw new AssertionFailedException($message, INVALID_MAX, $value, $pointer, compact('max'));
     }
 
     /**
      * @param mixed       $value
      * @param int         $max
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function exclusiveMax($value, $max, $propertyPath = null)
+    public static function exclusiveMax($value, $max, $pointer = null)
     {
-        static::numeric($value, $propertyPath);
+        static::numeric($value, $pointer);
 
         if ($value < $max) {
             return;
@@ -274,7 +274,7 @@ class Assert
             $message,
             INVALID_EXCLUSIVE_MAX,
             $value,
-            $propertyPath,
+            $pointer,
             ['exclusive_max' => $max]
         );
     }
@@ -282,84 +282,84 @@ class Assert
     /**
      * @param mixed       $value
      * @param int         $min
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function minItems($value, $min, $propertyPath = null)
+    public static function minItems($value, $min, $pointer = null)
     {
-        static::isCountable($value, $propertyPath);
+        static::isCountable($value, $pointer);
 
         if (count($value) >= $min) {
             return;
         }
 
         $message = sprintf('Array does not contain more than "%d" items', self::asString($min));
-        throw new AssertionFailedException($message, INVALID_MIN_COUNT, $value, $propertyPath, ['min_items' => $min]);
+        throw new AssertionFailedException($message, INVALID_MIN_COUNT, $value, $pointer, ['min_items' => $min]);
     }
 
     /**
      * @param mixed       $value
      * @param int         $max
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function maxItems($value, $max, $propertyPath = null)
+    public static function maxItems($value, $max, $pointer = null)
     {
-        static::isCountable($value, $propertyPath);
+        static::isCountable($value, $pointer);
 
         if (count($value) <= $max) {
             return;
         }
 
         $message = sprintf('Array does not contain less than "%d" items', self::asString($max));
-        throw new AssertionFailedException($message, INVALID_MAX_COUNT, $value, $propertyPath, ['max_items' => $max]);
+        throw new AssertionFailedException($message, INVALID_MAX_COUNT, $value, $pointer, ['max_items' => $max]);
     }
 
     /**
      * @param mixed       $value
      * @param int         $min
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function minLength($value, $min, $propertyPath = null)
+    public static function minLength($value, $min, $pointer = null)
     {
-        static::string($value, $propertyPath);
+        static::string($value, $pointer);
 
         if (static::strlen($value) >= $min) {
             return;
         }
 
         $message = sprintf('String is not at least "%s" characters long', self::asString($min));
-        throw new AssertionFailedException($message, INVALID_MIN_LENGTH, $value, $propertyPath, ['min_length' => $min]);
+        throw new AssertionFailedException($message, INVALID_MIN_LENGTH, $value, $pointer, ['min_length' => $min]);
     }
 
     /**
      * @param mixed       $value
      * @param int         $max
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function maxLength($value, $max, $propertyPath = null)
+    public static function maxLength($value, $max, $pointer = null)
     {
-        static::string($value, $propertyPath);
+        static::string($value, $pointer);
 
         if (static::strlen($value) <= $max) {
             return;
         }
 
         $message = sprintf('String is not at most "%s" characters long', self::asString($max));
-        throw new AssertionFailedException($message, INVALID_MAX_LENGTH, $value, $propertyPath, ['max_length' => $max]);
+        throw new AssertionFailedException($message, INVALID_MAX_LENGTH, $value, $pointer, ['max_length' => $max]);
     }
 
     /**
      * @param mixed       $value
      * @param int|float   $multiple
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function multipleOf($value, $multiple, $propertyPath = null)
+    public static function multipleOf($value, $multiple, $pointer = null)
     {
-        static::numeric($value, $propertyPath);
+        static::numeric($value, $pointer);
 
         // for some reason fmod does not return 0 for cases like fmod(0.0075,0.0001) so I'm doing this manually.
         $quotient = $value / $multiple;
@@ -373,7 +373,7 @@ class Assert
             $message,
             INVALID_MULTIPLE,
             $value,
-            $propertyPath,
+            $pointer,
             ['multiple_of' => $multiple]
         );
     }
@@ -381,12 +381,12 @@ class Assert
     /**
      * @param mixed       $value
      * @param int         $max
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function maxProperties($value, $max, $propertyPath = null)
+    public static function maxProperties($value, $max, $pointer = null)
     {
-        static::isObject($value, $propertyPath);
+        static::isObject($value, $pointer);
 
         if (count(get_object_vars($value)) <= $max) {
             return;
@@ -397,7 +397,7 @@ class Assert
             $message,
             INVALID_MAX_COUNT,
             $value,
-            $propertyPath,
+            $pointer,
             ['max_properties' => $max]
         );
     }
@@ -405,12 +405,12 @@ class Assert
     /**
      * @param mixed       $value
      * @param int         $min
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function minProperties($value, $min, $propertyPath = null)
+    public static function minProperties($value, $min, $pointer = null)
     {
-        static::isObject($value, $propertyPath);
+        static::isObject($value, $pointer);
 
         if (count(get_object_vars($value)) >= $min) {
             return;
@@ -421,55 +421,55 @@ class Assert
             $message,
             INVALID_MIN_COUNT,
             $value,
-            $propertyPath,
+            $pointer,
             ['min_properties' => $min]
         );
     }
 
     /**
      * @param array       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function unique(array $value, $propertyPath = null)
+    public static function unique(array $value, $pointer = null)
     {
         if (count($value) === count(array_unique(array_map('serialize', $value)))) {
             return;
         }
 
         $message = sprintf('Array "%s" is not unique.', self::asString($value));
-        throw new AssertionFailedException($message, VALUE_NOT_UNIQUE, $value, $propertyPath);
+        throw new AssertionFailedException($message, VALUE_NOT_UNIQUE, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
      * @param string      $pattern
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function regex($value, $pattern, $propertyPath = null)
+    public static function regex($value, $pattern, $pointer = null)
     {
-        static::string($value, $propertyPath);
+        static::string($value, $pointer);
 
         if (preg_match($pattern, $value) === 1) {
             return;
         }
 
         $message = sprintf('Value "%s" does not match the given pattern.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_REGEX, $value, $propertyPath, compact('pattern'));
+        throw new AssertionFailedException($message, INVALID_REGEX, $value, $pointer, compact('pattern'));
     }
 
     /**
      * @param mixed       $value
      * @param array       $choices
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function anyType($value, array $choices, $propertyPath = null)
+    public static function anyType($value, array $choices, $pointer = null)
     {
         foreach ($choices as $type) {
             try {
-                Assert::type($value, $type, $propertyPath);
+                Assert::type($value, $type, $pointer);
 
                 // If any of them match we can return.
                 return;
@@ -483,35 +483,35 @@ class Assert
             static::asString($value),
             implode(', ', array_map([Assert::class, 'asString'], $choices))
         );
-        throw new AssertionFailedException($message, INVALID_TYPE, $value, $propertyPath, compact('choices'));
+        throw new AssertionFailedException($message, INVALID_TYPE, $value, $pointer, compact('choices'));
     }
 
     /**
      * @param mixed       $value
      * @param string      $format
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function format($value, $format, $propertyPath = null)
+    public static function format($value, $format, $pointer = null)
     {
         switch ($format) {
             case 'date-time':
-                Assert::dateTime($value, $propertyPath);
+                Assert::dateTime($value, $pointer);
                 break;
             case 'uri':
-                Assert::uri($value, $propertyPath);
+                Assert::uri($value, $pointer);
                 break;
             case 'email':
-                Assert::email($value, $propertyPath);
+                Assert::email($value, $pointer);
                 break;
             case 'ipv4':
-                Assert::ipv4($value, $propertyPath);
+                Assert::ipv4($value, $pointer);
                 break;
             case 'ipv6':
-                Assert::ipv6($value, $propertyPath);
+                Assert::ipv6($value, $pointer);
                 break;
             case 'hostname':
-                Assert::hostname($value, $propertyPath);
+                Assert::hostname($value, $pointer);
                 break;
             default:
                 throw new \InvalidArgumentException(sprintf('Unknown format %s', static::asString($format)));
@@ -520,135 +520,135 @@ class Assert
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function dateTime($value, $propertyPath = null)
+    public static function dateTime($value, $pointer = null)
     {
-        static::string($value, $propertyPath);
+        static::string($value, $pointer);
 
         if (preg_match(self::DATE_TIME_PATTERN, $value) === 1) {
             return;
         }
 
         $message = sprintf('"%s" is not a valid date-time string.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_DATE_TIME, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_DATE_TIME, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function hostname($value, $propertyPath = null)
+    public static function hostname($value, $pointer = null)
     {
-        static::string($value, $propertyPath);
+        static::string($value, $pointer);
 
         if (preg_match(self::HOST_NAME_PATTERN, $value) === 1) {
             return;
         }
 
         $message = sprintf('"%s" is not a valid hostname.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_HOST_NAME, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_HOST_NAME, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function ipv4($value, $propertyPath = null)
+    public static function ipv4($value, $pointer = null)
     {
-        static::string($value, $propertyPath);
+        static::string($value, $pointer);
 
         if (filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false) {
             return;
         }
 
         $message = sprintf('"%s" is not a valid ipv4 address.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_IPV4, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_IPV4, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function ipv6($value, $propertyPath = null)
+    public static function ipv6($value, $pointer = null)
     {
-        static::string($value, $propertyPath);
+        static::string($value, $pointer);
 
         if (filter_var($value, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false) {
             return;
         }
 
         $message = sprintf('"%s" is not a valid ipv6 address.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_IPV6, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_IPV6, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function uri($value, $propertyPath = null)
+    public static function uri($value, $pointer = null)
     {
-        static::string($value, $propertyPath);
+        static::string($value, $pointer);
 
         if (filter_var($value, FILTER_VALIDATE_URL) !== false) {
             return;
         }
 
         $message = sprintf('"%s" is not a valid uri.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_URI, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_URI, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function email($value, $propertyPath = null)
+    public static function email($value, $pointer = null)
     {
-        static::string($value, $propertyPath);
+        static::string($value, $pointer);
 
         if (filter_var($value, FILTER_VALIDATE_EMAIL) !== false) {
             return;
         }
 
         $message = sprintf('"%s" is not a valid email.', self::asString($value));
-        throw new AssertionFailedException($message, INVALID_EMAIL, $value, $propertyPath);
+        throw new AssertionFailedException($message, INVALID_EMAIL, $value, $pointer);
     }
 
     /**
      * @param mixed       $value
      * @param string      $type
-     * @param string|null $propertyPath
+     * @param string|null $pointer
      * @throws AssertionFailedException
      */
-    public static function type($value, $type, $propertyPath = null)
+    public static function type($value, $type, $pointer = null)
     {
         switch ($type) {
             case 'integer':
-                Assert::integer($value, $propertyPath);
+                Assert::integer($value, $pointer);
                 break;
             case 'number':
-                Assert::numeric($value, $propertyPath);
+                Assert::numeric($value, $pointer);
                 break;
             case 'string':
-                Assert::string($value, $propertyPath);
+                Assert::string($value, $pointer);
                 break;
             case 'object':
-                Assert::isObject($value, $propertyPath);
+                Assert::isObject($value, $pointer);
                 break;
             case 'array':
-                Assert::isArray($value, $propertyPath);
+                Assert::isArray($value, $pointer);
                 break;
             case 'boolean':
-                Assert::boolean($value, $propertyPath);
+                Assert::boolean($value, $pointer);
                 break;
             case 'null':
-                Assert::null($value, $propertyPath);
+                Assert::null($value, $pointer);
                 break;
             default:
                 throw new \InvalidArgumentException(sprintf('Unknown type %s', static::asString($type)));

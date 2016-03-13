@@ -18,11 +18,7 @@ Notable Features:
 
 ## Install
 
-Via Composer
-
-``` bash
-$ composer require machete/validation
-```
+** This package is a WIP so you will need to install manually; it isn't on packagist.**
 
 ## Usage
 

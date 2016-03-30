@@ -3,7 +3,7 @@
 namespace Yuloh\JsonGuard\Test;
 
 use Yuloh\JsonGuard\Dereferencer\Loaders\FileLoader;
-use Yuloh\JsonGuard\SchemaLoadingException;
+use Yuloh\JsonGuard\Exceptions\SchemaLoadingException;
 
 class FileLoaderTest extends \PHPUnit_Framework_TestCase
 {

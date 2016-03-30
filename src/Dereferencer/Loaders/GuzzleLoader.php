@@ -34,7 +34,7 @@ class GuzzleLoader implements Loader
         try {
             $res = $this->client->get($this->prefix . $path)->send();
         } catch (RequestException $e) {
-            throw new JsonGuard\SchemaLoadingException($path);
+            throw new JsonGuard\Exceptions\SchemaLoadingException($path);
         }
 
         $body = (string) $res->getBody();

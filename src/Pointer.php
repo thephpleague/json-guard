@@ -8,6 +8,8 @@ use Yuloh\JsonGuard\Pointer\Parser;
 /**
  * A simple JSON Pointer implementation that can traverse
  * an object resulting from a json_decode() call.
+ *
+ * @see https://tools.ietf.org/html/rfc6901
  */
 class Pointer
 {
@@ -32,7 +34,7 @@ class Pointer
      */
     public function get($pointer)
     {
-        $pointer = (new Parser($pointer))->parse();
+        $pointer = (new Parser($pointer))->get();
 
         return $this->traverse($this->json, $pointer);
     }
@@ -66,7 +68,7 @@ class Pointer
             throw new \InvalidArgumentException('Cannot replace the object with set.');
         }
 
-        $pointer = (new Parser($pointer))->parse();
+        $pointer = (new Parser($pointer))->get();
 
         // Simple way to check if the path exists.
         // It will throw an exception if it isn't valid.

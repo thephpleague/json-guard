@@ -8,7 +8,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use Yuloh\JsonGuard\Dereferencer\Loaders\GuzzleLoader;
-use Yuloh\JsonGuard\SchemaLoadingException;
+use Yuloh\JsonGuard\Exceptions\SchemaLoadingException;
 
 class GuzzleLoaderTest extends \PHPUnit_Framework_testCase
 {

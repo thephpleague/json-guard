@@ -4,7 +4,7 @@ namespace Yuloh\JsonGuard\Dereferencer\Loaders;
 
 use Yuloh\JsonGuard;
 use Yuloh\JsonGuard\Dereferencer\Loader;
-use Yuloh\JsonGuard\SchemaLoadingException;
+use Yuloh\JsonGuard\Exceptions\SchemaLoadingException;
 
 class FileLoader implements Loader
 {

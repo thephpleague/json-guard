@@ -1,7 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard {
+namespace Yuloh\JsonGuard;
 
+class ErrorCode
+{
     const INVALID_NUMERIC       = 22;
     const INVALID_NULL          = 23;
     const INVALID_INTEGER       = 24;
@@ -35,4 +37,6 @@ namespace Yuloh\JsonGuard {
     const INVALID_DATE_TIME     = 52;
     const INVALID_HOST_NAME     = 53;
     const INVALID_FORMAT        = 54;
+    const NOT_ALLOWED_ITEM      = 55;
+    const UNMET_DEPENDENCY      = 56;
 }

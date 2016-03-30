@@ -3,10 +3,10 @@
 namespace Yuloh\JsonGuard\Test;
 
 use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\AssertionFailedException;
 use Yuloh\JsonGuard\Dereferencer;
+use Yuloh\JsonGuard\Exceptions\MaximumDepthExceededException;
 use Yuloh\JsonGuard\FormatExtension;
-use Yuloh\JsonGuard\MaximumDepthExceededException;
+use Yuloh\JsonGuard\ErrorCode;
 use Yuloh\JsonGuard\Validator;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
@@ -15,10 +15,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $required = glob(schema_test_suite_path() . '/draft4/*.json');
         $optional = glob(schema_test_suite_path() . '/draft4/optional/*.json');
-        $ours     = [
-            __DIR__ . '/fixtures/additional-item-no-items.json',
-        ];
-        $files    = array_merge($required, $optional, $ours);
+        $files    = array_merge($required, $optional);
 
         return array_map(function ($file) {
             return [$file];
@@ -66,10 +63,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
         $errors = $v->errors();
         $this->assertCount(2, $errors);
-        $this->assertSame(\Yuloh\JsonGuard\INVALID_STRING, $errors[0]['code']);
+        $this->assertSame(ErrorCode::INVALID_STRING, $errors[0]['code']);
         $this->assertSame('/name', $errors[0]['pointer']);
 
-        $this->assertSame(\Yuloh\JsonGuard\INVALID_STRING, $errors[1]['code']);
+        $this->assertSame(ErrorCode::INVALID_STRING, $errors[1]['code']);
         $this->assertSame('/sub-product/sub-product/tags/1', $errors[1]['pointer']);
     }
 
@@ -84,7 +81,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($v->fails());
         $error = $v->errors()[0];
         $this->assertSame('/foo/foo/foo/foo/foo/foo/foo/foo/foo', $error['pointer']);
-        $this->assertSame(JsonGuard\NOT_ALLOWED_PROPERTY, $error['code']);
+        $this->assertSame(ErrorCode::NOT_ALLOWED_PROPERTY, $error['code']);
     }
 
     public function testStackAttack()
@@ -138,13 +135,13 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
         $data = 'hello world';
         $v = new Validator($data, $schema);
-        $v->registerFormat('hello', new HelloFormatStub());
+        $v->registerFormatExtension('hello', new HelloFormatStub());
 
         $this->assertTrue($v->passes());
 
         $data = 'good morning world';
         $v = new Validator($data, $schema);
-        $v->registerFormat('hello', new HelloFormatStub());
+        $v->registerFormatExtension('hello', new HelloFormatStub());
 
         $this->assertTrue($v->fails());
         $this->assertSame(99, $v->errors()[0]['code']);
@@ -156,7 +153,7 @@ class HelloFormatStub implements FormatExtension
     public function validate($value, $pointer = null)
     {
         if (stripos($value, 'hello') !== 0) {
-            throw new AssertionFailedException('Must start with hello', 99, $value, $pointer);
+            return new JsonGuard\ValidationError('Must start with hello', 99, $value, $pointer);
         }
     }
 }

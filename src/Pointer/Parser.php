@@ -2,10 +2,14 @@
 
 namespace Yuloh\JsonGuard\Pointer;
 
+/**
+ * Parses a JSON Pointer as defined in the specification.
+ * @see https://tools.ietf.org/html/rfc6901#section-4
+ */
 class Parser
 {
     /**
-     * @var mixed
+     * @var array
      */
     private $pointer;
 
@@ -15,28 +19,46 @@ class Parser
     public function __construct($pointer)
     {
         $this->validate($pointer);
-        $this->pointer = $pointer;
+        $this->pointer = $this->parse($pointer);
     }
 
     /**
      * @return array
      */
-    public function parse()
+    public function get()
+    {
+        return $this->pointer;
+    }
+
+    /**
+     * @param string $pointer
+     *
+     * @return array
+     */
+    private function parse($pointer)
     {
         return $this
-            ->explode()
+            ->explode($pointer)
             ->urlDecode()
             ->untilde()
             ->get();
     }
 
-    private function explode()
+    /**
+     * @param string $pointer
+     *
+     * @return $this
+     */
+    private function explode($pointer)
     {
-        $this->pointer = array_slice(explode('/', $this->pointer), 1);
+        $this->pointer = array_slice(explode('/', $pointer), 1);
 
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     private function urlDecode()
     {
         $this->pointer = array_map('urldecode', $this->pointer);
@@ -44,6 +66,9 @@ class Parser
         return $this;
     }
 
+    /**
+     * @return $this
+     */
     private function untilde()
     {
         $this->pointer = array_map(function ($segment) {
@@ -55,11 +80,11 @@ class Parser
         return $this;
     }
 
-    private function get()
-    {
-        return $this->pointer;
-    }
-
+    /**
+     * @param string $pointer
+     *
+     * @throws InvalidPointerException
+     */
     private function validate($pointer)
     {
         if ($pointer === '') {

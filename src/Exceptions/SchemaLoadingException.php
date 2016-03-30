@@ -1,6 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard;
+namespace Yuloh\JsonGuard\Exceptions;
 
 class SchemaLoadingException extends \RuntimeException
 {

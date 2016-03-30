@@ -49,7 +49,6 @@
             "Yuloh\\JsonGuard\\": "src"
         },
         "files": [
-            "src/error_codes.php",
             "src/functions.php"
         ]
     },

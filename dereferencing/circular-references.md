@@ -27,7 +27,7 @@ This package fully supports recursive references.  Consider the following exampl
 
 ## Resolving
 
-If the dereferencer attempted to fully resolve this reference, the dereferencer would continue looping infintely.  Instead of resolving references immediately, the $ref is replaced with a [reference object](https://github.com/machete-php/validation/blob/master/src/Reference.php).
+If the dereferencer attempted to fully resolve this reference, the dereferencer would continue looping infintely.  Instead of resolving references immediately, the $ref is replaced with a [reference object](https://github.com/yuloh/json-guard/blob/master/src/Reference.php).
 
 The reference object is resolved lazily by the validator.  The validator will stop resolving once it runs out of data to validate or the maximum depth has been exceeded.
 

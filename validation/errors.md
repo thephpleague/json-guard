@@ -12,9 +12,9 @@ The validator returns detailed errors for each validation failure.  Calling the 
 [
  [
    "code"        => 50,
-   "message"     => "'machete.dev/schema#' is not a valid uri.",
+   "message"     => "'json-guard.dev/schema#' is not a valid uri.",
    "pointer"     => "/id",
-   'value'       => 'machete.dev/schema#',
+   'value'       => 'json-guard.dev/schema#',
    'constraints' => null,
  ],
  [
@@ -31,7 +31,7 @@ The validator returns detailed errors for each validation failure.  Calling the 
 
 ### Code
 
-The code is a unique identifier for this error type.  You can view the complete list of error codes [here](https://github.com/machete-php/validation/blob/master/src/error_codes.php).
+The code is a unique identifier for this error type.  You can view the complete list of error codes [here](https://github.com/yuloh/json-guard/blob/master/src/error_codes.php).
 
 ### Message
 

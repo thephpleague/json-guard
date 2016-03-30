@@ -15,7 +15,7 @@ The JSON data we are validating needs to be the object resulting from a `json_de
 ```php
 <?php
 
-$data = json_decode('{ "id": "https://machete.dev/schema#" }');
+$data = json_decode('{ "id": "https://json-guard.dev/schema#" }');
 ```
 
 The schema is also an object from a `json_decode` call.  A simple schema would look like this:

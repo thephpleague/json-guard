@@ -39,7 +39,7 @@ To dereference your schema, create a new `Dereferencer` instance.
 ```php
 <?php
 
-$deref  = new Machete\Validation\Dereferencer();
+$deref  = new Yuloh\JsonGuard\Dereferencer();
 ```
 
 Now call the `dereference` method with your schema.  The schema should be the result from a json_decode call.
@@ -67,7 +67,7 @@ By default `http://`, `https://`, and `file://` paths are supported.
 
 ### Custom Loaders
 
-You can make your own loaders by implementing the [Loader Interface](https://github.com/machete-php/validation/blob/master/src/Dereferencer/Loader.php).  Imagine you may want to load schemas from a CouchDb database, and your references look like this:
+You can make your own loaders by implementing the [Loader Interface](https://github.com/yuloh/json-guard/blob/master/src/Dereferencer/Loader.php).  Imagine you may want to load schemas from a CouchDb database, and your references look like this:
 
 ```json
 { "$ref":"couchdb://00a271787f89c0ef2e10e88a0c0001f4" }
@@ -81,7 +81,7 @@ Once you have written your custom loader, you can register it with the dereferen
 use My\App\CouchDbLoader;
 
 $couchLoader = new CouchDbLoader();
-$deref  = new Machete\Validation\Dereferencer();
+$deref  = new Yuloh\JsonGuard\Dereferencer();
 
 $deref->registerLoader($couchLoader, 'couchdb');
 ```

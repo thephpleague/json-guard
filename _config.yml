@@ -3,8 +3,8 @@
 # The repository this documentation is for.
 # This will be used to automatically
 # pull data like the title, tagline,
-# and repository url. 
-repository: machete-php/validation
+# and repository url.
+repository: yuloh/json-guard
 
 # The color scheme to use for syntax highlighting.
 # The available color schemes are listed in

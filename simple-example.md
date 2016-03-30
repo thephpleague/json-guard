@@ -17,10 +17,10 @@ Once the validator is created you can call `$validator->passes()` or `$validator
 ```php
 <?php
 
-$deref  = new Machete\Validation\Dereferencer();
+$deref  = new Yuloh\JsonGuard\Dereferencer();
 $schema = $deref->dereference('http://json-schema.org/draft-04/schema#');
 
-$data = json_decode('{ "id": "machete.dev/schema#" }');
+$data = json_decode('{ "id": "json-guard.dev/schema#" }');
 
 $validator = new Validator($data, $schema);
 

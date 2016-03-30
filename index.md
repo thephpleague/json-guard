@@ -4,7 +4,7 @@ layout: default
 
 # Introduction
 
-machete/validation lets you validate JSON data using [json schema](http://json-schema.org/).
+This package lets you validate JSON data using [json schema](http://json-schema.org/).
 
 ## Notable Features:
 

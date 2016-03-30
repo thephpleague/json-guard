@@ -15,7 +15,7 @@ The following example shows a simple extension to validate twitter handles.  The
 ```php
 <?php
 
-use const Machete\Validation\INVALID_FORMAT;
+use const Yuloh\JsonGuard\INVALID_FORMAT;
 
 class TwitterHandleFormatExtension implements FormatExtension
 {

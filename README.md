@@ -59,3 +59,6 @@ If you discover any security related issues, please email matthew.james.allan@gm
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+[link-author]: https://github.com/yuloh
+[link-contributors]: ../../contributors

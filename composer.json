@@ -1,7 +1,7 @@
 {
-    "name": "machete/validation",
+    "name": "yuloh/json-guard",
     "type": "library",
-    "description": "A validator for JSON schema.",
+    "description": "A validator for JSON using json-schema.",
     "keywords": [
         "Machete",
         "Validation",
@@ -9,7 +9,7 @@
         "schema",
         "json-schema.org"
     ],
-    "homepage": "https://github.com/machete-php/validation",
+    "homepage": "https://github.com/yuloh/json-guard",
     "license": "MIT",
     "authors": [
         {
@@ -46,7 +46,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Machete\\Validation\\": "src"
+            "Yuloh\\JsonGuard\\": "src"
         },
         "files": [
             "src/error_codes.php",
@@ -55,7 +55,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Machete\\Validation\\Test\\": "tests"
+            "Yuloh\\JsonGuard\\Test\\": "tests"
         },
         "files": [
             "tests/helpers.php"

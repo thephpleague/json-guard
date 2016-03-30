@@ -1,10 +1,10 @@
 <?php
 
-namespace Machete\Validation;
+namespace Yuloh\JsonGuard;
 
-use Machete\Validation\Dereferencer\Loader;
-use Machete\Validation\Dereferencer\Loaders\FileLoader;
-use Machete\Validation\Dereferencer\Loaders\GuzzleLoader;
+use Yuloh\JsonGuard\Dereferencer\Loader;
+use Yuloh\JsonGuard\Dereferencer\Loaders\FileLoader;
+use Yuloh\JsonGuard\Dereferencer\Loaders\GuzzleLoader;
 
 /**
  * The Dereferencer resolves all external $refs and replaces

@@ -1,6 +1,6 @@
 <?php
 
-namespace Machete\Validation\Pointer;
+namespace Yuloh\JsonGuard\Pointer;
 
 class Parser
 {

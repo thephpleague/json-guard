@@ -1,8 +1,8 @@
 <?php
 
-namespace Machete\Validation\Test;
+namespace Yuloh\JsonGuard\Test;
 
-use Machete\Validation\Dereferencer;
+use Yuloh\JsonGuard\Dereferencer;
 
 class DereferencerTest extends \PHPUnit_Framework_TestCase
 {

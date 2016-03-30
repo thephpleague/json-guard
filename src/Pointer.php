@@ -1,9 +1,9 @@
 <?php
 
-namespace Machete\Validation;
+namespace Yuloh\JsonGuard;
 
-use Machete\Validation\Pointer\InvalidPointerException;
-use Machete\Validation\Pointer\Parser;
+use Yuloh\JsonGuard\Pointer\InvalidPointerException;
+use Yuloh\JsonGuard\Pointer\Parser;
 
 /**
  * A simple JSON Pointer implementation that can traverse

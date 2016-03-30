@@ -1,12 +1,13 @@
 <?php
 
-namespace Machete\Validation\Test;
+namespace Yuloh\JsonGuard\Test;
 
-use Machete\Validation\AssertionFailedException;
-use Machete\Validation\Dereferencer;
-use Machete\Validation\MaximumDepthExceededException;
-use Machete\Validation;
-use Machete\Validation\Validator;
+use Yuloh\JsonGuard;
+use Yuloh\JsonGuard\AssertionFailedException;
+use Yuloh\JsonGuard\Dereferencer;
+use Yuloh\JsonGuard\FormatExtension;
+use Yuloh\JsonGuard\MaximumDepthExceededException;
+use Yuloh\JsonGuard\Validator;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -65,10 +66,10 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
         $errors = $v->errors();
         $this->assertCount(2, $errors);
-        $this->assertSame(\Machete\Validation\INVALID_STRING, $errors[0]['code']);
+        $this->assertSame(\Yuloh\JsonGuard\INVALID_STRING, $errors[0]['code']);
         $this->assertSame('/name', $errors[0]['pointer']);
 
-        $this->assertSame(\Machete\Validation\INVALID_STRING, $errors[1]['code']);
+        $this->assertSame(\Yuloh\JsonGuard\INVALID_STRING, $errors[1]['code']);
         $this->assertSame('/sub-product/sub-product/tags/1', $errors[1]['pointer']);
     }
 
@@ -83,7 +84,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($v->fails());
         $error = $v->errors()[0];
         $this->assertSame('/foo/foo/foo/foo/foo/foo/foo/foo/foo', $error['pointer']);
-        $this->assertSame(Validation\NOT_ALLOWED_PROPERTY, $error['code']);
+        $this->assertSame(JsonGuard\NOT_ALLOWED_PROPERTY, $error['code']);
     }
 
     public function testStackAttack()
@@ -150,7 +151,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class HelloFormatStub implements Validation\FormatExtension
+class HelloFormatStub implements FormatExtension
 {
     public function validate($value, $pointer = null)
     {

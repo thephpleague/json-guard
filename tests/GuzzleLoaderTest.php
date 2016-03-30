@@ -1,14 +1,14 @@
 <?php
 
-namespace Machete\Validation\Test;
+namespace Yuloh\JsonGuard\Test;
 
 use Guzzle\Http\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
-use Machete\Validation\Dereferencer\Loaders\GuzzleLoader;
-use Machete\Validation\SchemaLoadingException;
+use Yuloh\JsonGuard\Dereferencer\Loaders\GuzzleLoader;
+use Yuloh\JsonGuard\SchemaLoadingException;
 
 class GuzzleLoaderTest extends \PHPUnit_Framework_testCase
 {

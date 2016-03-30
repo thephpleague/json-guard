@@ -1,11 +1,4 @@
-# machete/validation
-
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
-[![Total Downloads][ico-downloads]][link-downloads]
+# yuloh/json-guard
 
 This package is a validator for [JSON Schema](http://json-schema.org/).  It fully supports draft 4 of the specification.
 
@@ -22,9 +15,9 @@ Notable Features:
 
 ## Usage
 
-Complete documentation is available at [http://validation.machetephp.com/](http://validation.machetephp.com/).
+Complete documentation is available at [http://yuloh.github.io/json-guard](http://yuloh.github.io/json-guard).
 
-Pull requests for documentation should be sent to the [gh-pages branch](https://github.com/machete-php/validation/tree/gh-pages).
+Pull requests for documentation should be sent to the [gh-pages branch](https://github.com/yuloh/json-guard/tree/gh-pages).
 
 ## Change log
 
@@ -66,18 +59,3 @@ If you discover any security related issues, please email matthew.james.allan@gm
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-[ico-version]: https://img.shields.io/packagist/v/machete/validation.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/machete-php/validation/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/machete-php/validation.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/machete-php/validation.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/machete/validation.svg?style=flat-square
-
-[link-packagist]: https://packagist.org/packages/machete/validation
-[link-travis]: https://travis-ci.org/machete-php/validation
-[link-scrutinizer]: https://scrutinizer-ci.com/g/machete-php/validation/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/machete-php/validation
-[link-downloads]: https://packagist.org/packages/machete/validation
-[link-author]: https://github.com/matthew-james
-[link-contributors]: ../../contributors

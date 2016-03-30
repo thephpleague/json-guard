@@ -1,6 +1,6 @@
 <?php
 
-namespace Machete\Validation;
+namespace Yuloh\JsonGuard;
 
 /**
  * Format an AssertionFailedException as an error array.

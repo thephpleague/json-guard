@@ -1,11 +1,11 @@
 <?php
 
-namespace Machete\Validation\Dereferencer\Loaders;
+namespace Yuloh\JsonGuard\Dereferencer\Loaders;
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\RequestException;
-use Machete\Validation\Dereferencer\Loader;
-use Machete\Validation;
+use Yuloh\JsonGuard;
+use Yuloh\JsonGuard\Dereferencer\Loader;
 
 class GuzzleLoader implements Loader
 {
@@ -34,10 +34,10 @@ class GuzzleLoader implements Loader
         try {
             $res = $this->client->get($this->prefix . $path)->send();
         } catch (RequestException $e) {
-            throw new Validation\SchemaLoadingException($path);
+            throw new JsonGuard\SchemaLoadingException($path);
         }
 
         $body = (string) $res->getBody();
-        return Validation\json_decode($body);
+        return JsonGuard\json_decode($body);
     }
 }

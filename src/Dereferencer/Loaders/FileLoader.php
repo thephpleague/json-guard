@@ -1,10 +1,10 @@
 <?php
 
-namespace Machete\Validation\Dereferencer\Loaders;
+namespace Yuloh\JsonGuard\Dereferencer\Loaders;
 
-use Machete\Validation\Dereferencer\Loader;
-use Machete\Validation\SchemaLoadingException;
-use Machete\Validation;
+use Yuloh\JsonGuard;
+use Yuloh\JsonGuard\Dereferencer\Loader;
+use Yuloh\JsonGuard\SchemaLoadingException;
 
 class FileLoader implements Loader
 {
@@ -14,6 +14,6 @@ class FileLoader implements Loader
             throw SchemaLoadingException::notFound($path);
         }
 
-        return Validation\json_decode(file_get_contents($path));
+        return JsonGuard\json_decode(file_get_contents($path));
     }
 }

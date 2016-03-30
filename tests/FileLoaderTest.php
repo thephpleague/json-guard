@@ -1,9 +1,9 @@
 <?php
 
-namespace Machete\Validation\Test;
+namespace Yuloh\JsonGuard\Test;
 
-use Machete\Validation\Dereferencer\Loaders\FileLoader;
-use Machete\Validation\SchemaLoadingException;
+use Yuloh\JsonGuard\Dereferencer\Loaders\FileLoader;
+use Yuloh\JsonGuard\SchemaLoadingException;
 
 class FileLoaderTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Machete\Validation\Test;
+namespace Yuloh\JsonGuard\Test;
 
-use Machete\Validation\Pointer;
+use Yuloh\JsonGuard\Pointer;
 
 class PointerTest extends \PHPUnit_Framework_TestCase
 {

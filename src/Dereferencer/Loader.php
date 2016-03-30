@@ -1,6 +1,6 @@
 <?php
 
-namespace Machete\Validation\Dereferencer;
+namespace Yuloh\JsonGuard\Dereferencer;
 
 interface Loader
 {

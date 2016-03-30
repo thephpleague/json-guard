@@ -1,6 +1,6 @@
 <?php
 
-namespace Machete\Validation {
+namespace Yuloh\JsonGuard {
 
     const INVALID_NUMERIC       = 22;
     const INVALID_NULL          = 23;

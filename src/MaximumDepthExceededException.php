@@ -1,6 +1,6 @@
 <?php
 
-namespace Machete\Validation;
+namespace Yuloh\JsonGuard;
 
 class MaximumDepthExceededException extends \RuntimeException
 {

@@ -10,25 +10,22 @@ JSON Schema allows defining formats like `ipv4` that strings will be validated a
 
 # Usage
 
-The following example shows a simple extension to validate twitter handles.  The extension must take a value and pointer, and throw an `AssertionFailedException` if the value is invalid.
+The following example shows a simple extension to validate twitter handles.  The extension must take a value and pointer, and return a `ValidationError` if the value is invalid.
 
 ```php
 <?php
-
-use const Yuloh\JsonGuard\INVALID_FORMAT;
 
 class TwitterHandleFormatExtension implements FormatExtension
 {
     /**
      * @param string      $value   The value to validate
      * @param string|null $pointer A pointer to the value
-     * @return null
-     * @throws AssertionFailedException If validation fails
+     * @return ValidationError|null
      */
     public function validate($value, $pointer = null)
     {
         if (stripos($value, '@') !== 0) {
-            throw new AssertionFailedException('A twitter handle must start with "@"', INVALID_FORMAT, $value, $pointer);
+            return new ValidationError('A twitter handle must start with "@"', ErrorCode::INVALID_FORMAT, $value, $pointer);
         }
     }
 }
@@ -43,5 +40,5 @@ $schema = json_decode('{"format": "twitter-handle"}');
 $data = '@PHP_CEO';
 
 $validator = new Validator($data, $schema);
-$validator->registerFormat('twitter-handle', new TwitterHandleFormatExtension());
+$validator->registerFormatExtension('twitter-handle', new TwitterHandleFormatExtension());
 ```

@@ -22,7 +22,7 @@ $schema = $deref->dereference('http://json-schema.org/draft-04/schema#');
 
 $data = json_decode('{ "id": "json-guard.dev/schema#" }');
 
-$validator = new Validator($data, $schema);
+$validator = new Yuloh\JsonGuard\Validator($data, $schema);
 
 if ($validator->fails()) {
     $errors = $validator->errors();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard\Dereferencer;
+namespace Yuloh\JsonGuard;
 
 interface Loader
 {

@@ -2,9 +2,9 @@
 
 namespace Yuloh\JsonGuard;
 
-use Yuloh\JsonGuard\Dereferencer\Loader;
-use Yuloh\JsonGuard\Dereferencer\Loaders\FileLoader;
-use Yuloh\JsonGuard\Dereferencer\Loaders\GuzzleLoader;
+use Yuloh\JsonGuard\Loaders\CurlWebLoader;
+use Yuloh\JsonGuard\Loaders\FileGetContentsWebLoader;
+use Yuloh\JsonGuard\Loaders\FileLoader;
 
 /**
  * The Dereferencer resolves all external $refs and replaces
@@ -17,10 +17,13 @@ class Dereferencer
      */
     private $loaders;
 
+    /**
+     * Create a new Dereferencer.
+     */
     public function __construct()
     {
         $this->registerFileLoader();
-        $this->registerGuzzleWebLoaders();
+        $this->registerDefaultWebLoaders();
     }
 
     /**
@@ -28,6 +31,7 @@ class Dereferencer
      *
      * @param string|object $schema Either a valid path like "http://json-schema.org/draft-03/schema#"
      *                              or the object resulting from a json_decode call.
+     *
      * @return object
      */
     public function dereference($schema)
@@ -55,6 +59,7 @@ class Dereferencer
      * Get the loader for the given prefix.
      *
      * @param $prefix
+     *
      * @return Loader
      * @throws \InvalidArgumentException
      */
@@ -76,18 +81,27 @@ class Dereferencer
     }
 
     /**
-     * Register the Guzzle web loaders as the default web loaders.
+     * Register the default web loaders.  If the curl extension is loaded,
+     * the CurlWebLoader will be used.  Otherwise the FileGetContentsWebLoader
+     * will be used.  You can override this by registering your own loader
+     * for the 'http' and 'https' protocols.
      */
-    private function registerGuzzleWebLoaders()
+    private function registerDefaultWebLoaders()
     {
-        $this->loaders['https'] = new GuzzleLoader('https://');
-        $this->loaders['http']  = new GuzzleLoader('http://');
+        if (function_exists('curl_init')) {
+            $this->loaders['https'] = new CurlWebLoader('https://');
+            $this->loaders['http']  = new CurlWebLoader('http://');
+        } else {
+            $this->loaders['https'] = new FileGetContentsWebLoader('https://');
+            $this->loaders['http']  = new FileGetContentsWebLoader('http://');
+        }
     }
 
     /**
      * Crawl the schema and resolve any references.
      *
      * @param object $schema
+     *
      * @return object
      */
     private function crawl($schema)
@@ -143,6 +157,7 @@ class Dereferencer
      *
      * @param object $schema The schema to resolve references for.
      * @param string $path   The current schema path.
+     *
      * @return array
      */
     private function getReferences($schema, $path = '')
@@ -182,6 +197,7 @@ class Dereferencer
      *
      * @param string $path
      * @param string $segment
+     *
      * @return string
      */
     private function pathPush($path, $segment)
@@ -191,6 +207,7 @@ class Dereferencer
 
     /**
      * @param string $attribute
+     *
      * @return bool
      */
     private function isRef($attribute)
@@ -200,6 +217,7 @@ class Dereferencer
 
     /**
      * @param string $parameter
+     *
      * @return bool
      */
     private function isInternalRef($parameter)
@@ -209,6 +227,7 @@ class Dereferencer
 
     /**
      * @param string $parameter
+     *
      * @return bool
      */
     private function isExternalRef($parameter)
@@ -220,6 +239,7 @@ class Dereferencer
      * Load an external ref and return the JSON object.
      *
      * @param string $reference
+     *
      * @return object
      */
     private function loadExternalRef($reference)
@@ -268,6 +288,7 @@ class Dereferencer
      * A reference is relative if it does not being with a prefix.
      *
      * @param string $ref
+     *
      * @return bool
      */
     private function isRelativeRef($ref)
@@ -282,6 +303,7 @@ class Dereferencer
      * @param object $schema
      * @param string $path
      * @param string $ref
+     *
      * @return string
      */
     private function makeReferenceAbsolute($schema, $path, $ref)

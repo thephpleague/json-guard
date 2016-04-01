@@ -1,13 +1,16 @@
 <?php
 
-namespace Yuloh\JsonGuard\Dereferencer\Loaders;
+namespace Yuloh\JsonGuard\Loaders;
 
 use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\Dereferencer\Loader;
 use Yuloh\JsonGuard\Exceptions\SchemaLoadingException;
+use Yuloh\JsonGuard\Loader;
 
 class FileLoader implements Loader
 {
+    /**
+     * {@inheritdoc}
+     */
     public function load($path)
     {
         if (!file_exists($path)) {

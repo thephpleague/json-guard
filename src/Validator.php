@@ -132,7 +132,7 @@ class Validator implements SubSchemaValidatorFactory
 
     /**
      * @internal
-     * @param $depth
+     * @param int $depth
      * @return $this
      */
     public function setDepth($depth)

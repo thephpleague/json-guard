@@ -22,6 +22,6 @@ class Pattern implements PropertyConstraint
         }
 
         $message = sprintf('Value "%s" does not match the given pattern.', JsonGuard\asString($value));
-        return new ValidationError($message, ErrorCode::INVALID_REGEX, $value, $pointer, ['pattern' => $pattern]);
+        return new ValidationError($message, ErrorCode::INVALID_PATTERN, $value, $pointer, ['pattern' => $pattern]);
     }
 }

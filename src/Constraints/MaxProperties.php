@@ -20,7 +20,7 @@ class MaxProperties implements PropertyConstraint
         $message = sprintf('Object does not contain less than "%d" properties', JsonGuard\asString($parameter));
         return new ValidationError(
             $message,
-            ErrorCode::INVALID_MAX_COUNT,
+            ErrorCode::MAX_PROPERTIES_EXCEEDED,
             $value,
             $pointer,
             ['max_properties' => $parameter]

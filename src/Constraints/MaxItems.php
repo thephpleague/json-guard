@@ -20,7 +20,7 @@ class MaxItems implements PropertyConstraint
         $message = sprintf('Array does not contain less than "%d" items', JsonGuard\asString($parameter));
         return new ValidationError(
             $message,
-            ErrorCode::INVALID_MAX_COUNT,
+            ErrorCode::MAX_ITEMS_EXCEEDED,
             $value,
             $pointer,
             ['max_items' => $parameter]

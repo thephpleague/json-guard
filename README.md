@@ -1,4 +1,4 @@
-# Json Guard
+# JSON Guard
 
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]

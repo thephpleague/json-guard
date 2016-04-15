@@ -189,9 +189,7 @@ class Validator implements SubSchemaValidatorFactory
         $this->checkDepth();
 
         foreach ($this->schema as $rule => $parameter) {
-
             $errors = $this->validateRule($rule, $parameter);
-
             $this->mergeErrors($errors);
         }
     }

@@ -6,6 +6,24 @@ title: Extending
 
 # Introduction
 
+You may need to validate JSON with constraints beyond what is defined in Draft4 of the JSON Schema specification.  To add validaton rules you can either define a custom rule set or write a format extension.
+
+## Rulesets
+
+Internally JSON Guard uses [rule sets](https://github.com/yuloh/json-guard/blob/master/src/RuleSet.php), which are composed of [constraints](https://github.com/yuloh/json-guard/tree/master/src/Constraints).  By default the Draft4 rule set is used, which cooresponds to Draft 4 of the JSON Schema specification.  You can easily provide your own ruleset by passing it as a constructor parameter.
+
+```php
+<?php
+
+$data    = json_decode('{ "id": "json-guard.dev/schema#" }');
+$schema  = json_decode('{ "properties": { "id": { "type": "string", "format": "uri" } } }');
+$ruleset = new CustomRuleset();
+
+$validator = new Validator($data, $schema, $ruleset);
+```
+
+## Format Extensions
+
 JSON Schema allows defining formats like `ipv4` that strings will be validated against.  You can extend the validator with your own formats.
 
 # Usage

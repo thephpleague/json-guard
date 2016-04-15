@@ -16,7 +16,6 @@ class Dependencies implements ContainerInstanceConstraint
     {
         $errors = [];
         foreach ($parameter as $property => $dependencies) {
-
             if (!is_object($data) || !property_exists($data, $property)) {
                 continue;
             }

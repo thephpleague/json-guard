@@ -44,8 +44,6 @@ class DraftFour implements RuleSet
         'anyOf'                => AnyOf::class,
         'dependencies'         => Dependencies::class,
         'enum'                 => Enum::class,
-        'exclusiveMaximum'     => ExclusiveMax::class,
-        'exclusiveMinimum'     => ExclusiveMin::class,
         'format'               => Format::class,
         'items'                => Items::class,
         'maximum'              => Max::class,

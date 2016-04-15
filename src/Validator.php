@@ -3,7 +3,9 @@
 namespace Yuloh\JsonGuard;
 
 use Yuloh\JsonGuard\Constraints\ContainerInstanceConstraint;
+use Yuloh\JsonGuard\Constraints\Constraint;
 use Yuloh\JsonGuard\Constraints\ParentSchemaAwareContainerInstanceConstraint;
+use Yuloh\JsonGuard\Constraints\ParentSchemaAwarePropertyConstraint;
 use Yuloh\JsonGuard\Constraints\PropertyConstraint;
 use Yuloh\JsonGuard\Exceptions\MaximumDepthExceededException;
 use Yuloh\JsonGuard\RuleSets\DraftFour;
@@ -218,16 +220,12 @@ class Validator implements SubSchemaValidatorFactory
      */
     private function validateRule($rule, $parameter)
     {
-        if ($this->isSkippedRule($rule)) {
+        if (!$this->ruleSet->has($rule)) {
             return null;
         }
 
         if ($this->isCustomFormatExtension($rule, $parameter)) {
             return $this->validateCustomFormat($parameter);
-        }
-
-        if ($this->isExclusive($rule)) {
-            $rule = 'exclusive' . ucfirst($rule);
         }
 
         $constraint = $this->ruleSet->getConstraint($rule);
@@ -243,10 +241,12 @@ class Validator implements SubSchemaValidatorFactory
      *
      * @return \Yuloh\JsonGuard\ValidationError|\Yuloh\JsonGuard\ValidationError[]|null
      */
-    private function invokeConstraint($constraint, $parameter)
+    private function invokeConstraint(Constraint $constraint, $parameter)
     {
         if ($constraint instanceof PropertyConstraint) {
             return $constraint::validate($this->data, $parameter, $this->getPointer());
+        } elseif ($constraint instanceof ParentSchemaAwarePropertyConstraint) {
+            return $constraint::validate($this->data, $this->schema, $parameter, $this->getPointer());
         } elseif ($constraint instanceof ContainerInstanceConstraint) {
             return $constraint::validate($this->data, $parameter, $this, $this->getPointer());
         } elseif ($constraint instanceof ParentSchemaAwareContainerInstanceConstraint) {
@@ -285,27 +285,6 @@ class Validator implements SubSchemaValidatorFactory
     }
 
     /**
-     * Determine if a rule is exclusive.  minimum and maximum rules are exclusive if
-     * `"exclusive": true` exists in the schema.  Since they are the only scenario where
-     * a property constraint needs to check elsewhere in the schema, we check here
-     * to simplify implementation of a rule set.
-     *
-     * @param string $rule
-     *
-     * @return bool
-     */
-    private function isExclusive($rule)
-    {
-        if ($rule !== 'minimum' && $rule !== 'maximum') {
-            return false;
-        }
-
-        $key = $rule === 'minimum' ? 'exclusiveMinimum' : 'exclusiveMaximum';
-
-        return (isset($this->schema->$key) && $this->schema->$key === true);
-    }
-
-    /**
      * Merge the errors with our error collection.
      *
      * @param ValidationError[]|ValidationError|null $errors
@@ -322,17 +301,5 @@ class Validator implements SubSchemaValidatorFactory
         }
 
         $this->errors[] = $errors;
-    }
-
-    /**
-     * Determine if a rule is skipped and not validated.
-     *
-     * @param string $rule
-     *
-     * @return bool
-     */
-    private function isSkippedRule($rule)
-    {
-        return !$this->ruleSet->has($rule) || $rule === 'exclusiveMinimum' || $rule === 'exclusiveMaximum';
     }
 }

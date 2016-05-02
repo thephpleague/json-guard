@@ -58,6 +58,11 @@ class Validator implements SubSchemaValidatorFactory
     private $ruleSet;
 
     /**
+     * @var bool
+     */
+    private $hasValidated;
+
+    /**
      * @param mixed  $data
      * @param object $schema
      * @param RuleSet|null   $ruleSet
@@ -186,7 +191,9 @@ class Validator implements SubSchemaValidatorFactory
      */
     private function validate()
     {
-        $this->errors = [];
+        if ($this->hasValidated) {
+            return;
+        }
 
         $this->checkDepth();
 
@@ -194,6 +201,8 @@ class Validator implements SubSchemaValidatorFactory
             $errors = $this->validateRule($rule, $parameter);
             $this->mergeErrors($errors);
         }
+
+        $this->hasValidated = true;
     }
 
     /**

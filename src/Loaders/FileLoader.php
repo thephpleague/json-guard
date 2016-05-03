@@ -1,10 +1,10 @@
 <?php
 
-namespace Yuloh\JsonGuard\Loaders;
+namespace League\JsonGuard\Loaders;
 
-use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\Exceptions\SchemaLoadingException;
-use Yuloh\JsonGuard\Loader;
+use League\JsonGuard;
+use League\JsonGuard\Exceptions\SchemaLoadingException;
+use League\JsonGuard\Loader;
 
 class FileLoader implements Loader
 {

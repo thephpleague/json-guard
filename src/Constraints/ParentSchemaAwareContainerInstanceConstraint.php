@@ -1,9 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard\SubSchemaValidatorFactory;
-use Yuloh\JsonGuard\ValidationError;
+use League\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\ValidationError;
 
 /**
  * Some constraints for container instances (arrays, objects)

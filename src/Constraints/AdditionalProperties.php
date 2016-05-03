@@ -1,11 +1,11 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\ErrorCode;
-use Yuloh\JsonGuard\SubSchemaValidatorFactory;
-use Yuloh\JsonGuard\ValidationError;
+use League\JsonGuard;
+use League\JsonGuard\ErrorCode;
+use League\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\ValidationError;
 
 class AdditionalProperties implements ParentSchemaAwareContainerInstanceConstraint
 {

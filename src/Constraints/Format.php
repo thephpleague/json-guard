@@ -1,10 +1,10 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\ErrorCode;
-use Yuloh\JsonGuard\ValidationError;
+use League\JsonGuard;
+use League\JsonGuard\ErrorCode;
+use League\JsonGuard\ValidationError;
 
 class Format implements PropertyConstraint
 {
@@ -83,7 +83,7 @@ class Format implements PropertyConstraint
      * @param int $errorCode
      * @param string $pointer
      *
-     * @return \Yuloh\JsonGuard\ValidationError|null
+     * @return \League\JsonGuard\ValidationError|null
      */
     private static function validateRegex($format, $value, $pattern, $errorCode, $pointer)
     {
@@ -102,7 +102,7 @@ class Format implements PropertyConstraint
      * @param int    $errorCode
      * @param string $pointer
      *
-     * @return \Yuloh\JsonGuard\ValidationError|null
+     * @return \League\JsonGuard\ValidationError|null
      */
     private static function validateFilter($format, $value, $filter, $options, $errorCode, $pointer)
     {

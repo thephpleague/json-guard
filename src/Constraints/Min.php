@@ -1,10 +1,10 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\ErrorCode;
-use Yuloh\JsonGuard\ValidationError;
+use League\JsonGuard;
+use League\JsonGuard\ErrorCode;
+use League\JsonGuard\ValidationError;
 
 class Min implements ParentSchemaAwarePropertyConstraint
 {
@@ -25,7 +25,7 @@ class Min implements ParentSchemaAwarePropertyConstraint
      * @param mixed       $parameter
      * @param string|null $pointer
      *
-     * @return \Yuloh\JsonGuard\ValidationError|null
+     * @return \League\JsonGuard\ValidationError|null
      */
     public static function validateMin($value, $parameter, $pointer = null)
     {
@@ -46,7 +46,7 @@ class Min implements ParentSchemaAwarePropertyConstraint
      * @param mixed       $parameter
      * @param string|null $pointer
      *
-     * @return \Yuloh\JsonGuard\ValidationError|null
+     * @return \League\JsonGuard\ValidationError|null
      */
     public static function validateExclusiveMin($value, $parameter, $pointer = null)
     {

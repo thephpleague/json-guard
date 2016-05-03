@@ -1,6 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard\Pointer;
+namespace League\JsonGuard\Pointer;
 
 /**
  * Parses a JSON Pointer as defined in the specification.

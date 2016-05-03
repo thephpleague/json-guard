@@ -1,6 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
 interface Constraint
 {

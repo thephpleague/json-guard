@@ -1,9 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard\Test;
+namespace League\JsonGuard\Test;
 
-use Yuloh\JsonGuard\Loaders\ArrayLoader;
-use Yuloh\JsonGuard\Loaders\ChainableLoader;
+use League\JsonGuard\Loaders\ArrayLoader;
+use League\JsonGuard\Loaders\ChainableLoader;
 
 class ChainableLoaderTest extends \PHPUnit_Framework_TestCase
 {

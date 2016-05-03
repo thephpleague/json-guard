@@ -1,9 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard\ErrorCode;
-use Yuloh\JsonGuard\ValidationError;
+use League\JsonGuard\ErrorCode;
+use League\JsonGuard\ValidationError;
 
 class Required implements PropertyConstraint
 {

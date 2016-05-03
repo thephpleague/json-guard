@@ -1,9 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard\Test;
+namespace League\JsonGuard\Test;
 
-use Yuloh\JsonGuard\Exceptions\SchemaLoadingException;
-use Yuloh\JsonGuard\Loaders\FileLoader;
+use League\JsonGuard\Exceptions\SchemaLoadingException;
+use League\JsonGuard\Loaders\FileLoader;
 
 class FileLoaderTest extends \PHPUnit_Framework_TestCase
 {

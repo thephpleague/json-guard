@@ -1,9 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard\Loaders;
+namespace League\JsonGuard\Loaders;
 
-use Yuloh\JsonGuard\Exceptions\SchemaLoadingException;
-use Yuloh\JsonGuard\Loader;
+use League\JsonGuard\Exceptions\SchemaLoadingException;
+use League\JsonGuard\Loader;
 
 /**
  * This loader takes two other loaders as constructor parameters, and will
@@ -23,8 +23,8 @@ class ChainableLoader implements Loader
     private $secondLoader;
 
     /**
-     * @param \Yuloh\JsonGuard\Loader $firstLoader
-     * @param \Yuloh\JsonGuard\Loader $secondLoader
+     * @param \League\JsonGuard\Loader $firstLoader
+     * @param \League\JsonGuard\Loader $secondLoader
      */
     public function __construct(Loader $firstLoader, Loader $secondLoader)
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Yuloh\JsonGuard;
+namespace League\JsonGuard;
 
-use Yuloh\JsonGuard\Loaders\CurlWebLoader;
-use Yuloh\JsonGuard\Loaders\FileGetContentsWebLoader;
-use Yuloh\JsonGuard\Loaders\FileLoader;
+use League\JsonGuard\Loaders\CurlWebLoader;
+use League\JsonGuard\Loaders\FileGetContentsWebLoader;
+use League\JsonGuard\Loaders\FileLoader;
 
 /**
  * The Dereferencer resolves all external $refs and replaces

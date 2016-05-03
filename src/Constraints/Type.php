@@ -1,10 +1,10 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\ErrorCode;
-use Yuloh\JsonGuard\ValidationError;
+use League\JsonGuard;
+use League\JsonGuard\ErrorCode;
+use League\JsonGuard\ValidationError;
 
 class Type implements PropertyConstraint
 {
@@ -72,7 +72,7 @@ class Type implements PropertyConstraint
      * @param int      $errorCode
      * @param string   $pointer
      *
-     * @return \Yuloh\JsonGuard\ValidationError|null
+     * @return \League\JsonGuard\ValidationError|null
      */
     private static function validateType($value, $type, callable $callable, $errorCode, $pointer)
     {
@@ -90,7 +90,7 @@ class Type implements PropertyConstraint
      * @param array  $choices
      * @param string $pointer
      *
-     * @return \Yuloh\JsonGuard\ValidationError|null
+     * @return \League\JsonGuard\ValidationError|null
      */
     private static function anyType($value, array $choices, $pointer)
     {
@@ -104,7 +104,7 @@ class Type implements PropertyConstraint
         $message = sprintf(
             'Value "%s" is not one of: %s',
             JsonGuard\asString($value),
-            implode(', ', array_map('Yuloh\JsonGuard\asString', $choices))
+            implode(', ', array_map('League\JsonGuard\asString', $choices))
         );
 
         return new ValidationError($message, ErrorCode::INVALID_TYPE, $value, $pointer, ['types' => $choices]);

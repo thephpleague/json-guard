@@ -1,9 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard;
+namespace League\JsonGuard;
 
-use Yuloh\JsonGuard\Pointer\InvalidPointerException;
-use Yuloh\JsonGuard\Pointer\Parser;
+use League\JsonGuard\Pointer\InvalidPointerException;
+use League\JsonGuard\Pointer\Parser;
 
 /**
  * A simple JSON Pointer implementation that can traverse

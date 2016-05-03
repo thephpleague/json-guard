@@ -1,8 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
-
-use Yuloh\JsonGuard\ValidationError;
+namespace League\JsonGuard\Constraints;
 
 /**
  * A property constraint validates a single
@@ -15,7 +13,7 @@ interface PropertyConstraint extends Constraint
      * @param mixed       $parameter
      * @param string|null $pointer
      *
-     * @return \Yuloh\JsonGuard\ValidationError|null
+     * @return \League\JsonGuard\ValidationError|null
      */
     public static function validate($value, $parameter, $pointer = null);
 }

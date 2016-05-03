@@ -1,15 +1,15 @@
 <?php
 
-namespace Yuloh\JsonGuard\Test;
+namespace League\JsonGuard\Test;
 
-use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\Dereferencer;
-use Yuloh\JsonGuard\Exceptions\MaximumDepthExceededException;
-use Yuloh\JsonGuard\FormatExtension;
-use Yuloh\JsonGuard\ErrorCode;
-use Yuloh\JsonGuard\Loaders\ArrayLoader;
-use Yuloh\JsonGuard\Loaders\CurlWebLoader;
-use Yuloh\JsonGuard\Validator;
+use League\JsonGuard;
+use League\JsonGuard\Dereferencer;
+use League\JsonGuard\ErrorCode;
+use League\JsonGuard\Exceptions\MaximumDepthExceededException;
+use League\JsonGuard\FormatExtension;
+use League\JsonGuard\Loaders\ArrayLoader;
+use League\JsonGuard\Loaders\CurlWebLoader;
+use League\JsonGuard\Validator;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -58,7 +58,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
      * schema from memory, but defer any other http(s) calls to the Curl loader.  This allows
      * us to run tests without requiring the json-schema.org website to be available.
      *
-     * @return \Yuloh\JsonGuard\Dereferencer
+     * @return \League\JsonGuard\Dereferencer
      */
     private static function createDereferencer()
     {

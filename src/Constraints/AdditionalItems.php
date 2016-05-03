@@ -1,10 +1,10 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard\ErrorCode;
-use Yuloh\JsonGuard\SubSchemaValidatorFactory;
-use Yuloh\JsonGuard\ValidationError;
+use League\JsonGuard\ErrorCode;
+use League\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\ValidationError;
 
 class AdditionalItems implements ParentSchemaAwareContainerInstanceConstraint
 {
@@ -53,10 +53,10 @@ class AdditionalItems implements ParentSchemaAwareContainerInstanceConstraint
     }
 
     /**
-     * @param array                                      $items
-     * @param object                                     $schema
-     * @param \Yuloh\JsonGuard\SubSchemaValidatorFactory $validatorFactory
-     * @param string                                     $pointer
+     * @param array                                       $items
+     * @param object                                      $schema
+     * @param \League\JsonGuard\SubSchemaValidatorFactory $validatorFactory
+     * @param string                                      $pointer
      *
      * @return array
      */
@@ -81,7 +81,7 @@ class AdditionalItems implements ParentSchemaAwareContainerInstanceConstraint
      * @param array $items
      * @param $pointer
      *
-     * @return \Yuloh\JsonGuard\ValidationError
+     * @return \League\JsonGuard\ValidationError
      */
     private static function validateAdditionalItemsWhenNotAllowed($data, $items, $pointer)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard;
+namespace League\JsonGuard;
 
 /**
  * A Reference object represents an internal $ref in a JSON object.

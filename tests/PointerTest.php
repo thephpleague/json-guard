@@ -1,8 +1,8 @@
 <?php
 
-namespace Yuloh\JsonGuard\Test;
+namespace League\JsonGuard\Test;
 
-use Yuloh\JsonGuard\Pointer;
+use League\JsonGuard\Pointer;
 
 class PointerTest extends \PHPUnit_Framework_TestCase
 {

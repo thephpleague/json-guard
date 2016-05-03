@@ -1,9 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard\Test;
+namespace League\JsonGuard\Test;
 
-use Yuloh\JsonGuard\Dereferencer;
-use Yuloh\JsonGuard\Loaders\ArrayLoader;
+use League\JsonGuard\Dereferencer;
+use League\JsonGuard\Loaders\ArrayLoader;
 
 class DereferencerTest extends \PHPUnit_Framework_TestCase
 {

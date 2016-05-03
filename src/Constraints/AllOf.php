@@ -1,8 +1,8 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\SubSchemaValidatorFactory;
 
 class AllOf implements ContainerInstanceConstraint
 {

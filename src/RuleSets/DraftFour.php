@@ -1,35 +1,35 @@
 <?php
 
-namespace Yuloh\JsonGuard\RuleSets;
+namespace League\JsonGuard\RuleSets;
 
-use Yuloh\JsonGuard\Constraints\AdditionalItems;
-use Yuloh\JsonGuard\Constraints\AdditionalProperties;
-use Yuloh\JsonGuard\Constraints\AllOf;
-use Yuloh\JsonGuard\Constraints\AnyOf;
-use Yuloh\JsonGuard\Constraints\Dependencies;
-use Yuloh\JsonGuard\Constraints\Enum;
-use Yuloh\JsonGuard\Constraints\ExclusiveMax;
-use Yuloh\JsonGuard\Constraints\ExclusiveMin;
-use Yuloh\JsonGuard\Constraints\Format;
-use Yuloh\JsonGuard\Constraints\Items;
-use Yuloh\JsonGuard\Constraints\Max;
-use Yuloh\JsonGuard\Constraints\MaxItems;
-use Yuloh\JsonGuard\Constraints\MaxLength;
-use Yuloh\JsonGuard\Constraints\MaxProperties;
-use Yuloh\JsonGuard\Constraints\Min;
-use Yuloh\JsonGuard\Constraints\MinItems;
-use Yuloh\JsonGuard\Constraints\MinLength;
-use Yuloh\JsonGuard\Constraints\MinProperties;
-use Yuloh\JsonGuard\Constraints\MultipleOf;
-use Yuloh\JsonGuard\Constraints\Not;
-use Yuloh\JsonGuard\Constraints\OneOf;
-use Yuloh\JsonGuard\Constraints\Pattern;
-use Yuloh\JsonGuard\Constraints\PatternProperties;
-use Yuloh\JsonGuard\Constraints\Properties;
-use Yuloh\JsonGuard\Constraints\Required;
-use Yuloh\JsonGuard\Constraints\Type;
-use Yuloh\JsonGuard\Constraints\UniqueItems;
-use Yuloh\JsonGuard\RuleSet;
+use League\JsonGuard\Constraints\AdditionalItems;
+use League\JsonGuard\Constraints\AdditionalProperties;
+use League\JsonGuard\Constraints\AllOf;
+use League\JsonGuard\Constraints\AnyOf;
+use League\JsonGuard\Constraints\Dependencies;
+use League\JsonGuard\Constraints\Enum;
+use League\JsonGuard\Constraints\ExclusiveMax;
+use League\JsonGuard\Constraints\ExclusiveMin;
+use League\JsonGuard\Constraints\Format;
+use League\JsonGuard\Constraints\Items;
+use League\JsonGuard\Constraints\Max;
+use League\JsonGuard\Constraints\MaxItems;
+use League\JsonGuard\Constraints\MaxLength;
+use League\JsonGuard\Constraints\MaxProperties;
+use League\JsonGuard\Constraints\Min;
+use League\JsonGuard\Constraints\MinItems;
+use League\JsonGuard\Constraints\MinLength;
+use League\JsonGuard\Constraints\MinProperties;
+use League\JsonGuard\Constraints\MultipleOf;
+use League\JsonGuard\Constraints\Not;
+use League\JsonGuard\Constraints\OneOf;
+use League\JsonGuard\Constraints\Pattern;
+use League\JsonGuard\Constraints\PatternProperties;
+use League\JsonGuard\Constraints\Properties;
+use League\JsonGuard\Constraints\Required;
+use League\JsonGuard\Constraints\Type;
+use League\JsonGuard\Constraints\UniqueItems;
+use League\JsonGuard\RuleSet;
 
 /**
  * The default rule set for JSON Schema Draft 4.
@@ -82,7 +82,7 @@ class DraftFour implements RuleSet
      *
      * @param string $rule
      *
-     * @return \Yuloh\JsonGuard\Constraints\Constraint|null
+     * @return \League\JsonGuard\Constraints\Constraint|null
      */
     public function getConstraint($rule)
     {

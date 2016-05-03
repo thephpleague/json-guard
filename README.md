@@ -66,15 +66,15 @@ If you discover any security related issues, please email matthew.james.allan@gm
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[link-travis]: https://travis-ci.org/yuloh/json-guard
-[link-scrutinizer]: https://scrutinizer-ci.com/g/yuloh/json-guard/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/yuloh/json-guard
-[link-docs]: http://yuloh.github.io/json-guard
-[link-author]: https://github.com/yuloh
+[link-travis]: https://travis-ci.org/thephpleague/json-guard
+[link-scrutinizer]: https://scrutinizer-ci.com/g/thephpleague/json-guard/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/thephpleague/json-guard
+[link-docs]: https://github.com/thephpleague/json-guard/tree/gh-pages
+[link-author]: https://github.com/thephpleague
 [link-contributors]: ../../contributors
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/yuloh/json-guard/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/yuloh/json-guard.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/yuloh/json-guard.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/thephpleague/json-guard/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/thephpleague/json-guard.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/thephpleague/json-guard.svg?style=flat-square
 [ico-docs]: https://img.shields.io/badge/Docs-Latest-brightgreen.svg?style=flat-square

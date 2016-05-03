@@ -1,8 +1,8 @@
 <?php
 
-namespace Yuloh\JsonGuard\Test;
+namespace League\JsonGuard\Test;
 
-use Yuloh\JsonGuard\Loaders\ArrayLoader;
+use League\JsonGuard\Loaders\ArrayLoader;
 
 class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,14 +20,14 @@ class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadThrowsWhenNotFound()
     {
-        $this->setExpectedException('Yuloh\JsonGuard\Exceptions\SchemaLoadingException');
+        $this->setExpectedException('League\JsonGuard\Exceptions\SchemaLoadingException');
         $loader = new ArrayLoader([]);
         $loader->load('missing/path');
     }
 
     public function testLoadThrowsWhenSchemaIsInvalidType()
     {
-        $this->setExpectedException('Yuloh\JsonGuard\Exceptions\SchemaLoadingException');
+        $this->setExpectedException('League\JsonGuard\Exceptions\SchemaLoadingException');
         $loader = new ArrayLoader([
             'bad/type' => []
         ]);

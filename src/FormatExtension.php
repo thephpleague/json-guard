@@ -1,6 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard;
+namespace League\JsonGuard;
 
 interface FormatExtension
 {

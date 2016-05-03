@@ -1,6 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard;
+namespace League\JsonGuard;
 
 interface RuleSet
 {
@@ -18,7 +18,7 @@ interface RuleSet
      *
      * @param string $rule
      *
-     * @return \Yuloh\JsonGuard\Constraints\Constraint|null
+     * @return \League\JsonGuard\Constraints\Constraint|null
      */
     public function getConstraint($rule);
 }

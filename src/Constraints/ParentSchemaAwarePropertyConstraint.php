@@ -1,8 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
-
-use Yuloh\JsonGuard\ValidationError;
+namespace League\JsonGuard\Constraints;
 
 /**
  * This interface describes a property constraint that needs to check the parent schema
@@ -18,7 +16,7 @@ interface ParentSchemaAwarePropertyConstraint extends Constraint
      * @param mixed       $parameter
      * @param string|null $pointer
      *
-     * @return \Yuloh\JsonGuard\ValidationError|null
+     * @return \League\JsonGuard\ValidationError|null
      */
     public static function validate($value, $schema, $parameter, $pointer = null);
 }

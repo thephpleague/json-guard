@@ -1,11 +1,11 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\ErrorCode;
-use Yuloh\JsonGuard\SubSchemaValidatorFactory;
-use Yuloh\JsonGuard\ValidationError;
+use League\JsonGuard;
+use League\JsonGuard\ErrorCode;
+use League\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\ValidationError;
 
 class Dependencies implements ContainerInstanceConstraint
 {
@@ -58,10 +58,10 @@ class Dependencies implements ContainerInstanceConstraint
     }
 
     /**
-     * @param object                                     $data
-     * @param object                                     $dependencies
-     * @param \Yuloh\JsonGuard\SubSchemaValidatorFactory $validatorFactory
-     * @param string                                     $pointer
+     * @param object                                      $data
+     * @param object                                      $dependencies
+     * @param \League\JsonGuard\SubSchemaValidatorFactory $validatorFactory
+     * @param string                                      $pointer
      *
      * @return array
      */

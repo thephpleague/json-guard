@@ -1,14 +1,14 @@
 <?php
 
-namespace Yuloh\JsonGuard;
+namespace League\JsonGuard;
 
-use Yuloh\JsonGuard\Constraints\ContainerInstanceConstraint;
-use Yuloh\JsonGuard\Constraints\Constraint;
-use Yuloh\JsonGuard\Constraints\ParentSchemaAwareContainerInstanceConstraint;
-use Yuloh\JsonGuard\Constraints\ParentSchemaAwarePropertyConstraint;
-use Yuloh\JsonGuard\Constraints\PropertyConstraint;
-use Yuloh\JsonGuard\Exceptions\MaximumDepthExceededException;
-use Yuloh\JsonGuard\RuleSets\DraftFour;
+use League\JsonGuard\Constraints\Constraint;
+use League\JsonGuard\Constraints\ContainerInstanceConstraint;
+use League\JsonGuard\Constraints\ParentSchemaAwareContainerInstanceConstraint;
+use League\JsonGuard\Constraints\ParentSchemaAwarePropertyConstraint;
+use League\JsonGuard\Constraints\PropertyConstraint;
+use League\JsonGuard\Exceptions\MaximumDepthExceededException;
+use League\JsonGuard\RuleSets\DraftFour;
 
 class Validator implements SubSchemaValidatorFactory
 {
@@ -48,12 +48,12 @@ class Validator implements SubSchemaValidatorFactory
     private $depth = 0;
 
     /**
-     * @var \Yuloh\JsonGuard\FormatExtension[]
+     * @var \League\JsonGuard\FormatExtension[]
      */
     private $formatExtensions = [];
 
     /**
-     * @var \Yuloh\JsonGuard\RuleSet
+     * @var \League\JsonGuard\RuleSet
      */
     private $ruleSet;
 
@@ -211,7 +211,7 @@ class Validator implements SubSchemaValidatorFactory
      * structure from causing the validator to continue
      * validating for an incredibly long time.
      *
-     * @throws \Yuloh\JsonGuard\Exceptions\MaximumDepthExceededException
+     * @throws \League\JsonGuard\Exceptions\MaximumDepthExceededException
      */
     private function checkDepth()
     {
@@ -245,10 +245,10 @@ class Validator implements SubSchemaValidatorFactory
     /**
      * Invoke the given constraint and return the validation errors.
      *
-     * @param \Yuloh\JsonGuard\Constraints\Constraint $constraint
-     * @param mixed $parameter
+     * @param \League\JsonGuard\Constraints\Constraint $constraint
+     * @param mixed                                    $parameter
      *
-     * @return \Yuloh\JsonGuard\ValidationError|\Yuloh\JsonGuard\ValidationError[]|null
+     * @return \League\JsonGuard\ValidationError|\League\JsonGuard\ValidationError[]|null
      */
     private function invokeConstraint(Constraint $constraint, $parameter)
     {

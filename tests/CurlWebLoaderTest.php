@@ -1,9 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard\Test;
+namespace League\JsonGuard\Test;
 
-use Yuloh\JsonGuard\Exceptions\SchemaLoadingException;
-use Yuloh\JsonGuard\Loaders\CurlWebLoader;
+use League\JsonGuard\Exceptions\SchemaLoadingException;
+use League\JsonGuard\Loaders\CurlWebLoader;
 
 class CurlWebLoaderTest extends \PHPUnit_Framework_TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Yuloh\JsonGuard\Pointer;
+namespace League\JsonGuard\Pointer;
 
 class InvalidPointerException extends \InvalidArgumentException
 {

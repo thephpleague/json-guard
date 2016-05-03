@@ -1,15 +1,15 @@
 {
-    "name": "yuloh/json-guard",
+    "name": "league/json-guard",
     "type": "library",
     "description": "A validator for JSON using json-schema.",
     "keywords": [
-        "Machete",
         "Validation",
         "json",
         "schema",
+        "json-schema",
         "json-schema.org"
     ],
-    "homepage": "https://github.com/yuloh/json-guard",
+    "homepage": "https://github.com/thephpleague/json-guard",
     "license": "MIT",
     "authors": [
         {
@@ -47,7 +47,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Yuloh\\JsonGuard\\": "src"
+            "League\\JsonGuard\\": "src"
         },
         "files": [
             "src/functions.php"
@@ -55,7 +55,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Yuloh\\JsonGuard\\Test\\": "tests"
+            "League\\JsonGuard\\Test\\": "tests"
         },
         "files": [
             "tests/helpers.php"

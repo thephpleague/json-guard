@@ -1,9 +1,9 @@
 <?php
 
-namespace Yuloh\JsonGuard\Constraints;
+namespace League\JsonGuard\Constraints;
 
-use Yuloh\JsonGuard;
-use Yuloh\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard;
+use League\JsonGuard\SubSchemaValidatorFactory;
 
 class PatternProperties implements ContainerInstanceConstraint
 {

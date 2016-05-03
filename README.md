@@ -69,7 +69,7 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-travis]: https://travis-ci.org/thephpleague/json-guard
 [link-scrutinizer]: https://scrutinizer-ci.com/g/thephpleague/json-guard/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/thephpleague/json-guard
-[link-docs]: https://github.com/thephpleague/json-guard/tree/gh-pages
+[link-docs]: http://json-guard.thephpleague.com/
 [link-author]: https://github.com/thephpleague
 [link-contributors]: ../../contributors
 

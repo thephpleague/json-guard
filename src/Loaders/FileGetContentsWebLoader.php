@@ -34,7 +34,7 @@ class FileGetContentsWebLoader implements Loader
         restore_error_handler();
 
         if (!$response) {
-            throw new SchemaLoadingException($uri);
+            throw SchemaLoadingException::create($uri);
         }
 
         return JsonGuard\json_decode($response);

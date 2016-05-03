@@ -7,6 +7,8 @@ use Yuloh\JsonGuard\Dereferencer;
 use Yuloh\JsonGuard\Exceptions\MaximumDepthExceededException;
 use Yuloh\JsonGuard\FormatExtension;
 use Yuloh\JsonGuard\ErrorCode;
+use Yuloh\JsonGuard\Loaders\ArrayLoader;
+use Yuloh\JsonGuard\Loaders\CurlWebLoader;
 use Yuloh\JsonGuard\Validator;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
@@ -36,7 +38,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         foreach ($test as $testCase) {
             $schema      = $testCase->schema;
             $description = $testCase->description;
-            $refResolver = new Dereferencer();
+            $refResolver = self::createDereferencer();
             $schema      = $refResolver->dereference($schema);
 
             foreach ($testCase->tests as $test) {
@@ -49,6 +51,33 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
                 }
             }
         }
+    }
+
+    /**
+     * This method creates a dereferencer that will load the json-schema.org/draft-04/schema
+     * schema from memory, but defer any other http(s) calls to the Curl loader.  This allows
+     * us to run tests without requiring the json-schema.org website to be available.
+     *
+     * @return \Yuloh\JsonGuard\Dereferencer
+     */
+    private static function createDereferencer()
+    {
+        $arrayLoader = new ArrayLoader(
+            ['json-schema.org/draft-04/schema#' => file_get_contents(__DIR__ . '/fixtures/draft4-schema.json')]
+        );
+        $httpsLoader = new JsonGuard\Loaders\ChainableLoader(
+            $arrayLoader,
+            new CurlWebLoader('https://')
+        );
+        $httpLoader = new JsonGuard\Loaders\ChainableLoader(
+            $arrayLoader,
+            new CurlWebLoader('http://')
+        );
+        $refResolver  = new Dereferencer();
+        $refResolver->registerLoader($httpLoader, 'http');
+        $refResolver->registerLoader($httpsLoader, 'https');
+
+        return $refResolver;
     }
 
     public function testErrorMessages()

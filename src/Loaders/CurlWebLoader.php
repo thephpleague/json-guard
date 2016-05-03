@@ -39,7 +39,7 @@ class CurlWebLoader implements Loader
         curl_close($ch);
 
         if ($statusCode === 404 || !$response) {
-            throw new JsonGuard\Exceptions\SchemaLoadingException($uri);
+            throw JsonGuard\Exceptions\SchemaLoadingException::create($uri);
         }
 
         return JsonGuard\json_decode($response);

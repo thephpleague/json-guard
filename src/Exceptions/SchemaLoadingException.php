@@ -4,10 +4,9 @@ namespace Yuloh\JsonGuard\Exceptions;
 
 class SchemaLoadingException extends \RuntimeException
 {
-    public function __construct($path)
+    public static function create($path)
     {
-        $message = sprintf('The schema "%s" could not be loaded.', $path);
-        parent::__construct($message);
+        return new static(sprintf('The schema "%s" could not be loaded.', $path));
     }
 
     public static function notFound($path)

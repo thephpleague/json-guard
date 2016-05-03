@@ -3,6 +3,7 @@
 namespace Yuloh\JsonGuard\Test;
 
 use Yuloh\JsonGuard\Dereferencer;
+use Yuloh\JsonGuard\Loaders\ArrayLoader;
 
 class DereferencerTest extends \PHPUnit_Framework_TestCase
 {
@@ -18,9 +19,13 @@ class DereferencerTest extends \PHPUnit_Framework_TestCase
 
     public function testRemote()
     {
+        $loader = new ArrayLoader(
+            ['json-schema.org/draft-04/schema#' => file_get_contents(__DIR__ . '/fixtures/draft4-schema.json')]
+        );
         $deref  = new Dereferencer();
-        $path   = 'http://json-schema.org/draft-04/schema#';
-        $result = $deref->dereference($path);
+        $deref->registerLoader($loader, 'http');
+        $deref->registerLoader($loader, 'https');
+        $result = $deref->dereference('http://json-schema.org/draft-04/schema#');
         $this->assertSame($result->definitions->positiveIntegerDefault0, $result->properties->minItems->resolve());
     }
 

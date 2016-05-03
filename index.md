@@ -22,7 +22,7 @@ This package lets you validate JSON data using [json schema](http://json-schema.
 - Really helpful error messages, with error codes and JSON pointers to the failing data.
 
 [link-source]: https://github.com/thephpleague/json-guard
-[link-author]: https://twitter.com/yuloh
+[link-author]: https://twitter.com/__yuloh
 [link-license]: https://github.com/thephpleague/json-guard/blob/master/LICENSE.md
 [link-travis]: https://travis-ci.org/thephpleague/json-guard
 [link-scrutinizer]: https://scrutinizer-ci.com/g/thephpleague/json-guard/code-structure
@@ -30,7 +30,7 @@ This package lets you validate JSON data using [json schema](http://json-schema.
 [link-docs]: https://github.com/thephpleague/json-guard/tree/gh-pages
 
 [ico-source]: http://img.shields.io/badge/source-league/json--guard-blue.svg?style=flat-square
-[ico-author]: http://img.shields.io/badge/author-@yuloh-blue.svg?style=flat-square
+[ico-author]: http://img.shields.io/badge/author-@__yuloh-blue.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/thephpleague/json-guard/master.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/thephpleague/json-guard.svg?style=flat-square

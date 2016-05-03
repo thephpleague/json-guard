@@ -23,7 +23,7 @@ Notable Features:
 
 Complete documentation is available [here](link-docs).
 
-Pull requests for documentation should be sent to the [gh-pages branch](https://github.com/yuloh/json-guard/tree/gh-pages).
+Pull requests for documentation should be sent to the [gh-pages branch](https://github.com/thephpleague/json-guard/tree/gh-pages).
 
 ## Change log
 

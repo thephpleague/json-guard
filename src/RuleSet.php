@@ -18,7 +18,8 @@ interface RuleSet
      *
      * @param string $rule
      *
-     * @return \League\JsonGuard\Constraints\Constraint|null
+     * @return \League\JsonGuard\Constraints\Constraint
+     * @throws \League\JsonGuard\Exceptions\ConstraintNotFoundException
      */
     public function getConstraint($rule);
 }

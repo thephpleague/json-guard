@@ -8,8 +8,6 @@ use League\JsonGuard\Constraints\AllOf;
 use League\JsonGuard\Constraints\AnyOf;
 use League\JsonGuard\Constraints\Dependencies;
 use League\JsonGuard\Constraints\Enum;
-use League\JsonGuard\Constraints\ExclusiveMax;
-use League\JsonGuard\Constraints\ExclusiveMin;
 use League\JsonGuard\Constraints\Format;
 use League\JsonGuard\Constraints\Items;
 use League\JsonGuard\Constraints\Max;
@@ -29,6 +27,7 @@ use League\JsonGuard\Constraints\Properties;
 use League\JsonGuard\Constraints\Required;
 use League\JsonGuard\Constraints\Type;
 use League\JsonGuard\Constraints\UniqueItems;
+use League\JsonGuard\Exceptions\ConstraintNotFoundException;
 use League\JsonGuard\RuleSet;
 
 /**
@@ -66,11 +65,7 @@ class DraftFour implements RuleSet
     ];
 
     /**
-     * Determine if the rule set has a registered constraint for $rule.
-     *
-     * @param string $rule
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function has($rule)
     {
@@ -78,16 +73,12 @@ class DraftFour implements RuleSet
     }
 
     /**
-     * Get the registered constraint for $rule.
-     *
-     * @param string $rule
-     *
-     * @return \League\JsonGuard\Constraints\Constraint|null
+     * {@inheritdoc}
      */
     public function getConstraint($rule)
     {
         if (!$this->has($rule)) {
-            return null;
+            return ConstraintNotFoundException::forRule($rule);
         }
 
         return new $this->rules[$rule];

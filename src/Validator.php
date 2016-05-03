@@ -38,7 +38,7 @@ class Validator implements SubSchemaValidatorFactory
      *
      * @var int
      */
-    private $maxDepth = 10;
+    private $maxDepth = 50;
 
     /**
      * The depth the validator has reached in the data.

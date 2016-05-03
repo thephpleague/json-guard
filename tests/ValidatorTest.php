@@ -123,6 +123,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $data = json_decode(file_get_contents(__DIR__ . '/fixtures/stack-attack.json'));
 
         $v = new Validator($data, $schema);
+        $v->setMaxDepth(10);
         $v->passes();
     }
 

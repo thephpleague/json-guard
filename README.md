@@ -17,7 +17,11 @@ Notable Features:
 
 ## Install
 
-** This package is a WIP so you will need to install manually; it isn't on packagist.**
+### Via Composer
+
+```bash
+composer require league/json-guard
+```
 
 ## Usage
 

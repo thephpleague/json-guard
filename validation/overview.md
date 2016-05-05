@@ -67,4 +67,4 @@ This means a payload like this with a cooresponding schema could cause the valid
 
 To prevent this, the validator has a `maxDepth`.  If the max depth is exceeded, the validator will throw a `MaximumDepthExceededException`.
 
-The default depth is 10.  If you find it necessary to validate recursive structures deeper than this, you can use the `setMaxDepth` method to set a higher limit.
+The default depth is 50.  If you find it necessary to validate recursive structures deeper than this, you can use the `setMaxDepth` method to set a higher limit.

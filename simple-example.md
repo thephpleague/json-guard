@@ -17,12 +17,12 @@ Once the validator is created you can call `$validator->passes()` or `$validator
 ```php
 <?php
 
-$deref  = new Yuloh\JsonGuard\Dereferencer();
+$deref  = new League\JsonGuard\Dereferencer();
 $schema = $deref->dereference('http://json-schema.org/draft-04/schema#');
 
 $data = json_decode('{ "id": "json-guard.dev/schema#" }');
 
-$validator = new Yuloh\JsonGuard\Validator($data, $schema);
+$validator = new League\JsonGuard\Validator($data, $schema);
 
 if ($validator->fails()) {
     $errors = $validator->errors();

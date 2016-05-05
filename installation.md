@@ -15,5 +15,5 @@ You need PHP >= 5.5.0 to use this package but the latest stable version of PHP i
 This package is installed using [Composer](https://getcomposer.org/):
 
 ```bash
-$ composer require yuloh/json-guard
+$ composer require league/json-guard
 ```

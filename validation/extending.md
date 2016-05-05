@@ -10,7 +10,7 @@ You may need to validate JSON with constraints beyond what is defined in Draft4 
 
 ## Rulesets
 
-Internally JSON Guard uses [rule sets](https://github.com/yuloh/json-guard/blob/master/src/RuleSet.php), which are composed of [constraints](https://github.com/yuloh/json-guard/tree/master/src/Constraints).  By default the Draft4 rule set is used, which cooresponds to Draft 4 of the JSON Schema specification.  You can easily provide your own ruleset by passing it as a constructor parameter.
+Internally JSON Guard uses [rule sets](https://github.com/league/json-guard/blob/master/src/RuleSet.php), which are composed of [constraints](https://github.com/league/json-guard/tree/master/src/Constraints).  By default the Draft4 rule set is used, which cooresponds to Draft 4 of the JSON Schema specification.  You can easily provide your own ruleset by passing it as a constructor parameter.
 
 ```php
 <?php

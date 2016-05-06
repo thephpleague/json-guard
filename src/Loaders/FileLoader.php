@@ -17,6 +17,6 @@ class FileLoader implements Loader
             throw SchemaLoadingException::notFound($path);
         }
 
-        return JsonGuard\json_decode(file_get_contents($path));
+        return JsonGuard\json_decode(file_get_contents($path), false, 512, JSON_BIGINT_AS_STRING);
     }
 }

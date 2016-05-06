@@ -42,7 +42,7 @@ class CurlWebLoader implements Loader
             throw JsonGuard\Exceptions\SchemaLoadingException::create($uri);
         }
 
-        return JsonGuard\json_decode($response);
+        return JsonGuard\json_decode($response, false, 512, JSON_BIGINT_AS_STRING);
     }
 
     /**

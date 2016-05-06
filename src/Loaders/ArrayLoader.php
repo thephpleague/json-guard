@@ -34,7 +34,7 @@ class ArrayLoader implements Loader
         $schema = $this->schemas[$path];
 
         if (is_string($schema)) {
-            return JsonGuard\json_decode($schema);
+            return JsonGuard\json_decode($schema, false, 512, JSON_BIGINT_AS_STRING);
         } elseif (is_object($schema)) {
             return $schema;
         } else {

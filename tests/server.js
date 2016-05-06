@@ -4,14 +4,14 @@ var http = require('http');
 var remotes = {
     "folder/folderInteger.json": {
         "type": "integer"
-    }, 
+    },
     "integer.json": {
         "type": "integer"
-    }, 
+    },
     "subSchemas.json": {
         "integer": {
             "type": "integer"
-        }, 
+        },
         "refToInteger": {
             "$ref": "#/integer"
         }
@@ -30,8 +30,8 @@ http.createServer(function (req, res) {
 		res.writeHead(404, {'Content-Type': 'text/plain'});
 		res.end('');
 	} else {
-		res.writeHead(200, {'Content-Type': 'application/json'});
-		res.end(JSON.stringify(data));		
+		res.writeHead(200, {'Content-Type': 'application/schema+json'});
+		res.end(JSON.stringify(data));
 	}
 
 

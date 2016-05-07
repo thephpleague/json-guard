@@ -9,5 +9,6 @@
   "k\"l": 6,
   " ": 7,
   "m~n": 8,
+  "/paths": 9,
   "nested": [{"type": "string"}, {"type": "integer"}]
 }

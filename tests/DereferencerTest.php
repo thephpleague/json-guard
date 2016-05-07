@@ -76,4 +76,13 @@ class DereferencerTest extends \PHPUnit_Framework_TestCase
         $result = $deref->dereference($path);
         $this->assertSame($result->items[0], $result->items[1]->resolve());
     }
+
+    public function testReferenceInPropertyThatBeginsWithSlash()
+    {
+        $deref  = new Dereferencer();
+        $path   = 'file://' . __DIR__ . '/fixtures/slash-property.json';
+        $result = $deref->dereference($path);
+        $slashProperty = '/slash-item';
+        $this->assertSame($result->$slashProperty->key, $result->item->key);
+    }
 }

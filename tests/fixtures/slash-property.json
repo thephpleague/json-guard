@@ -1,0 +1,6 @@
+{
+  "item": {
+    "key": "value"
+  },
+  "/slash-item": {"$ref": "#/item"}
+}

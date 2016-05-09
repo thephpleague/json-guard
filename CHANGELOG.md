@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Fixed
+
+* The type constraint was failing for string checks if the bcmath extension wasn't installed.  It now passes if the value is a string and bcmath isn't installed.
+
 ### Changed
 
 * The `ErrorCode` constants class is now marked as final.

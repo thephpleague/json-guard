@@ -46,14 +46,16 @@ class Type implements PropertyConstraint
                     $type,
                     function ($value) {
                         if (is_string($value)) {
+                            if (!function_exists('bccomp')) {
+                                return true;
+                            }
+
                             // Make sure the string isn't actually a number that was too large
                             // to be cast to an int on this platform.  This is only possible
                             // if the bcmath extension is loaded, and will only happen if
                             // you decode JSON with the JSON_BIGINT_AS_STRING option.
-                            if (function_exists('bccomp')) {
-                                if (!(ctype_digit($value) && bccomp($value, PHP_INT_MAX, 0) === 1)) {
-                                    return true;
-                                }
+                            if (!(ctype_digit($value) && bccomp($value, PHP_INT_MAX, 0) === 1)) {
+                                return true;
                             }
                         }
 

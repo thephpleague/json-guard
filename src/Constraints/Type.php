@@ -82,7 +82,7 @@ class Type implements PropertyConstraint
             return null;
         }
 
-        $message = sprintf('Value "%s" is not %s.', JsonGuard\asString($value), $type);
+        $message = sprintf('Value "%s" is not a(n) %s.', JsonGuard\asString($value), $type);
 
         return new ValidationError($message, $errorCode, $value, $pointer);
     }

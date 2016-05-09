@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Changed
+
+* The `ErrorCode` constants class is now marked as final.
+
 ## 0.2.1 - 2016-05-08
 
 ### Changed

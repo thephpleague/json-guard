@@ -2,7 +2,7 @@
 
 namespace League\JsonGuard;
 
-class ErrorCode
+final class ErrorCode
 {
     const INVALID_NUMERIC         = 22;
     const INVALID_NULL            = 23;

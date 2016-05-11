@@ -8,6 +8,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 * The type constraint was failing for string checks if the bcmath extension wasn't installed.  It now passes if the value is a string and bcmath isn't installed.
+* Pointers are now correctly escaped for error messages.
+* The JSON Pointer now properly handles setting a new element in arrays.
 
 ### Changed
 

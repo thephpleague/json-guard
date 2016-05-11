@@ -52,6 +52,15 @@ class PointerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('oranges', $document->foo[0]);
     }
 
+    public function testSetNewElementInArray()
+    {
+        $document = $this->getDocument();
+        $pointer = new Pointer($document);
+
+        $pointer->set('/foo/-', 'bam');
+        $this->assertSame('bam', $document->foo[2]);
+    }
+
     public function testSetInPathInsideArray()
     {
         // /properties/type/anyOf/1/items

@@ -85,7 +85,11 @@ class Pointer
         }
 
         if (is_array($target)) {
-            $target[$replace] = $data;
+            if ($replace === '-') {
+                $target[] = $data;
+            } else {
+                $target[$replace] = $data;
+            }
         } elseif (is_object($target)) {
             $target->$replace = $data;
         } else {
@@ -122,8 +126,7 @@ class Pointer
             return $this->traverse($json->$reference, $pointer);
         } elseif (is_array($json)) {
             if ($reference === '-') {
-                // I guess we are done.
-                return end($json);
+                return $json;
             }
             if (!array_key_exists($reference, $json)) {
                 throw InvalidPointerException::nonexistentValue($reference);

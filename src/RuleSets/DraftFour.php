@@ -78,7 +78,7 @@ class DraftFour implements RuleSet
     public function getConstraint($rule)
     {
         if (!$this->has($rule)) {
-            return ConstraintNotFoundException::forRule($rule);
+            throw ConstraintNotFoundException::forRule($rule);
         }
 
         return new $this->rules[$rule];

@@ -3,12 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.3.0 - 2016-05-11
 
 ### Fixed
 
 * The type constraint was failing for string checks if the bcmath extension wasn't installed.  It now passes if the value is a string and bcmath isn't installed.
-* Pointers are now correctly escaped for error messages.
+* Pointers are now escaped for error messages.
 * The JSON Pointer now properly handles setting a new element in arrays.
 * Fixed a bug where the DraftFour rule set was not throwing an exception when trying to get a missing rule.
 

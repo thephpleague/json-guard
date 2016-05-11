@@ -8,7 +8,7 @@ title: Installation
 
 ## System Requirements
 
-You need PHP >= 5.5.0 to use this package but the latest stable version of PHP is recommended.
+You need PHP >= 5.6.0 to use this package but the latest stable version of PHP is recommended.
 
 ## Composer
 

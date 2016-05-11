@@ -4,7 +4,7 @@ namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
-use function League\JsonGuard\asString;
+use function League\JsonGuard\as_string;
 
 class Enum implements PropertyConstraint
 {
@@ -23,8 +23,8 @@ class Enum implements PropertyConstraint
 
         $message = sprintf(
             'Value "%s" is not one of: %s',
-            asString($value),
-            implode(', ', array_map('League\JsonGuard\asString', $parameter))
+            as_string($value),
+            implode(', ', array_map('League\JsonGuard\as_string', $parameter))
         );
         return new ValidationError($message, ErrorCode::INVALID_ENUM, $value, $pointer, ['choices' => $parameter]);
     }

@@ -3,7 +3,7 @@
 namespace League\JsonGuard\Constraints;
 
 use function League\JsonGuard\strlen;
-use function League\JsonGuard\asString;
+use function League\JsonGuard\as_string;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -18,7 +18,7 @@ class MinLength implements PropertyConstraint
             return null;
         }
 
-        $message = sprintf('String is not at least "%s" characters long', asString($parameter));
+        $message = sprintf('String is not at least "%s" characters long', as_string($parameter));
 
         return new ValidationError(
             $message,

@@ -3,7 +3,7 @@
 namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard;
-use function League\JsonGuard\asString;
+use function League\JsonGuard\as_string;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -18,7 +18,7 @@ class MaxItems implements PropertyConstraint
             return null;
         }
 
-        $message = sprintf('Array does not contain less than "%d" items', asString($parameter));
+        $message = sprintf('Array does not contain less than "%d" items', as_string($parameter));
         return new ValidationError(
             $message,
             ErrorCode::MAX_ITEMS_EXCEEDED,

@@ -202,7 +202,7 @@ class Dereferencer
      */
     private function pathPush($path, $segment)
     {
-        return $path . '/' . escapePointer($segment);
+        return $path . '/' . escape_pointer($segment);
     }
 
     /**

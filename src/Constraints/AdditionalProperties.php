@@ -69,7 +69,7 @@ class AdditionalProperties implements ParentSchemaAwareContainerInstanceConstrai
         // The diff doesn't account for patternProperties, so lets filter those out too.
         if (property_exists($schema, 'patternProperties')) {
             foreach ($schema->patternProperties as $property => $schema) {
-                $matches = JsonGuard\propertiesMatchingPattern($property, $diff);
+                $matches = JsonGuard\properties_matching_pattern($property, $diff);
                 $diff    = array_diff($diff, $matches);
             }
 

@@ -2,7 +2,7 @@
 
 namespace League\JsonGuard\Constraints;
 
-use function League\JsonGuard\asString;
+use function League\JsonGuard\as_string;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -17,7 +17,7 @@ class MinProperties implements PropertyConstraint
             return null;
         }
 
-        $message = sprintf('Object does not contain at least "%d" properties', asString($min));
+        $message = sprintf('Object does not contain at least "%d" properties', as_string($min));
         return new ValidationError(
             $message,
             ErrorCode::INVALID_MIN_COUNT,

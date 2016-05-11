@@ -44,7 +44,7 @@ function strlen($string)
  * @param mixed $value
  * @return string
  */
-function asString($value)
+function as_string($value)
 {
     if (is_string($value)) {
         return $value;
@@ -84,14 +84,14 @@ function asString($value)
  * @param array|object $data
  * @return array
  */
-function propertiesMatchingPattern($pattern, $data)
+function properties_matching_pattern($pattern, $data)
 {
     // If an object is supplied, extract an array of the property names.
     if (is_object($data)) {
         $data = array_keys(get_object_vars($data));
     }
 
-    return preg_grep(delimitPattern($pattern), $data);
+    return preg_grep(delimit_pattern($pattern), $data);
 }
 
 /**
@@ -108,7 +108,7 @@ function propertiesMatchingPattern($pattern, $data)
  *
  * @return string
  */
-function delimitPattern($pattern)
+function delimit_pattern($pattern)
 {
     return '/' . str_replace('/', '\\/', $pattern) . '/';
 }
@@ -119,7 +119,7 @@ function delimitPattern($pattern)
  * @param  string $pointer
  * @return string
  */
-function escapePointer($pointer)
+function escape_pointer($pointer)
 {
     $pointer = str_replace('~', '~0', $pointer);
     return str_replace('/', '~1', $pointer);

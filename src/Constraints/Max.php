@@ -2,7 +2,7 @@
 
 namespace League\JsonGuard\Constraints;
 
-use function League\JsonGuard\asString;
+use function League\JsonGuard\as_string;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -35,8 +35,8 @@ class Max implements ParentSchemaAwarePropertyConstraint
 
         $message = sprintf(
             'Number "%s" is not at most "%d"',
-            asString($value),
-            asString($parameter)
+            as_string($value),
+            as_string($parameter)
         );
         return new ValidationError($message, ErrorCode::INVALID_MAX, $value, $pointer, ['max' => $parameter]);
     }
@@ -56,8 +56,8 @@ class Max implements ParentSchemaAwarePropertyConstraint
 
         $message = sprintf(
             'Number "%s" is not less than "%d"',
-            asString($value),
-            asString($parameter)
+            as_string($value),
+            as_string($parameter)
         );
         return new ValidationError(
             $message,

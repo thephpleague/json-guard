@@ -2,7 +2,7 @@
 
 namespace League\JsonGuard\Constraints;
 
-use function League\JsonGuard\asString;
+use function League\JsonGuard\as_string;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -17,7 +17,7 @@ class MinItems implements PropertyConstraint
             return null;
         }
 
-        $message = sprintf('Array does not contain more than "%d" items', asString($parameter));
+        $message = sprintf('Array does not contain more than "%d" items', as_string($parameter));
         return new ValidationError(
             $message,
             ErrorCode::INVALID_MIN_COUNT,

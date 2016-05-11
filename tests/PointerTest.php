@@ -80,12 +80,44 @@ class PointerTest extends \PHPUnit_Framework_TestCase
         $pointer->get(['bad' => 'type']);
     }
 
+    public function testGetInvalidPointerToNonContainerProperty()
+    {
+        $this->setExpectedException(Pointer\InvalidPointerException::class);
+        $document = $this->getDocument();
+        $pointer = new Pointer($document);
+        $pointer->get('/foo/0/invalid');
+    }
+
+    public function testSetInvalidPointerToNonContainerProperty()
+    {
+        $this->setExpectedException(Pointer\InvalidPointerException::class);
+        $document = $this->getDocument();
+        $pointer = new Pointer($document);
+        $pointer->set('/foo/0/invalid', []);
+    }
+
     public function testInvalidPointerFirstCharacter()
     {
         $this->setExpectedException(Pointer\InvalidPointerException::class);
         $document = $this->getDocument();
         $pointer = new Pointer($document);
         $pointer->get('#hello/world');
+    }
+
+    public function testInvalidArrayIndex()
+    {
+        $this->setExpectedException(Pointer\InvalidPointerException::class);
+        $document = $this->getDocument();
+        $pointer = new Pointer($document);
+        $pointer->get('/foo/5');
+    }
+
+    public function testCannotReplaceEntireObjectWithSet()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+        $document = $this->getDocument();
+        $pointer = new Pointer($document);
+        $pointer->set('', []);
     }
 
     protected function assertCorrectJson($expected, $actual, $message = '')

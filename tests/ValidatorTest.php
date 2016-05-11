@@ -92,6 +92,7 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
 
         $errors = $v->errors();
         $this->assertCount(2, $errors);
+        $this->assertTrue(isset($errors[0]['code']));
         $this->assertSame(ErrorCode::INVALID_STRING, $errors[0]['code']);
         $this->assertSame('/name', $errors[0]['pointer']);
 

@@ -15,14 +15,13 @@ class AllOf implements ContainerInstanceConstraint
             return null;
         }
 
-        $errors = array_merge(array_filter(array_map(function ($schema) use ($data, $validatorFactory, $pointer) {
-            $validator = $validatorFactory->makeSubSchemaValidator($data, $schema, $pointer);
-            if ($validator->passes()) {
-                return null;
-            }
-            return $validator->errors();
-        }, $parameter)));
+        $errors = [];
 
-        return $errors ?: null;
+        foreach ($parameter as $schema) {
+            $validator = $validatorFactory->makeSubSchemaValidator($data, $schema, $pointer);
+            $errors = array_merge($errors, $validator->errors());
+        }
+
+        return $errors;
     }
 }

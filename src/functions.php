@@ -112,3 +112,15 @@ function delimitPattern($pattern)
 {
     return '/' . str_replace('/', '\\/', $pattern) . '/';
 }
+
+/**
+ * Escape a JSON Pointer.
+ *
+ * @param  string $pointer
+ * @return string
+ */
+function escapePointer($pointer)
+{
+    $pointer = str_replace('~', '~0', $pointer);
+    return str_replace('/', '~1', $pointer);
+}

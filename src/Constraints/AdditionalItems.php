@@ -68,6 +68,7 @@ class AdditionalItems implements ParentSchemaAwareContainerInstanceConstraint
     ) {
         $errors = [];
         foreach ($items as $key => $item) {
+            // Escaping isn't necessary since the key is always numeric.
             $currentPointer = $pointer . '/' . $key;
             $validator      = $validatorFactory->makeSubSchemaValidator($item, $schema, $currentPointer);
             $errors         = array_merge($errors, $validator->errors());

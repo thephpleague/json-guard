@@ -85,4 +85,13 @@ class DereferencerTest extends \PHPUnit_Framework_TestCase
         $slashProperty = '/slash-item';
         $this->assertSame($result->$slashProperty->key, $result->item->key);
     }
+
+    public function testReferenceInPropertyThatContainsTilde()
+    {
+        $deref  = new Dereferencer();
+        $path   = 'file://' . __DIR__ . '/fixtures/tilde-property.json';
+        $result = $deref->dereference($path);
+        $tildeProperty = 'tilde~item';
+        $this->assertSame($result->$tildeProperty->key, $result->item->key);
+    }
 }

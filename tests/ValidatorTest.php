@@ -98,6 +98,20 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(ErrorCode::INVALID_STRING, $errors[1]['code']);
         $this->assertSame('/sub-product/sub-product/tags/1', $errors[1]['pointer']);
     }
+    
+    public function testErrorMessagePointerIsEscaped()
+    {
+        $data   = json_decode(file_get_contents(__DIR__ . '/fixtures/needs-escaping-data.json'));
+        $schema = json_decode(file_get_contents(__DIR__ . '/fixtures/needs-escaping-schema.json'));
+
+        $deref  = new Dereferencer();
+        $schema = $deref->dereference($schema);
+
+        $v = new Validator($data, $schema);
+
+        $errors = $v->errors();
+        $this->assertSame('/~1path/~0prop', $errors[0]['pointer']);
+    }
 
     public function testDeeplyNestedDataWithinReason()
     {

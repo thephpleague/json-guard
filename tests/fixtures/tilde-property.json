@@ -1,0 +1,6 @@
+{
+  "item": {
+    "key": "value"
+  },
+  "tilde~item": {"$ref": "#/item"}
+}

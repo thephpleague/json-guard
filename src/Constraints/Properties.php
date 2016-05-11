@@ -22,7 +22,7 @@ class Properties implements ContainerInstanceConstraint
         foreach ($parameter as $property => $schema) {
             if (is_object($data) && property_exists($data, $property)) {
                 $propertyData    = $data->$property;
-                $propertyPointer = $pointer . '/' . $property;
+                $propertyPointer = $pointer . '/' . \League\JsonGuard\escapePointer($property);
                 $validator       = $validatorFactory->makeSubSchemaValidator($propertyData, $schema, $propertyPointer);
                 if ($validator->fails()) {
                     $errors = array_merge($errors, $validator->errors());

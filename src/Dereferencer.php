@@ -202,19 +202,7 @@ class Dereferencer
      */
     private function pathPush($path, $segment)
     {
-        return $path . '/' . $this->escapePointer($segment);
-    }
-
-    /**
-     * Escape a JSON Pointer.
-     *
-     * @param  string $pointer
-     * @return string
-     */
-    private function escapePointer($pointer)
-    {
-        $pointer = str_replace('~', '~', $pointer);
-        return str_replace('/', '~1', $pointer);
+        return $path . '/' . escapePointer($segment);
     }
 
     /**

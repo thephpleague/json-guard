@@ -25,6 +25,7 @@ class Items implements ContainerInstanceConstraint
                 continue;
             }
 
+            // Escaping isn't necessary since the key is always numeric.
             $validator = $validatorFactory->makeSubSchemaValidator($value, $schema, $pointer . '/' . $key);
             $errors = array_merge($errors, $validator->errors());
         }

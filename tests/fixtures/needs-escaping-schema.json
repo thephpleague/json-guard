@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Some Schema",
+  "description": "A schema for data that needs the pointer escaped",
+  "type": "object",
+  "properties": {
+    "/path": {
+      "type": "object",
+      "properties": {
+        "~prop": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

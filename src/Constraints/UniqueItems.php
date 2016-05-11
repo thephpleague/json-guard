@@ -2,7 +2,7 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
+use function League\JsonGuard\asString;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -21,7 +21,7 @@ class UniqueItems implements PropertyConstraint
             return null;
         }
 
-        $message = sprintf('Array "%s" is not unique.', JsonGuard\asString($value));
+        $message = sprintf('Array "%s" is not unique.', asString($value));
         return new ValidationError($message, ErrorCode::NOT_UNIQUE_ITEM, $value, $pointer);
     }
 }

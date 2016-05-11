@@ -3,6 +3,7 @@
 namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard;
+use function League\JsonGuard\propertiesMatchingPattern;
 use League\JsonGuard\SubSchemaValidatorFactory;
 
 class PatternProperties implements ContainerInstanceConstraint
@@ -18,7 +19,7 @@ class PatternProperties implements ContainerInstanceConstraint
 
         $errors = [];
         foreach ($parameter as $property => $schema) {
-            $matches       = JsonGuard\propertiesMatchingPattern($property, $data);
+            $matches       = propertiesMatchingPattern($property, $data);
             $matchedSchema = array_fill_keys($matches, $schema);
             $propertyErrors = Properties::validate($data, $matchedSchema, $validatorFactory, $pointer);
             if (is_array($propertyErrors)) {

@@ -2,7 +2,7 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
+use function League\JsonGuard\asString;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -26,8 +26,8 @@ class MultipleOf implements PropertyConstraint
 
         $message = sprintf(
             'Number "%d" is not a multiple of "%d"',
-            JsonGuard\asString($value),
-            JsonGuard\asString($multiple)
+            asString($value),
+            asString($multiple)
         );
         return new ValidationError(
             $message,

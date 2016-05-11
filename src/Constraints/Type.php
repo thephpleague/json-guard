@@ -5,6 +5,7 @@ namespace League\JsonGuard\Constraints;
 use League\JsonGuard;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
+use function League\JsonGuard\asString;
 
 class Type implements PropertyConstraint
 {
@@ -82,7 +83,7 @@ class Type implements PropertyConstraint
             return null;
         }
 
-        $message = sprintf('Value "%s" is not a(n) %s.', JsonGuard\asString($value), $type);
+        $message = sprintf('Value "%s" is not a(n) %s.', asString($value), $type);
 
         return new ValidationError($message, $errorCode, $value, $pointer);
     }
@@ -105,7 +106,7 @@ class Type implements PropertyConstraint
 
         $message = sprintf(
             'Value "%s" is not one of: %s',
-            JsonGuard\asString($value),
+            asString($value),
             implode(', ', array_map('League\JsonGuard\asString', $choices))
         );
 

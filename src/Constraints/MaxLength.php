@@ -2,7 +2,8 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
+use function League\JsonGuard\strlen;
+use function League\JsonGuard\asString;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -13,11 +14,11 @@ class MaxLength implements PropertyConstraint
      */
     public static function validate($value, $parameter, $pointer = null)
     {
-        if (!is_string($value) || JsonGuard\strlen($value) <= $parameter) {
+        if (!is_string($value) || strlen($value) <= $parameter) {
             return null;
         }
 
-        $message = sprintf('String is not at most "%s" characters long', JsonGuard\asString($parameter));
+        $message = sprintf('String is not at most "%s" characters long', asString($parameter));
         return new ValidationError(
             $message,
             ErrorCode::INVALID_MAX_LENGTH,

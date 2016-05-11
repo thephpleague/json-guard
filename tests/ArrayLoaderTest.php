@@ -2,6 +2,7 @@
 
 namespace League\JsonGuard\Test;
 
+use League\JsonGuard\Exceptions\SchemaLoadingException;
 use League\JsonGuard\Loaders\ArrayLoader;
 
 class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
@@ -20,14 +21,14 @@ class ArrayLoaderTest extends \PHPUnit_Framework_TestCase
 
     public function testLoadThrowsWhenNotFound()
     {
-        $this->setExpectedException('League\JsonGuard\Exceptions\SchemaLoadingException');
+        $this->setExpectedException(SchemaLoadingException::class);
         $loader = new ArrayLoader([]);
         $loader->load('missing/path');
     }
 
     public function testLoadThrowsWhenSchemaIsInvalidType()
     {
-        $this->setExpectedException('League\JsonGuard\Exceptions\SchemaLoadingException');
+        $this->setExpectedException(SchemaLoadingException::class);
         $loader = new ArrayLoader([
             'bad/type' => []
         ]);

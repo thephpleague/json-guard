@@ -2,7 +2,8 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
+use function League\JsonGuard\asString;
+use function League\JsonGuard\delimitPattern;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -17,11 +18,11 @@ class Pattern implements PropertyConstraint
             return null;
         }
 
-        if (preg_match(JsonGuard\delimitPattern($pattern), $value) === 1) {
+        if (preg_match(delimitPattern($pattern), $value) === 1) {
             return null;
         }
 
-        $message = sprintf('Value "%s" does not match the given pattern.', JsonGuard\asString($value));
+        $message = sprintf('Value "%s" does not match the given pattern.', asString($value));
         return new ValidationError($message, ErrorCode::INVALID_PATTERN, $value, $pointer, ['pattern' => $pattern]);
     }
 }

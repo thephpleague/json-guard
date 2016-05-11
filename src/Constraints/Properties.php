@@ -2,7 +2,7 @@
 
 namespace League\JsonGuard\Constraints;
 
-use function League\JsonGuard\escape_pointer;
+use League\JsonGuard;
 use League\JsonGuard\SubSchemaValidatorFactory;
 
 class Properties implements ContainerInstanceConstraint
@@ -23,7 +23,7 @@ class Properties implements ContainerInstanceConstraint
         foreach ($parameter as $property => $schema) {
             if (is_object($data) && property_exists($data, $property)) {
                 $propertyData    = $data->$property;
-                $propertyPointer = $pointer . '/' . escape_pointer($property);
+                $propertyPointer = $pointer . '/' . JsonGuard\escape_pointer($property);
                 $validator       = $validatorFactory->makeSubSchemaValidator($propertyData, $schema, $propertyPointer);
                 if ($validator->fails()) {
                     $errors = array_merge($errors, $validator->errors());

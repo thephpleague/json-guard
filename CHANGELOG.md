@@ -15,7 +15,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 * The `ErrorCode` constants class is now marked as final.
-* Dropped support for PHP 5.5
 * All function names are now snake cased.
 
 ## 0.2.1 - 2016-05-08

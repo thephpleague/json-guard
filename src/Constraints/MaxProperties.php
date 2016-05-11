@@ -2,7 +2,7 @@
 
 namespace League\JsonGuard\Constraints;
 
-use function League\JsonGuard\as_string;
+use League\JsonGuard;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -17,7 +17,7 @@ class MaxProperties implements PropertyConstraint
             return null;
         }
 
-        $message = sprintf('Object does not contain less than "%d" properties', as_string($parameter));
+        $message = sprintf('Object does not contain less than "%d" properties', JsonGuard\as_string($parameter));
         return new ValidationError(
             $message,
             ErrorCode::MAX_PROPERTIES_EXCEEDED,

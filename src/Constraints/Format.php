@@ -3,7 +3,6 @@
 namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard;
-use function League\JsonGuard\as_string;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
 
@@ -122,6 +121,6 @@ class Format implements PropertyConstraint
      */
     private static function invalidFormatMessage($format, $value)
     {
-        return sprintf('"%s" is not a valid %s.', as_string($value), $format);
+        return sprintf('"%s" is not a valid %s.', JsonGuard\as_string($value), $format);
     }
 }

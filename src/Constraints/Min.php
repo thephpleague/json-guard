@@ -2,9 +2,9 @@
 
 namespace League\JsonGuard\Constraints;
 
+use League\JsonGuard;
 use League\JsonGuard\ErrorCode;
 use League\JsonGuard\ValidationError;
-use function League\JsonGuard\as_string;
 
 class Min implements ParentSchemaAwarePropertyConstraint
 {
@@ -35,8 +35,8 @@ class Min implements ParentSchemaAwarePropertyConstraint
 
         $message = sprintf(
             'Number "%s" is not at least "%d"',
-            as_string($value),
-            as_string($parameter)
+            JsonGuard\as_string($value),
+            JsonGuard\as_string($parameter)
         );
 
         return new ValidationError($message, ErrorCode::INVALID_MIN, $value, $pointer, ['min' => $parameter]);
@@ -57,8 +57,8 @@ class Min implements ParentSchemaAwarePropertyConstraint
 
         $message = sprintf(
             'Number "%s" is not at least greater than "%d"',
-            as_string($value),
-            as_string($parameter)
+            JsonGuard\as_string($value),
+            JsonGuard\as_string($parameter)
         );
 
         return new ValidationError(

@@ -12,6 +12,10 @@ class Required implements PropertyConstraint
      */
     public static function validate($data, $parameter, $pointer = null)
     {
+        if (!is_object($data)) {
+            return null;
+        }
+
         $actualProperties = array_keys(get_object_vars($data));
         $missing          = array_diff($parameter, $actualProperties);
         if (count($missing)) {

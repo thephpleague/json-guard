@@ -29,7 +29,8 @@ class Max implements ParentSchemaAwarePropertyConstraint
      */
     public static function validateMax($value, $parameter, $pointer = null)
     {
-        if (!is_numeric($value) || $value <= $parameter) {
+        if (!is_numeric($value) ||
+            JsonGuard\compare($value, $parameter) === -1 || JsonGuard\compare($value, $parameter) === 0) {
             return null;
         }
 
@@ -50,7 +51,7 @@ class Max implements ParentSchemaAwarePropertyConstraint
      */
     public static function validateExclusiveMax($value, $parameter, $pointer = null)
     {
-        if (!is_numeric($value) || $value < $parameter) {
+        if (!is_numeric($value) || JsonGuard\compare($value, $parameter) === -1) {
             return null;
         }
 

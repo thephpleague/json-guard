@@ -13,7 +13,7 @@ use League\JsonGuard\Validator;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
-    public function draft4Tests()
+    public function allDraft4Tests()
     {
         $required = glob(schema_test_suite_path() . '/draft4/*.json');
         $optional = glob(schema_test_suite_path() . '/draft4/optional/*.json');
@@ -24,17 +24,48 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         }, $files);
     }
 
+    public function draft4CoreTests()
+    {
+        return array_map(function ($file) {
+            return [$file];
+        }, glob(schema_test_suite_path() . '/draft4/*.json'));
+    }
+
     /**
-     * @dataProvider draft4Tests
+     * @dataProvider allDraft4Tests
      *
-     * @param string $file
+     * @param string $testFile
      */
-    public function testDraft4($file)
+    public function testAllOfDraft4($testFile)
     {
         // We need to use the option that treats big numbers as a
         // string value so that the 'bignum.json' test will pass.
-        $test = json_decode(file_get_contents($file), false, 512, JSON_BIGINT_AS_STRING);
+        $test = json_decode(file_get_contents($testFile), false, 512, JSON_BIGINT_AS_STRING);
 
+        $this->runTestCase($test);
+    }
+
+    /**
+     * @dataProvider draft4CoreTests
+     * @runInSeparateProcess
+     *
+     * @param string $testFile
+     */
+    public function testDraft4CoreTestsPassWithoutBcMath($testFile)
+    {
+        require __DIR__ . '/disable_bccomp.php';
+        $test = json_decode(file_get_contents($testFile));
+
+        $this->runTestCase($test);
+    }
+
+    /**
+     * Run a test case from the standard test suite.
+     *
+     * @param object $test
+     */
+    public function runTestCase($test)
+    {
         foreach ($test as $testCase) {
             $schema      = $testCase->schema;
             $description = $testCase->description;

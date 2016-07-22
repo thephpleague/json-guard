@@ -11,6 +11,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The date-time format constraint was fixed to only pass if the date is RFC3339 instead of all of ISO 8601.
 * The uri format constraint now passes for valid protocol relative URIs.
 * Fixed a bug where custom format extensions only worked for the first level of data and were not used for nested objects.
+* Minimum and Maximum comparisons will now work for numbers larger than PHP_INT_MAX if ext-bcmath is installed.
+
+### Added
+
+A Comparator class was added so that the rest of the code doesn't have to constantly check if bccomp is avaiable.  You can specify the precision to use for comparisons by calling Comparator::setScale().
+
+### Changed
+
+The validator now passes version 1.2.0 of the official test suite.
 
 ## 0.3.1 - 2016-06-28
 

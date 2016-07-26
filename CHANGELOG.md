@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * The uri format constraint now passes for valid protocol relative URIs.
 * Fixed a bug where custom format extensions only worked for the first level of data and were not used for nested objects.
 * Minimum and Maximum comparisons will now work for numbers larger than PHP_INT_MAX if ext-bcmath is installed.
+* Fixed a bug where a custom ruleset was not being used past the first level of data in a nested object.
 
 ### Added
 
@@ -20,6 +21,10 @@ A Comparator class was added so that the rest of the code doesn't have to consta
 ### Changed
 
 The validator now passes version 1.2.0 of the official test suite.
+
+### Removed
+
+* Setters used when creating sub-schema validators were removed, since they are not necessary.  These were marked @internal so this should not be a breaking change.
 
 ## 0.3.1 - 2016-06-28
 

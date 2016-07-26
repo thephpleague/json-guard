@@ -6,6 +6,23 @@ title: FAQ
 
 # FAQ
 
+## How do I validate my schema is correct?
+
+To make sure your schema is valid, you can check it against the [meta-schema](http://json-schema.org/schema) that defines JSON Schema itself.  You can do so manually like this:
+
+```php
+<?php
+
+$metaSchema = (new Dereferencer())->dereference('http://json-schema.org/draft-04/schema#');
+$validator  = new Validator($mySchema, $metaSchema);
+
+if ($validator->fails()) {
+    // Invalid schema
+}
+```
+
+Alternatively you can use a tool like [json-guard-cli](https://github.com/yuloh/json-guard-cli).
+
 ## Why aren't my default values used?
 
 The [specification](http://json-schema.org/latest/json-schema-validation.html#rfc.section.6.2) doesn't actually say what a default value is supposed to do.  Defaults are considered [metadata](https://spacetelescope.github.io/understanding-json-schema/reference/generic.html#metadata) like title or description, and metadata is ignored by the validator.

@@ -35,7 +35,7 @@ function strlen($string)
         return mb_strlen($string, mb_detect_encoding($string));
     }
 
-    return strlen($string);
+    return \strlen($string);
 }
 
 /**

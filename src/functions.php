@@ -134,7 +134,7 @@ function escape_pointer($pointer)
  */
 function is_json_integer($value)
 {
-    if (is_string($value) && $value[0] === '-') {
+    if (is_string($value) && strlen($value) && $value[0] === '-') {
         $value = substr($value, 1);
     }
 

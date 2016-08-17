@@ -12,7 +12,8 @@ class FunctionsTest extends \PHPUnit_Framework_TestCase
             [99, true],
             ["hello-world", false],
             ["99", false],
-            ["-99", false]
+            ["-99", false],
+            ["", false]
         ];
     }
 

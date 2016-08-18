@@ -165,10 +165,6 @@ class Dereferencer
         $refs = [];
 
         if (!is_array($schema) && !is_object($schema)) {
-            if ($this->isRef($path, $schema)) {
-                $refs[$path] = $schema;
-            }
-
             return $refs;
         }
 

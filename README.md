@@ -41,12 +41,6 @@ You need to run a web server while testing.  A simple node server is in the test
 $ node tests/server.js
 ```
 
-Alternatively, if you want to use the php server:
-
-```bash
-$ php -S localhost:1234 -t ./vendor/json-schema/JSON-Schema-Test-Suite/remotes/
-```
-
 Once the server is running, you can run the test suite.
 
 ``` bash

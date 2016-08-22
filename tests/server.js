@@ -1,7 +1,7 @@
 var http = require('http');
 
-// from vendor/json-schema/JSON-Schema-Test-Suite/bin/jsonschema_suite remotes
 var remotes = {
+    // from vendor/json-schema/JSON-Schema-Test-Suite/bin/jsonschema_suite remotes
     "folder/folderInteger.json": {
         "type": "integer"
     },
@@ -14,6 +14,25 @@ var remotes = {
         },
         "refToInteger": {
             "$ref": "#/integer"
+        },
+        // added to test relative references without id,
+        // when the inital schema is loaded from an object
+        // but the parent of the relative ref was retrieved by URI.
+        "relativeRefToInteger": {
+            "$ref": "integer.json"
+        }
+    },
+    // added to test relative references without id
+    "album.json": {
+        "type": "object",
+        "properties": {
+            "title": {"type": "string"}
+        }
+    },
+    "albums.json": {
+        "type": "array",
+        "items": {
+            "$ref": "album.json"
         }
     }
 };

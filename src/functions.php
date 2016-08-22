@@ -152,3 +152,16 @@ function compare($leftOperand, $rightOperand)
 {
     return Comparator::compare($leftOperand, $rightOperand);
 }
+
+/**
+ * Removes the fragment from a reference.
+ *
+ * @param  string $ref
+ * @return string
+ */
+function strip_fragment($ref)
+{
+    $fragment = parse_url($ref, PHP_URL_FRAGMENT);
+
+    return $fragment ? str_replace($fragment, '', $ref) : $ref;
+}

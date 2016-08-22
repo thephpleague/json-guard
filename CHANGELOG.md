@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Fixed
+
+* Fixed a bug that caused a Segmentation fault on a system where mbstring and intl extensions were missing by @msarca
+* Avoid PHP notice on empty integer fields by @gbirke
+* Fixed a bug where properties with the name `$ref` were considered a reference by @ribeiropaulor
+* The dereferencer was fixed to resolve relative references when the parent schema does not have an `id`.
+* Fixed a bug where absolute references in nested IDs were appended to the current resolution scope instead of replacing it.
+
+### Added
+
+* It is now possible to pass a path with a reference fragment to the dereferencer.
+
 ## 0.3.2 - 2016-07-26
 
 ### Fixed

@@ -3,17 +3,18 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.4.0 - 2016-11-03
 
 ### Changed
 
 * The dereferencer now lazily resolves external references.
+* You can now use pointers when using the file loader, I.E. 'file://my-schema.json#/some/property'.
 
 ### Fixed
 
-* You can now use pointers when using the file loader, I.E. 'file://my-schema.json#/some/property'.
 * Fixed a bug where non string values passed to `format` would fail when they should pass.
 * Massive improvements to URI resolution.  Now using sabre/uri (BSD-3) to resolve reference URIs.
+* Fixed a bug where the dereferencer would try to resolve ids that were not strings.
 
 ## 0.3.3 - 2016-08-22
 

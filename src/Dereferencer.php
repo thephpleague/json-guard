@@ -364,7 +364,7 @@ class Dereferencer
 
     /**
      * Get the resolved resolution scope by walking the schema and resolving
-     * every `id` against the msot immediate parent scope.
+     * every `id` against the most immediate parent scope.
      *
      * @see  http://json-schema.org/latest/json-schema-core.html#anchor27
      *

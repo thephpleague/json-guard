@@ -27,11 +27,9 @@ composer require league/json-guard
 
 Complete documentation is available [here](http://json-guard.thephpleague.com/).
 
-Pull requests for documentation should be sent to the [gh-pages branch](https://github.com/thephpleague/json-guard/tree/gh-pages).
-
 ## Change log
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information about what has changed recently.
 
 ## Testing
 

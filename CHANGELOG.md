@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Fixed
+
+* Type number was passing for numeric strings when it should not have been.
+
 ## 0.4.0 - 2016-11-03
 
 ### Changed

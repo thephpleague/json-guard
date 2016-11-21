@@ -49,6 +49,10 @@ $ composer test
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
+## Stability
+
+This package is pre 1.0 so anything can break at any time.  That being said, breaking changes are typically released in the minor version (the x in  0.x.y).
+
 ## Security
 
 If you discover any security related issues, please email matthew.james.allan@gmail.com instead of using the issue tracker.

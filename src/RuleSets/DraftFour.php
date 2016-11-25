@@ -33,6 +33,7 @@ use League\JsonGuard\RuleSet;
 /**
  * The default rule set for JSON Schema Draft 4.
  * @see http://tools.ietf.org/html/draft-zyp-json-schema-04
+ * @see  https://tools.ietf.org/html/draft-fge-json-schema-validation-00
  */
 class DraftFour implements RuleSet
 {

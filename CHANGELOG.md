@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.1 - 2016-11-28
+
+### Fixed
+
+* Fixed a bug where the context was being encoded as a string twice, resulting in extra quotes around parameters in the error message.
+* Updated incorrect docblock types for ValidationError keyword.
+
 ## 0.5.0 - 2016-11-28
 
 ### Changed

@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 0.5.0 - 2016-11-28
 
 ### Changed
 
@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     * If you are using the `ArrayAccess` interface for `ValidationError` you need to replace any usage of the `code` key with `keyword`.
     * Instead of there being a different code for every format failure, they just return the keyword 'format'.
 * Invalid schemas now throw an InvalidSchemaException.
+* Dereferencer@getLoader is now public.
 
 ### Fixed
 

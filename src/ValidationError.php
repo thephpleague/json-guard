@@ -10,7 +10,7 @@ class ValidationError implements \ArrayAccess, \JsonSerializable
     private $message;
 
     /**
-     * @var int
+     * @var string
      */
     private $keyword;
 
@@ -76,7 +76,7 @@ class ValidationError implements \ArrayAccess, \JsonSerializable
     /**
      * Get the schema keyword for this error.
      *
-     * @return int
+     * @return string
      */
     public function getKeyword()
     {

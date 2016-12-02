@@ -111,7 +111,7 @@ class Type implements PropertyConstraint
             $pointer,
             [
                 'value'   => $value,
-                'choices' => $choices
+                'type'    => $choices
             ]
         );
     }

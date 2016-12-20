@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+## Fixed
+
+* Fixed the date-time validation to not allow invalid date-times in some cases.
+
+## Changed
+
+* Allow redirects by default with the CurlWebLoader.
+
+
 ## 0.5.1 - 2016-11-28
 
 ### Fixed

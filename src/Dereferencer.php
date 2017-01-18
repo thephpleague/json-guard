@@ -120,26 +120,39 @@ class Dereferencer
      */
     private function crawl($schema, $currentUri = null)
     {
-        $references = $this->getReferences($schema);
+        $references = schema_extract($schema, function ($keyword, $value) {
+            return $this->isRef($keyword, $value);
+        });
 
         foreach ($references as $path => $ref) {
-            // resolve
-            if ($this->isExternalRef($ref)) {
-                $resolved = new Reference(function () use ($schema, $path, $ref, $currentUri) {
-                    return $this->resolveExternalReference($schema, $path, $ref, $currentUri);
-                }, $ref);
-            } else {
-                $resolved = new Reference($schema, $ref);
-            }
-
-            // handle any fragments
-            $resolved = $this->resolveFragment($ref, $resolved);
-
-            // merge
-            $this->mergeResolvedReference($schema, $resolved, $path);
+            $this->resolveReference($schema, $path, $ref, $currentUri);
         }
 
         return $schema;
+    }
+
+    /**
+     * @param object $schema
+     * @param string $path
+     * @param string $ref
+     * @param string $currentUri
+     */
+    private function resolveReference($schema, $path, $ref, $currentUri)
+    {
+        // resolve
+        if (!is_internal_ref($ref)) {
+            $resolved = new Reference(function () use ($schema, $path, $ref, $currentUri) {
+                return $this->resolveExternalReference($schema, $path, $ref, $currentUri);
+            }, $ref);
+        } else {
+            $resolved = new Reference($schema, $ref);
+        }
+
+        // handle any fragments
+        $resolved = $this->resolveFragment($ref, $resolved);
+
+        // merge
+        $this->mergeResolvedReference($schema, $resolved, $path);
     }
 
     /**
@@ -197,7 +210,7 @@ class Dereferencer
     private function resolveFragment($ref, $schema)
     {
         $fragment = parse_url($ref, PHP_URL_FRAGMENT);
-        if ($this->isExternalRef($ref) && is_string($fragment)) {
+        if (!is_internal_ref($ref) && is_string($fragment)) {
             if ($schema instanceof Reference) {
                 $schema = $schema->resolve();
             }
@@ -209,63 +222,6 @@ class Dereferencer
     }
 
     /**
-     * Recursively get all of the references for the given schema.
-     * Returns an associative array like [path => reference].
-     * Example:
-     *
-     * ['/properties' => '#/definitions/b']
-     *
-     * The path does NOT include the $ref.
-     *
-     * @param object $schema The schema to resolve references for.
-     * @param string $path   The current schema path.
-     *
-     * @return array
-     */
-    private function getReferences($schema, $path = '')
-    {
-        $refs = [];
-
-        if (!is_array($schema) && !is_object($schema)) {
-            return $refs;
-        }
-
-        foreach ($schema as $attribute => $parameter) {
-            switch (true) {
-                case $this->isRef($attribute, $parameter):
-                    $refs[$path] = $parameter;
-                    break;
-                case is_object($parameter):
-                    $refs = array_merge($refs, $this->getReferences($parameter, $this->pathPush($path, $attribute)));
-                    break;
-                case is_array($parameter):
-                    foreach ($parameter as $k => $v) {
-                        $refs = array_merge(
-                            $refs,
-                            $this->getReferences($v, $this->pathPush($this->pathPush($path, $attribute), $k))
-                        );
-                    }
-                    break;
-            }
-        }
-
-        return $refs;
-    }
-
-    /**
-     * Push a segment onto the given path.
-     *
-     * @param string $path
-     * @param string $segment
-     *
-     * @return string
-     */
-    private function pathPush($path, $segment)
-    {
-        return $path . '/' . escape_pointer($segment);
-    }
-
-    /**
      * @param string $attribute
      * @param mixed  $attributeValue
      *
@@ -274,26 +230,6 @@ class Dereferencer
     private function isRef($attribute, $attributeValue)
     {
         return $attribute === '$ref' && is_string($attributeValue);
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    private function isInternalRef($value)
-    {
-        return is_string($value) && substr($value, 0, 1) === '#';
-    }
-
-    /**
-     * @param string $value
-     *
-     * @return bool
-     */
-    private function isExternalRef($value)
-    {
-        return !$this->isInternalRef($value);
     }
 
     /**

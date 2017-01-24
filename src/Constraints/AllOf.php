@@ -3,24 +3,24 @@
 namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard\Assert;
-use League\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\Validator;
 
-class AllOf implements ContainerInstanceConstraint
+class AllOf implements Constraint
 {
     const KEYWORD = 'allOf';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($data, $parameter, SubSchemaValidatorFactory $validatorFactory, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'array', self::KEYWORD, $pointer);
-        Assert::notEmpty($parameter, self::KEYWORD, $pointer);
+        Assert::type($parameter, 'array', self::KEYWORD, $validator->getPointer());
+        Assert::notEmpty($parameter, self::KEYWORD, $validator->getPointer());
 
         $errors = [];
 
         foreach ($parameter as $schema) {
-            $validator = $validatorFactory->makeSubSchemaValidator($data, $schema, $pointer);
+            $validator = $validator->makeSubSchemaValidator($value, $schema, $validator->getPointer());
             $errors = array_merge($errors, $validator->errors());
         }
 

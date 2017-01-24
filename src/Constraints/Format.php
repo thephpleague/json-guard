@@ -2,11 +2,11 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class Format implements PropertyConstraint
+class Format implements Constraint
 {
     const KEYWORD = 'format';
 
@@ -20,9 +20,9 @@ class Format implements PropertyConstraint
     /**
      * {@inheritdoc}
      */
-    public static function validate($value, $parameter, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'string', self::KEYWORD, $pointer);
+        Assert::type($parameter, 'string', self::KEYWORD, $validator->getPointer());
 
         switch ($parameter) {
             case 'date-time':
@@ -30,7 +30,7 @@ class Format implements PropertyConstraint
                     $parameter,
                     $value,
                     self::DATE_TIME_PATTERN,
-                    $pointer
+                    $validator->getPointer()
                 );
             case 'uri':
                 return self::validateFilter(
@@ -38,7 +38,7 @@ class Format implements PropertyConstraint
                     $value,
                     FILTER_VALIDATE_URL,
                     null,
-                    $pointer
+                    $validator->getPointer()
                 );
             case 'email':
                 return self::validateFilter(
@@ -46,7 +46,7 @@ class Format implements PropertyConstraint
                     $value,
                     FILTER_VALIDATE_EMAIL,
                     null,
-                    $pointer
+                    $validator->getPointer()
                 );
             case 'ipv4':
                 return self::validateFilter(
@@ -54,7 +54,7 @@ class Format implements PropertyConstraint
                     $value,
                     FILTER_VALIDATE_IP,
                     FILTER_FLAG_IPV4,
-                    $pointer
+                    $validator->getPointer()
                 );
             case 'ipv6':
                 return self::validateFilter(
@@ -62,14 +62,14 @@ class Format implements PropertyConstraint
                     $value,
                     FILTER_VALIDATE_IP,
                     FILTER_FLAG_IPV6,
-                    $pointer
+                    $validator->getPointer()
                 );
             case 'hostname':
                 return self::validateRegex(
                     $parameter,
                     $value,
                     self::HOST_NAME_PATTERN,
-                    $pointer
+                    $validator->getPointer()
                 );
         }
     }

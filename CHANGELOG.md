@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## Changed
 
 * Allow redirects by default with the CurlWebLoader.
+* All constraints now implement a single interface.  See `League\JsonGuard\Constraints\Constraint` for more info.  If you are using custom constraints you should update them to match the new signature.
 
 
 ## 0.5.1 - 2016-11-28

@@ -2,20 +2,20 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class UniqueItems implements PropertyConstraint
+class UniqueItems implements Constraint
 {
     const KEYWORD = 'uniqueItems';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($value, $parameter, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'boolean', self::KEYWORD, $pointer);
+        Assert::type($parameter, 'boolean', self::KEYWORD, $validator->getPointer());
 
         if (!is_array($value) || $parameter === false) {
             return null;
@@ -29,7 +29,7 @@ class UniqueItems implements PropertyConstraint
             'Array {value} is not unique.',
             self::KEYWORD,
             $value,
-            $pointer,
+            $validator->getPointer(),
             ['value' => $value]
         );
     }

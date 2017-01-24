@@ -4,20 +4,20 @@ namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard;
 use League\JsonGuard\Assert;
-use League\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\Validator;
 
-class Properties implements ContainerInstanceConstraint
+class Properties implements Constraint
 {
     const KEYWORD = 'properties';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($data, $parameter, SubSchemaValidatorFactory $validatorFactory, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, ['array', 'object'], self::KEYWORD, $pointer);
+        Assert::type($parameter, ['array', 'object'], self::KEYWORD, $validator->getPointer());
 
-        if (!is_object($data)) {
+        if (!is_object($value)) {
             return null;
         }
 
@@ -26,12 +26,12 @@ class Properties implements ContainerInstanceConstraint
         // merge the errors.
         $errors = [];
         foreach ($parameter as $property => $schema) {
-            if (is_object($data) && property_exists($data, $property)) {
-                $propertyData    = $data->$property;
-                $propertyPointer = $pointer . '/' . JsonGuard\escape_pointer($property);
-                $validator       = $validatorFactory->makeSubSchemaValidator($propertyData, $schema, $propertyPointer);
-                if ($validator->fails()) {
-                    $errors = array_merge($errors, $validator->errors());
+            if (is_object($value) && property_exists($value, $property)) {
+                $propertyData    = $value->$property;
+                $propertyPointer = JsonGuard\pointer_push($validator->getPointer(), $property);
+                $subValidator       = $validator->makeSubSchemaValidator($propertyData, $schema, $propertyPointer);
+                if ($subValidator->fails()) {
+                    $errors = array_merge($errors, $subValidator->errors());
                 }
             }
         }

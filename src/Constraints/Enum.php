@@ -4,17 +4,18 @@ namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class Enum implements PropertyConstraint
+class Enum implements Constraint
 {
     const KEYWORD = 'enum';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($value, $parameter, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'array', self::KEYWORD, $pointer);
+        Assert::type($parameter, 'array', self::KEYWORD, $validator->getPointer());
 
         if (in_array($value, $parameter, true)) {
             return null;
@@ -24,7 +25,7 @@ class Enum implements PropertyConstraint
             'Value {value} is not one of: {choices}',
             self::KEYWORD,
             $value,
-            $pointer,
+            $validator->getPointer(),
             ['choices' => $parameter, 'value' => $value]
         );
     }

@@ -2,23 +2,23 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class MinProperties implements PropertyConstraint
+class MinProperties implements Constraint
 {
     const KEYWORD = 'minProperties';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($value, $min, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($min, 'integer', self::KEYWORD, $pointer);
-        Assert::nonNegative($min, self::KEYWORD, $pointer);
+        Assert::type($parameter, 'integer', self::KEYWORD, $validator->getPointer());
+        Assert::nonNegative($parameter, self::KEYWORD, $validator->getPointer());
 
-        if (!is_object($value) || count(get_object_vars($value)) >= $min) {
+        if (!is_object($value) || count(get_object_vars($value)) >= $parameter) {
             return null;
         }
 
@@ -26,8 +26,8 @@ class MinProperties implements PropertyConstraint
             'Object does not contain at least {min_properties} properties',
             self::KEYWORD,
             $value,
-            $pointer,
-            ['min_properties' => $min]
+            $validator->getPointer(),
+            ['min_properties' => $parameter]
         );
     }
 }

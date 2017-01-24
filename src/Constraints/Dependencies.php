@@ -2,34 +2,36 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
 use League\JsonGuard\Assert;
-use League\JsonGuard\SubSchemaValidatorFactory;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class Dependencies implements ContainerInstanceConstraint
+class Dependencies implements Constraint
 {
     const KEYWORD = 'dependencies';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($data, $parameter, SubSchemaValidatorFactory $validatorFactory, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, ['object', 'array'], self::KEYWORD, $pointer);
+        Assert::type($parameter, ['object', 'array'], self::KEYWORD, $validator->getPointer());
 
         $errors = [];
         foreach ($parameter as $property => $dependencies) {
-            if (!is_object($data) || !property_exists($data, $property)) {
+            if (!is_object($value) || !property_exists($value, $property)) {
                 continue;
             }
 
             if (is_array($dependencies)) {
-                $errors = array_merge($errors, self::validatePropertyDependency($data, $dependencies, $pointer));
+                $errors = array_merge(
+                    $errors,
+                    self::validatePropertyDependency($value, $dependencies, $validator->getPointer())
+                );
             } elseif (is_object($dependencies)) {
                 $errors = array_merge(
                     $errors,
-                    self::validateSchemaDependency($data, $dependencies, $validatorFactory, $pointer)
+                    self::validateSchemaDependency($value, $dependencies, $validator)
                 );
             }
         }
@@ -63,25 +65,21 @@ class Dependencies implements ContainerInstanceConstraint
     }
 
     /**
-     * @param object                                      $data
-     * @param object                                      $dependencies
-     * @param \League\JsonGuard\SubSchemaValidatorFactory $validatorFactory
-     * @param string                                      $pointer
+     * @param object    $data
+     * @param object    $dependencies
+     *
+     * @param Validator $validator
      *
      * @return array
      */
-    protected static function validateSchemaDependency(
-        $data,
-        $dependencies,
-        SubSchemaValidatorFactory $validatorFactory,
-        $pointer
-    ) {
-        $validator = $validatorFactory->makeSubSchemaValidator(
+    protected static function validateSchemaDependency($data, $dependencies, Validator $validator)
+    {
+        $subValidator = $validator->makeSubSchemaValidator(
             $data,
             $dependencies,
-            $pointer
+            $validator->getPointer()
         );
 
-        return $validator->errors();
+        return $subValidator->errors();
     }
 }

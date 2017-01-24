@@ -2,11 +2,6 @@
 
 namespace League\JsonGuard;
 
-use League\JsonGuard\Constraints\Constraint;
-use League\JsonGuard\Constraints\ContainerInstanceConstraint;
-use League\JsonGuard\Constraints\ParentSchemaAwareContainerInstanceConstraint;
-use League\JsonGuard\Constraints\ParentSchemaAwarePropertyConstraint;
-use League\JsonGuard\Constraints\PropertyConstraint;
 use League\JsonGuard\Exceptions\MaximumDepthExceededException;
 use League\JsonGuard\RuleSets\DraftFour;
 
@@ -140,7 +135,6 @@ class Validator implements SubSchemaValidatorFactory
     }
 
     /**
-     * @internal
      * @return string
      */
     public function getPointer()
@@ -149,19 +143,35 @@ class Validator implements SubSchemaValidatorFactory
     }
 
     /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @return object
+     */
+    public function getSchema()
+    {
+        return $this->schema;
+    }
+
+    /**
      * Create a new sub-validator.
      *
-     * @param mixed  $data
-     * @param object $schema
-     * @param string $pointer
+     * @param mixed       $data
+     * @param object      $schema
+     * @param string|null $pointer
      *
      * @return Validator
      */
-    public function makeSubSchemaValidator($data, $schema, $pointer)
+    public function makeSubSchemaValidator($data, $schema, $pointer = null)
     {
         $validator = new Validator($data, $schema, $this->ruleSet);
 
-        $validator->pointer          = $pointer;
+        $validator->pointer          = $pointer ?: $this->pointer;
         $validator->maxDepth         = $this->maxDepth;
         $validator->formatExtensions = $this->formatExtensions;
         $validator->depth            = $this->depth + 1;
@@ -223,30 +233,7 @@ class Validator implements SubSchemaValidatorFactory
 
         $constraint = $this->ruleSet->getConstraint($rule);
 
-        return $this->invokeConstraint($constraint, $parameter);
-    }
-
-    /**
-     * Invoke the given constraint and return the validation errors.
-     *
-     * @param \League\JsonGuard\Constraints\Constraint $constraint
-     * @param mixed                                    $parameter
-     *
-     * @return \League\JsonGuard\ValidationError|\League\JsonGuard\ValidationError[]|null
-     */
-    private function invokeConstraint(Constraint $constraint, $parameter)
-    {
-        if ($constraint instanceof PropertyConstraint) {
-            return $constraint::validate($this->data, $parameter, $this->getPointer());
-        } elseif ($constraint instanceof ParentSchemaAwarePropertyConstraint) {
-            return $constraint::validate($this->data, $this->schema, $parameter, $this->getPointer());
-        } elseif ($constraint instanceof ContainerInstanceConstraint) {
-            return $constraint::validate($this->data, $parameter, $this, $this->getPointer());
-        } elseif ($constraint instanceof ParentSchemaAwareContainerInstanceConstraint) {
-            return $constraint::validate($this->data, $this->schema, $parameter, $this, $this->getPointer());
-        }
-
-        throw new \InvalidArgumentException('Invalid constraint.');
+        return $constraint->validate($this->data, $parameter, $this);
     }
 
     /**
@@ -290,12 +277,7 @@ class Validator implements SubSchemaValidatorFactory
             return;
         }
 
-        if (is_array($errors)) {
-            $this->errors = array_merge($this->errors, $errors);
-
-            return;
-        }
-
-        $this->errors[] = $errors;
+        $errors       = is_array($errors) ? $errors : [$errors];
+        $this->errors = array_merge($this->errors, $errors);
     }
 }

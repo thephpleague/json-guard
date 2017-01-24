@@ -5,8 +5,9 @@ namespace League\JsonGuard\Constraints;
 use League\JsonGuard;
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class Min implements ParentSchemaAwarePropertyConstraint
+class Min implements Constraint
 {
     const KEYWORD           = 'minimum';
     const EXCLUSIVE_KEYWORD = 'exclusiveMinimum';
@@ -14,15 +15,15 @@ class Min implements ParentSchemaAwarePropertyConstraint
     /**
      * {@inheritdoc}
      */
-    public static function validate($value, $schema, $parameter, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'number', self::KEYWORD, $pointer);
+        Assert::type($parameter, 'number', self::KEYWORD, $validator->getPointer());
 
-        if (isset($schema->exclusiveMinimum) && $schema->exclusiveMinimum === true) {
-            return self::validateExclusiveMin($value, $parameter, $pointer);
+        if (isset($validator->getSchema()->exclusiveMinimum) && $validator->getSchema()->exclusiveMinimum === true) {
+            return self::validateExclusiveMin($value, $parameter, $validator->getPointer());
         }
 
-        return self::validateMin($value, $parameter, $pointer);
+        return self::validateMin($value, $parameter, $validator->getPointer());
     }
 
     /**

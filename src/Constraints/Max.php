@@ -5,8 +5,9 @@ namespace League\JsonGuard\Constraints;
 use League\JsonGuard;
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class Max implements ParentSchemaAwarePropertyConstraint
+class Max implements Constraint
 {
     const KEYWORD           = 'maximum';
     const EXCLUSIVE_KEYWORD = 'exclusiveMaximum';
@@ -14,15 +15,15 @@ class Max implements ParentSchemaAwarePropertyConstraint
     /**
      * {@inheritdoc}
      */
-    public static function validate($value, $schema, $parameter, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'number', self::KEYWORD, $pointer);
+        Assert::type($parameter, 'number', self::KEYWORD, $validator->getPointer());
 
-        if (isset($schema->exclusiveMaximum) && $schema->exclusiveMaximum === true) {
-            return self::validateExclusiveMax($value, $parameter, $pointer);
+        if (isset($validator->getSchema()->exclusiveMaximum) && $validator->getSchema()->exclusiveMaximum === true) {
+            return self::validateExclusiveMax($value, $parameter, $validator->getPointer());
         }
 
-        return self::validateMax($value, $parameter, $pointer);
+        return self::validateMax($value, $parameter, $validator->getPointer());
     }
 
     /**
@@ -32,7 +33,7 @@ class Max implements ParentSchemaAwarePropertyConstraint
      *
      * @return \League\JsonGuard\ValidationError|null
      */
-    public static function validateMax($value, $parameter, $pointer = null)
+    public static function validateMax($value, $parameter, $pointer)
     {
         if (!is_numeric($value) ||
             JsonGuard\compare($value, $parameter) === -1 || JsonGuard\compare($value, $parameter) === 0) {
@@ -55,7 +56,7 @@ class Max implements ParentSchemaAwarePropertyConstraint
      *
      * @return \League\JsonGuard\ValidationError|null
      */
-    public static function validateExclusiveMax($value, $parameter, $pointer = null)
+    public static function validateExclusiveMax($value, $parameter, $pointer)
     {
         if (!is_numeric($value) || JsonGuard\compare($value, $parameter) === -1) {
             return null;

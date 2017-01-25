@@ -4,26 +4,26 @@ namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
-use League\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\Validator;
 
-class Not implements ContainerInstanceConstraint
+class Not implements Constraint
 {
     const KEYWORD = 'not';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($data, $parameter, SubSchemaValidatorFactory $validatorFactory, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'object', self::KEYWORD, $pointer);
+        Assert::type($parameter, 'object', self::KEYWORD, $validator->getPointer());
 
-        $validator = $validatorFactory->makeSubSchemaValidator($data, $parameter, $pointer);
+        $validator = $validator->makeSubSchemaValidator($value, $parameter);
         if ($validator->passes()) {
             return new ValidationError(
                 'Data should not match the schema.',
                 self::KEYWORD,
-                $data,
-                $pointer,
+                $value,
+                $validator->getPointer(),
                 ['not_schema' => $parameter]
             );
         }

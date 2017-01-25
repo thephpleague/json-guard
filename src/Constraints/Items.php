@@ -2,26 +2,27 @@
 
 namespace League\JsonGuard\Constraints;
 
+use League\JsonGuard;
 use League\JsonGuard\Assert;
-use League\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\Validator;
 
-class Items implements ContainerInstanceConstraint
+class Items implements Constraint
 {
     const KEYWORD = 'items';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($data, $parameter, SubSchemaValidatorFactory $validatorFactory, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, ['array', 'object'], self::KEYWORD, $pointer);
+        Assert::type($parameter, ['array', 'object'], self::KEYWORD, $validator->getPointer());
 
-        if (!is_array($data)) {
+        if (!is_array($value)) {
             return null;
         }
 
         $errors = [];
-        foreach ($data as $key => $value) {
+        foreach ($value as $key => $itemValue) {
             $schema = self::getSchema($parameter, $key);
 
             // Additional items are allowed by default,
@@ -30,9 +31,9 @@ class Items implements ContainerInstanceConstraint
                 continue;
             }
 
-            // Escaping isn't necessary since the key is always numeric.
-            $validator = $validatorFactory->makeSubSchemaValidator($value, $schema, $pointer . '/' . $key);
-            $errors = array_merge($errors, $validator->errors());
+            $pointer   = JsonGuard\pointer_push($validator->getPointer(), $key);
+            $subValidator = $validator->makeSubSchemaValidator($itemValue, $schema, $pointer);
+            $errors    = array_merge($errors, $subValidator->errors());
         }
 
         return $errors ?: null;

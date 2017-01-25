@@ -3,23 +3,23 @@
 namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard\Assert;
-use League\JsonGuard\SubSchemaValidatorFactory;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class AnyOf implements ContainerInstanceConstraint
+class AnyOf implements Constraint
 {
     const KEYWORD = 'anyOf';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($data, $parameter, SubSchemaValidatorFactory $validatorFactory, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'array', self::KEYWORD, $pointer);
-        Assert::notEmpty($parameter, self::KEYWORD, $pointer);
+        Assert::type($parameter, 'array', self::KEYWORD, $validator->getPointer());
+        Assert::notEmpty($parameter, self::KEYWORD, $validator->getPointer());
 
         foreach ($parameter as $schema) {
-            $validator = $validatorFactory->makeSubSchemaValidator($data, $schema, $pointer);
+            $validator = $validator->makeSubSchemaValidator($value, $schema, $validator->getPointer());
             if ($validator->passes()) {
                 return null;
             }
@@ -27,8 +27,8 @@ class AnyOf implements ContainerInstanceConstraint
         return new ValidationError(
             'Failed matching any of the provided schemas.',
             self::KEYWORD,
-            $data,
-            $pointer,
+            $value,
+            $validator->getPointer(),
             ['any_of' => $parameter]
         );
     }

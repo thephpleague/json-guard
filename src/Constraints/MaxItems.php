@@ -2,21 +2,21 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class MaxItems implements PropertyConstraint
+class MaxItems implements Constraint
 {
     const KEYWORD = 'maxItems';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($value, $parameter, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'integer', self::KEYWORD, $pointer);
-        Assert::nonNegative($parameter, self::KEYWORD, $pointer);
+        Assert::type($parameter, 'integer', self::KEYWORD, $validator->getPointer());
+        Assert::nonNegative($parameter, self::KEYWORD, $validator->getPointer());
 
         if (!is_array($value) || count($value) <= $parameter) {
             return null;
@@ -26,7 +26,7 @@ class MaxItems implements PropertyConstraint
             'Array does not contain less than {max_items} items',
             self::KEYWORD,
             $value,
-            $pointer,
+            $validator->getPointer(),
             ['max_items' => $parameter]
         );
     }

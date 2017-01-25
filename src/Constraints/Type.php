@@ -5,47 +5,48 @@ namespace League\JsonGuard\Constraints;
 use League\JsonGuard;
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class Type implements PropertyConstraint
+class Type implements Constraint
 {
     const KEYWORD = 'type';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($value, $type, $pointer = null)
+    public function validate($value, $type, Validator $validator)
     {
-        Assert::type($type, ['array', 'string'], self::KEYWORD, $pointer);
+        Assert::type($type, ['array', 'string'], self::KEYWORD, $validator->getPointer());
 
         if (is_array($type)) {
-            return self::anyType($value, $type, $pointer);
+            return $this->anyType($value, $type, $validator);
         }
 
         switch ($type) {
             case 'object':
-                return self::validateType($value, $type, 'is_object', $pointer);
+                return $this->validateType($value, $type, 'is_object', $validator->getPointer());
             case 'array':
-                return self::validateType($value, $type, 'is_array', $pointer);
+                return $this->validateType($value, $type, 'is_array', $validator->getPointer());
             case 'boolean':
-                return self::validateType($value, $type, 'is_bool', $pointer);
+                return $this->validateType($value, $type, 'is_bool', $validator->getPointer());
             case 'null':
-                return self::validateType($value, $type, 'is_null', $pointer);
+                return $this->validateType($value, $type, 'is_null', $validator->getPointer());
             case 'number':
-                return self::validateType(
+                return $this->validateType(
                     $value,
                     $type,
                     'League\JsonGuard\is_json_number',
-                    $pointer
+                    $validator->getPointer()
                 );
             case 'integer':
-                return self::validateType(
+                return $this->validateType(
                     $value,
                     $type,
                     'League\JsonGuard\is_json_integer',
-                    $pointer
+                    $validator->getPointer()
                 );
             case 'string':
-                return self::validateType(
+                return $this->validateType(
                     $value,
                     $type,
                     function ($value) {
@@ -60,7 +61,7 @@ class Type implements PropertyConstraint
 
                         return false;
                     },
-                    $pointer
+                    $validator->getPointer()
                 );
         }
     }
@@ -73,7 +74,7 @@ class Type implements PropertyConstraint
      *
      * @return \League\JsonGuard\ValidationError|null
      */
-    private static function validateType($value, $type, callable $callable, $pointer)
+    private function validateType($value, $type, callable $callable, $pointer)
     {
         if (call_user_func($callable, $value) === true) {
             return null;
@@ -89,16 +90,17 @@ class Type implements PropertyConstraint
     }
 
     /**
-     * @param mixed  $value
-     * @param array  $choices
-     * @param string $pointer
+     * @param mixed     $value
+     * @param array     $choices
      *
-     * @return \League\JsonGuard\ValidationError|null
+     * @param Validator $validator
+     *
+     * @return ValidationError|null
      */
-    private static function anyType($value, array $choices, $pointer)
+    private function anyType($value, array $choices, Validator $validator)
     {
         foreach ($choices as $type) {
-            $error = static::validate($value, $type, $pointer);
+            $error = $this->validate($value, $type, $validator);
             if (is_null($error)) {
                 return null;
             }
@@ -108,7 +110,7 @@ class Type implements PropertyConstraint
             'Value {value} is not one of: {choices}',
             self::KEYWORD,
             $value,
-            $pointer,
+            $validator->getPointer(),
             [
                 'value'   => $value,
                 'type'    => $choices

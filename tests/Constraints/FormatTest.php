@@ -4,6 +4,7 @@ namespace League\JsonGuard\Test\Constraints;
 
 use League\JsonGuard\Constraints\Format;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
 class FormatTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +23,7 @@ class FormatTest extends \PHPUnit_Framework_TestCase
     public function testFormatPassesForNonStringValues($value, $parameter)
     {
         $format = new Format();
-        $result = $format::validate($value, $parameter);
+        $result = $format->validate($value, $parameter, new Validator([], new \stdClass()));
         $this->assertNull($result);
     }
 
@@ -42,7 +43,7 @@ class FormatTest extends \PHPUnit_Framework_TestCase
      */
     public function testDateTimeDoesNotPassForInvalidValues($value)
     {
-        $result = Format::validate($value, 'date-time');
+        $result = (new Format())->validate($value, 'date-time', new Validator([], new \stdClass()));
         $this->assertInstanceOf(ValidationError::class, $result);
     }
 }

@@ -2,46 +2,36 @@
 
 namespace League\JsonGuard\Constraints;
 
+use League\JsonGuard;
 use League\JsonGuard\Assert;
-use League\JsonGuard\SubSchemaValidatorFactory;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class AdditionalItems implements ParentSchemaAwareContainerInstanceConstraint
+class AdditionalItems implements Constraint
 {
     const KEYWORD = 'additionalItems';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate(
-        $data,
-        $schema,
-        $parameter,
-        SubSchemaValidatorFactory $validatorFactory,
-        $pointer = null
-    ) {
-        Assert::type($parameter, ['boolean', 'object'], self::KEYWORD, $pointer);
+    public function validate($value, $parameter, Validator $validator)
+    {
+        Assert::type($parameter, ['boolean', 'object'], self::KEYWORD, $validator->getPointer());
 
-        if (!is_array($data) || $parameter === true) {
+        if (!is_array($value) || $parameter === true) {
             return null;
         }
 
-
-        if (!is_array($items = self::getItems($schema))) {
+        if (!is_array($items = self::getItems($validator->getSchema()))) {
             return null;
         }
 
         if ($parameter === false) {
-            return self::validateAdditionalItemsWhenNotAllowed($data, $items, $pointer);
+            return self::validateAdditionalItemsWhenNotAllowed($value, $items, $validator->getPointer());
         } elseif (is_object($parameter)) {
-            $additionalItems = array_slice($data, count($items));
+            $additionalItems = array_slice($value, count($items));
 
-            return self::validateAdditionalItemsAgainstSchema(
-                $additionalItems,
-                $parameter,
-                $validatorFactory,
-                $pointer
-            );
+            return self::validateAdditionalItemsAgainstSchema($additionalItems, $parameter, $validator);
         }
     }
 
@@ -56,24 +46,19 @@ class AdditionalItems implements ParentSchemaAwareContainerInstanceConstraint
     }
 
     /**
-     * @param array                                       $items
-     * @param object                                      $schema
-     * @param \League\JsonGuard\SubSchemaValidatorFactory $validatorFactory
-     * @param string                                      $pointer
+     * @param array     $items
+     * @param object    $schema
+     * @param Validator $validator
      *
      * @return array
      */
-    private static function validateAdditionalItemsAgainstSchema(
-        $items,
-        $schema,
-        SubSchemaValidatorFactory $validatorFactory,
-        $pointer
-    ) {
+    private static function validateAdditionalItemsAgainstSchema($items, $schema, Validator $validator)
+    {
         $errors = [];
         foreach ($items as $key => $item) {
             // Escaping isn't necessary since the key is always numeric.
-            $currentPointer = $pointer . '/' . $key;
-            $validator      = $validatorFactory->makeSubSchemaValidator($item, $schema, $currentPointer);
+            $currentPointer = JsonGuard\pointer_push($validator->getPointer(), $key);
+            $validator      = $validator->makeSubSchemaValidator($item, $schema, $currentPointer);
             $errors         = array_merge($errors, $validator->errors());
         }
 
@@ -81,19 +66,19 @@ class AdditionalItems implements ParentSchemaAwareContainerInstanceConstraint
     }
 
     /**
-     * @param array $data
+     * @param array $value
      * @param array $items
      * @param $pointer
      *
      * @return \League\JsonGuard\ValidationError
      */
-    private static function validateAdditionalItemsWhenNotAllowed($data, $items, $pointer)
+    private static function validateAdditionalItemsWhenNotAllowed($value, $items, $pointer)
     {
-        if (count($data) > count($items)) {
+        if (count($value) > count($items)) {
             return new ValidationError(
                 'Additional items are not allowed.',
                 self::KEYWORD,
-                $data,
+                $value,
                 $pointer
             );
         }

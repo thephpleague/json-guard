@@ -4,28 +4,28 @@ namespace League\JsonGuard\Constraints;
 
 use League\JsonGuard;
 use League\JsonGuard\Assert;
-use League\JsonGuard\SubSchemaValidatorFactory;
+use League\JsonGuard\Validator;
 
-class PatternProperties implements ContainerInstanceConstraint
+class PatternProperties implements Constraint
 {
     const KEYWORD = 'patternProperties';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($data, $parameter, SubSchemaValidatorFactory $validatorFactory, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'object', self::KEYWORD, $pointer);
+        Assert::type($parameter, 'object', self::KEYWORD, $validator->getPointer());
 
-        if (!is_object($data)) {
+        if (!is_object($value)) {
             return null;
         }
 
         $errors = [];
         foreach ($parameter as $property => $schema) {
-            $matches       = JsonGuard\properties_matching_pattern($property, $data);
+            $matches       = JsonGuard\properties_matching_pattern($property, $value);
             $matchedSchema = array_fill_keys($matches, $schema);
-            $propertyErrors = Properties::validate($data, $matchedSchema, $validatorFactory, $pointer);
+            $propertyErrors = (new Properties())->validate($value, $matchedSchema, $validator);
             if (is_array($propertyErrors)) {
                 $errors = array_merge($errors, $propertyErrors);
             }

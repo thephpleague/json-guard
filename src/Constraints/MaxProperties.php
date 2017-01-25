@@ -2,21 +2,21 @@
 
 namespace League\JsonGuard\Constraints;
 
-use League\JsonGuard;
 use League\JsonGuard\Assert;
 use League\JsonGuard\ValidationError;
+use League\JsonGuard\Validator;
 
-class MaxProperties implements PropertyConstraint
+class MaxProperties implements Constraint
 {
     const KEYWORD = 'maxProperties';
 
     /**
      * {@inheritdoc}
      */
-    public static function validate($value, $parameter, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
-        Assert::type($parameter, 'integer', self::KEYWORD, $pointer);
-        Assert::nonNegative($parameter, self::KEYWORD, $pointer);
+        Assert::type($parameter, 'integer', self::KEYWORD, $validator->getPointer());
+        Assert::nonNegative($parameter, self::KEYWORD, $validator->getPointer());
 
         if (!is_object($value) || count(get_object_vars($value)) <= $parameter) {
             return null;
@@ -26,7 +26,7 @@ class MaxProperties implements PropertyConstraint
             'Object does not contain less than {max_properties} properties',
             self::KEYWORD,
             $value,
-            $pointer,
+            $validator->getPointer(),
             ['max_properties' => $parameter]
         );
     }

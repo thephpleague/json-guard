@@ -3,6 +3,7 @@
 namespace League\JsonGuard\Test;
 
 use League\JsonGuard;
+use League\JsonGuard\Constraints\Constraint;
 use League\JsonGuard\Dereferencer;
 use League\JsonGuard\Exceptions\InvalidSchemaException;
 use League\JsonGuard\ValidationError;
@@ -12,7 +13,6 @@ use League\JsonGuard\Loaders\ArrayLoader;
 use League\JsonGuard\Loaders\CurlWebLoader;
 use League\JsonGuard\Validator;
 use League\JsonGuard\RuleSets\DraftFour;
-use League\JsonGuard\Constraints\PropertyConstraint;
 
 class ValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -302,14 +302,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         new Validator([], []);
     }
 
-    public function testThrowsWhenConstraintDoesNotImplementAKnownInterface()
-    {
-        $this->setExpectedException(\InvalidArgumentException::class, 'Invalid constraint.');
-        $v = new Validator([], (object) ['minimum' => 0], new InvalidRulesetStub());
-        $v->errors();
-    }
-
-
     public function testNestedReference() {
         $deref = new Dereferencer();
         $path   = 'file://' . __DIR__ . '/fixtures/client.json';
@@ -326,29 +318,6 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($validator->fails());
     }
 }
-
-class InvalidRulesetStub implements JsonGuard\RuleSet
-{
-    public function has($rule)
-    {
-        return true;
-    }
-
-    /**
-     * Get the registered constraint for $rule.
-     *
-     * @param string $rule
-     *
-     * @return \League\JsonGuard\Constraints\Constraint
-     * @throws \League\JsonGuard\Exceptions\ConstraintNotFoundException
-     */
-    public function getConstraint($rule)
-    {
-        return new InvalidConstraint();
-    }
-}
-
-class InvalidConstraint implements JsonGuard\Constraints\Constraint{}
 
 class CustomRulesetStub extends DraftFour
 {
@@ -375,7 +344,7 @@ class CustomRulesetStub extends DraftFour
     }
 }
 
-class EmojiConstraint implements PropertyConstraint
+class EmojiConstraint implements Constraint
 {
     protected static $emojis = [
         ':)',
@@ -384,14 +353,7 @@ class EmojiConstraint implements PropertyConstraint
         ';)'
     ];
 
-    /**
-     * @param mixed       $value
-     * @param mixed       $parameter
-     * @param string|null $pointer
-     *
-     * @return \League\JsonGuard\ValidationError|null
-     */
-    public static function validate($value, $parameter, $pointer = null)
+    public function validate($value, $parameter, Validator $validator)
     {
         if (array_search($value, static::$emojis) !== false) {
             return null;

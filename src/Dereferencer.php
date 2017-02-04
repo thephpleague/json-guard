@@ -241,12 +241,8 @@ class Dereferencer
      */
     private function loadExternalRef($reference)
     {
-        $this->validateAbsolutePath($reference);
-        list($prefix, $path) = explode('://', $reference, 2);
-        $path = rtrim(strip_fragment($path), '#');
-
+        list($prefix, $path) = parse_external_ref($reference);
         $loader = $this->getLoader($prefix);
-
         $schema = $loader->load($path);
 
         return $schema;
@@ -264,24 +260,6 @@ class Dereferencer
         unset($rootSchema->$ref);
         foreach (get_object_vars($resolvedRef) as $prop => $value) {
             $rootSchema->$prop = $value;
-        }
-    }
-
-    /**
-     * Validate an absolute path is valid.
-     *
-     * @param string $path
-     */
-    private function validateAbsolutePath($path)
-    {
-        if (!preg_match('#^.+\:\/\/.*#', $path)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Your path  "%s" is missing a valid prefix.  ' .
-                    'The schema path should start with a prefix i.e. "file://".',
-                    $path
-                )
-            );
         }
     }
 

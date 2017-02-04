@@ -195,6 +195,33 @@ function is_internal_ref($value)
 }
 
 /**
+ * Parse an external reference returning the prefix and path.
+ *
+ * @param string $ref
+ *
+ * @return array
+ *
+ * @throws \InvalidArgumentException
+ */
+function parse_external_ref($ref)
+{
+    if (is_relative_ref($ref)) {
+        throw new \InvalidArgumentException(
+            sprintf(
+                'The path  "%s" was expected to be an external reference but is missing a prefix.  ' .
+                'The schema path should start with a prefix i.e. "file://".',
+                $ref
+            )
+        );
+    }
+
+    list($prefix, $path) = explode('://', $ref, 2);
+    $path = rtrim(strip_fragment($path), '#');
+
+    return [$prefix, $path];
+}
+
+/**
  * Resolve the given id against the parent scope and return the resolved URI.
  *
  * @param string $id          The id to resolve.  This should be a valid relative or absolute URI.

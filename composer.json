@@ -58,7 +58,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "League\\JsonGuard\\Test\\": "tests"
+            "League\\JsonGuard\\Test\\": "tests",
+            "League\\JsonGuard\\Bench\\": "tests/benchmarks"
         },
         "files": [
             "tests/helpers.php"
@@ -66,7 +67,8 @@
     },
     "scripts": {
         "test": "phpunit",
-        "cs": "phpcs --standard=psr2 src/"
+        "cs": "phpcs --standard=psr2 src/",
+        "bench": "phpbench run ./tests/benchmarks --report=default"
     },
     "extra": {
         "branch-alias": {

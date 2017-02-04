@@ -73,7 +73,7 @@ You can make your own loaders by implementing the [Loader Interface](https://git
 { "$ref":"couchdb://00a271787f89c0ef2e10e88a0c0001f4" }
 ```
 
-Once you have written your custom loader, you can register it with the dereferencer.  The first argument should be the loader instance, and the second argument should be the prefix you would like to load references for.
+Once you have written your custom loader, you can register it with the dereferencer's `LoaderManager`.  The first argument should be the loader instance, and the second argument should be the prefix you would like to load references for.
 
 ```php
 <?php
@@ -83,5 +83,5 @@ use My\App\CouchDbLoader;
 $couchLoader = new CouchDbLoader();
 $deref  = new League\JsonGuard\Dereferencer();
 
-$deref->registerLoader($couchLoader, 'couchdb');
+$deref->getLoaderManager()->registerLoader($couchLoader, 'couchdb');
 ```

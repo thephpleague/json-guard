@@ -241,7 +241,7 @@ function resolve_uri($id, $parentScope)
 
 /**
  * Recursively iterates over each value in the schema passing them to the callback function.
- * If the callback function returns true, the value is returned into the result array, keyed by a JSON Pointer.
+ * If the callback function returns true the value is returned into the result array, keyed by a JSON Pointer.
  *
  * @param mixed    $schema
  * @param callable $callback

@@ -144,8 +144,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase
             new CurlWebLoader('http://')
         );
         $refResolver  = new Dereferencer();
-        $refResolver->registerLoader($httpLoader, 'http');
-        $refResolver->registerLoader($httpsLoader, 'https');
+        $refResolver->getLoaderManager()->registerLoader('http', $httpLoader);
+        $refResolver->getLoaderManager()->registerLoader('https', $httpsLoader);
 
         return $refResolver;
     }

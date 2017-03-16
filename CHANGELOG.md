@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.2 - 2017-03-16
+
+### Fixed
+
+* Fixed a bug that caused the `enum` constraint to fail when comparing objects (thanks @marcioAlmada)
+* Fixed a bug where a reference to a reference would not validate correctly (thanks @rodnover55).
+* Improved the date-time validation regex to prevent false positives.
+
 ## 0.5.1 - 2016-11-28
 
 ### Fixed

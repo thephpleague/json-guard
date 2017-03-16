@@ -16,8 +16,16 @@ class Enum implements PropertyConstraint
     {
         Assert::type($parameter, 'array', self::KEYWORD, $pointer);
 
-        if (in_array($value, $parameter, true)) {
-            return null;
+        if (is_object($value)) {
+            foreach ($parameter as $i) {
+                if (is_object($i) && $value == $i) {
+                    return null;
+                }
+            }
+        } else {
+            if (in_array($value, $parameter, true)) {
+                return null;
+            }
         }
 
         return new ValidationError(

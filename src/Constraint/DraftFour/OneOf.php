@@ -6,7 +6,7 @@ use League\JsonGuard\Assert;
 use League\JsonGuard\ConstraintInterface;
 use League\JsonGuard\Validator;
 use function League\JsonGuard\error;
-use function League\JsonReference\pointer_push;
+use function League\JsonGuard\pointer_push;
 
 final class OneOf implements ConstraintInterface
 {

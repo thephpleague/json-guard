@@ -6,7 +6,6 @@ use League\JsonGuard\Exception\MaximumDepthExceededException;
 use League\JsonGuard\RuleSet\DraftFour;
 use League\JsonReference\Reference;
 use Psr\Container\ContainerInterface;
-use function League\JsonReference\pointer_push;
 
 final class Validator
 {

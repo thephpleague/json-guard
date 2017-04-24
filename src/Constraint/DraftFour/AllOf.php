@@ -5,7 +5,7 @@ namespace League\JsonGuard\Constraint\DraftFour;
 use League\JsonGuard\Assert;
 use League\JsonGuard\ConstraintInterface;
 use League\JsonGuard\Validator;
-use function League\JsonReference\pointer_push;
+use function League\JsonGuard\pointer_push;
 
 final class AllOf implements ConstraintInterface
 {

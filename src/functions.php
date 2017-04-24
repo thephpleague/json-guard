@@ -136,3 +136,22 @@ function is_json_number($value)
 {
     return is_float($value) || is_json_integer($value);
 }
+
+/**
+ * Push a segment onto the given JSON Pointer.
+ *
+ * @param string   $pointer
+ * @param string[] $segments
+ *
+ * @return string
+ *
+ */
+function pointer_push($pointer, ...$segments)
+{
+    $segments = array_map(function ($segment) {
+        $segment = str_replace('~', '~0', $segment);
+        return str_replace('/', '~1', $segment);
+    }, $segments);
+
+    return ($pointer !== '/' ? $pointer : '') . '/' . implode('/', $segments);
+}

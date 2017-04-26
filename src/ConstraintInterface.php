@@ -10,6 +10,8 @@ interface ConstraintInterface
      * @param Validator $validator
      *
      * @return \League\JsonGuard\ValidationError|null
+     *
+     * @throws \League\JsonGuard\Exception\InvalidSchemaException
      */
     public function validate($value, $parameter, Validator $validator);
 }

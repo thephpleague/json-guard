@@ -93,6 +93,9 @@ final class Validator
 
     /**
      * @return boolean
+     *
+     * @throws \League\JsonGuard\Exception\InvalidSchemaException
+     * @throws \League\JsonGuard\Exception\MaximumDepthExceededException
      */
     public function fails()
     {
@@ -101,6 +104,9 @@ final class Validator
 
     /**
      * @return boolean
+     *
+     * @throws \League\JsonGuard\Exception\InvalidSchemaException
+     * @throws \League\JsonGuard\Exception\MaximumDepthExceededException
      */
     public function passes()
     {
@@ -111,6 +117,9 @@ final class Validator
      * Get a collection of errors.
      *
      * @return ValidationError[]
+     *
+     * @throws \League\JsonGuard\Exception\InvalidSchemaException
+     * @throws \League\JsonGuard\Exception\MaximumDepthExceededException
      */
     public function errors()
     {

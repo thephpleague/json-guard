@@ -65,10 +65,5 @@
         "test-server": "php -S localhost:1234 -t ./vendor/json-schema/JSON-Schema-Test-Suite/remotes/",
         "cs": "phpcs --standard=psr2 src/",
         "bench": "phpbench run ./tests/benchmarks --report=default"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
     }
 }

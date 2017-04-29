@@ -11,9 +11,8 @@ This package is a validator for [JSON Schema](http://json-schema.org/).  It full
 Notable Features:
 
 - Passes the entire [draft 4 JSON Schema Test Suite](https://github.com/json-schema/JSON-Schema-Test-Suite).
-- Fully supports remote references.
-- Fully supports circular references.
-- Unique error codes for every validation error.
+- Fully customizable with custom rule sets.
+- Helpful error messages with JSON Pointers.
 
 ## Install
 
@@ -33,10 +32,10 @@ Please see [CHANGELOG](CHANGELOG.md) for more information about what has changed
 
 ## Testing
 
-You need to run a web server while testing.  A simple node server is in the tests directory.
+You need to run a web server while testing.
 
 ```bash
-$ node tests/server.js
+$ composer test-server
 ```
 
 Once the server is running, you can run the test suite.
@@ -48,10 +47,6 @@ $ composer test
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Stability
-
-This package is pre 1.0 so anything can break at any time.  That being said, breaking changes are typically released in the minor version (the x in  0.x.y).
 
 ## Security
 

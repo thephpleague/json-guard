@@ -16,4 +16,13 @@ class TypeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(ValidationError::class, $error);
     }
+
+    function test_numeric_string_is_a_string()
+    {
+        $type = new Type();
+
+        $error = $type->validate('9223372036854775999', 'string', new Validator([], new \stdClass()));
+
+        $this->assertNull($error);
+    }
 }

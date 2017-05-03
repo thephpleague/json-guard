@@ -1,49 +1,55 @@
 # Change Log
 
+## Unreleased
+
+## Fixed
+
+* Fixed the type validation to stop rejecting numeric strings larger than PHP_INT_MAX.  This was originally implemented to prevent integers decoded with JSON_BIGINT_AS_STRING passing string validation but caused false negatives.  If you need to prevent numeric strings you should add a pattern constraint.  Contributed by @akeeman.
+
 ## 1.0.0 - 2017-04-29
 
 1.0.0 is a complete rewrite.  Please review the library and update your code accordingly.
 
-## Fixed
+### Fixed
 
 * Fixed the date-time validation to not allow invalid date-times in some cases.
 
-## Changed
+### Changed
 
-### General
+#### General
 
 * Classes not meant to be extended have been marked final.
 
-### Dependencies
+#### Dependencies
 
 * Support was dropped for PHP 5.5.
 * HHVM is not actively supported anymore.
 * bcmatch is now a required extension.
 
-### Separate Packages
+#### Separate Packages
 
 Starting with the 1.0 release json-guard is maintained as two separate packages - a JSON Schema validator implementation and a JSON Reference implementation.
 
 You will need to require both `league/json-guard` and `league/json-reference` if you are using JSON references.
 
-### Dereferencing
+#### Dereferencing
 
 * The Dereferencer does not use JSON Schema draft 4 scope resolution rules (`id`) by default anymore.  See [the scope resolution documentation](json-reference/scope-resolution) for more info.
 * Loaders are now registered with a loader manager.  See [the loader documentation](json-reference/loaders) for more info.
 
-### Constraints
+#### Constraints
 
 * All constraints now implement a single interface.  See `League\JsonGuard\Constraint` for more info.  If you are using custom constraints you should update them to match the new signature.
 * All draft 4 constraints were moved to the `League\JsonGuard\Constraint\DraftFour` namespace.
 * All constraints use dependency injection for configuration.  This includes the precision used for minimum, maximum, and their exclusive variants and the charset used for minimumLength and maximumLength.
 * Custom format extensions are now registered with the format constraint directly.
 
-### Rule Sets
+#### Rule Sets
 
 * The rule set interface was dropped in favor of the PSR-11 container interface.  Custom rule sets can extend the `League\JsonGuard\RuleSet\RuleSetContainer` to make implementation easier.
 * The default rule set now uses the same instance each time instead of creating a new instance.
 
-### Errors
+#### Errors
 
 * Error messages no longer implement array access.
 * The error message 'value' has been renamed to 'data' and 'pointer' has been renamed to 'data_path'.
@@ -54,7 +60,7 @@ You will need to require both `league/json-guard` and `league/json-reference` if
 * The error messages have been rewritten to use consistent wording and do not include the value in the message.
 * The error context will truncate any strings over 100 characters.
 
-## Removed
+### Removed
 
 * Removed the SubSchemaValidatorFactory interface.
 * Removed the the RuleSet interface.

@@ -18,4 +18,4 @@ This package is installed using [Composer](https://getcomposer.org/):
 $ composer require league/json-guard
 ```
 
-If your schema contains JSON References, you probably want to install [league/json-reference](json-reference.thephpleague.com) too.
+If your schema contains JSON References, you probably want to install [league/json-reference](//json-reference.thephpleague.com) too.

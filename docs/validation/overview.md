@@ -26,7 +26,7 @@ The schema is also an object from a `json_decode` call.  A simple schema would l
 $schema = json_decode('{ "properties": { "id": { "type": "string", "format": "uri" } } }');
 ```
 
-If your schema uses the `$ref` keyword, you will need to dereference it first.  Please review the documentation on [dereferencing](json-reference.thephpleague.com) for an overview of how to dereference your schema first.
+If your schema uses the `$ref` keyword, you will need to dereference it first.  Please review the documentation on [dereferencing](//json-reference.thephpleague.com) for an overview of how to dereference your schema first.
 
 ## Validating Data
 

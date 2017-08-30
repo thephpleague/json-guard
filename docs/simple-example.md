@@ -8,7 +8,7 @@ title: Simple example
 
 To demonstrate how to use this package, let's validate some JSON against the JSON that defines the JSON schema itself.
 
-First we create a dereferencer, and dereference the schema.  This resolves any JSON like `{"$ref" "#"}` into reference objects, which are required for the validator to resolve `$ref` keywords properly.  Make sure you installed [league/json-reference](json-reference/installation) if you are using references.
+First we create a dereferencer, and dereference the schema.  This resolves any JSON like `{"$ref" "#"}` into reference objects, which are required for the validator to resolve `$ref` keywords properly.  Make sure you installed [league/json-reference](json-refererence.thephpleague.com) if you are using references.
 
 Next we create the validator.  The first argument is the data we are validating.  The second argument is the dereferenced schema.
 

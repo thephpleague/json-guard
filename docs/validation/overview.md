@@ -50,7 +50,7 @@ if ($validator->fails()) {
 }
 ```
 
-Errors for failing validation are retrieved by calling the `errors` method.  For an overview of the errors format, check out the documentation on [errors](/validation/errors/).
+Errors for failing validation are retrieved by calling the `errors` method.  For an overview of the errors format, check out the documentation on [errors](/validation/errors).
 
 ## Limiting Depth
 

@@ -27,6 +27,20 @@ class InvalidSchemaExceptionTest extends TestCase
         $this->assertSame($keyword, $e->getKeyword());
         $this->assertSame($pointer, $e->getPointer());
     }
+    
+    function test_invalid_parameter_constructor()
+    {
+        $e = InvalidSchemaException::invalidParameter(
+            'uuid',
+            ['ipv4'],
+            $keyword = 'minimum',
+            $pointer = '/properties/likes'
+        );
+
+        $this->assertSame('Value is "uuid" but must be one of: "ipv4"', $e->getMessage());
+        $this->assertSame($keyword, $e->getKeyword());
+        $this->assertSame($pointer, $e->getPointer());
+    }
 
     function test_negative_value_constructor()
     {

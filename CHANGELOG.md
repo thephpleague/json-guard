@@ -2,9 +2,13 @@
 
 ## Unreleased
 
-## Fixed
+### Fixed
 
 * Fixed many instances of the date-time validation rejecting valid values and allowing invalid values.
+
+### Changed
+
+* @peterpostmann  added the `ignoreUnknownFormats` option to the format constraint.  If false the validator will throw an `InvalidSchemaException` for formats that can't be validated.
 
 ## 1.0.1 - 2017-05-03
 

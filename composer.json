@@ -38,13 +38,18 @@
         "psr/container": "^1.0",
         "ext-bcmath": "*"
     },
+    "suggest": {
+        "peterpostmann/fileuri": "Returns a file uri from a path",
+        "symfony/yaml": "Load schemes from yaml files"
+    },
     "require-dev": {
         "phpunit/phpunit" : "^4.8.35",
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.3",
         "json-schema/JSON-Schema-Test-Suite": "1.2.0",
         "league/json-reference": "1.0.0",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "peterpostmann/fileuri": "^1.0"
     },
     "autoload": {
         "psr-4": {

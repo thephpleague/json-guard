@@ -15,6 +15,7 @@ use League\JsonReference\Loader\ChainedLoader;
 use League\JsonReference\Loader\CurlWebLoader;
 use PHPUnit\Framework\TestCase;
 use function League\JsonGuard\error;
+use function peterpostmann\uri\fileuri;
 
 class ValidatorTest extends TestCase
 {
@@ -307,7 +308,7 @@ class ValidatorTest extends TestCase
 
     function test_nested_reference() {
         $deref = new Dereferencer();
-        $path   = 'file://' . __DIR__ . '/fixtures/client.json';
+        $path   = fileuri('fixtures/client.json', __DIR__);
         $schema = $deref->dereference($path);
 
         $validator = new Validator((object) [

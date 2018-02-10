@@ -4,6 +4,7 @@ Contributions are **welcome** and will be fully **credited**.
 
 We accept contributions via Pull Requests on [Github](https://github.com/thephpleague/json-guard).
 
+If you plan to implement a new feature please open an issue first.  The core library aims to fully support the JSON Schema standard.  Features that are not part of the JSON Schema specification are unlikely to be merged.
 
 ## Pull Requests
 

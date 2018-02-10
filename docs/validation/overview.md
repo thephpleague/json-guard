@@ -26,7 +26,11 @@ The schema is also an object from a `json_decode` call.  A simple schema would l
 $schema = json_decode('{ "properties": { "id": { "type": "string", "format": "uri" } } }');
 ```
 
-If your schema uses the `$ref` keyword, you will need to dereference it first.  Please review the documentation on [dereferencing](//json-reference.thephpleague.com) for an overview of how to dereference your schema first.
+Now you can create your validator:
+
+```php
+$validator = new League\JsonGuard\Validator($data, $schema);
+```
 
 ## Validating Data
 
@@ -51,6 +55,26 @@ if ($validator->fails()) {
 ```
 
 Errors for failing validation are retrieved by calling the `errors` method.  For an overview of the errors format, check out the documentation on [errors](/validation/errors).
+
+## Dereferencing
+
+It's common for JSON Schemas to use [JSON references](https://tools.ietf.org/html/draft-pbryan-zyp-json-ref-03).  A reference lets you reuse schemas by referencing it instead of having to copy it.  A reference looks like `{"$ref": "/somewhere/else"` and resolves to the schema it points to when accessed.
+
+To use references you need to install the [league/json-reference](//json-reference.thephpleague.com) package. Create a `League\JsonReference\Dereferencer` and dereference the schema, which will replace every `ref` with a proxy object.  Once the schema is dereferenced the validator can use the schema and the references will be lazily resolved as they are accessed.
+
+```php
+<?php
+
+$dereferencer  = League\JsonReference\Dereferencer::draft4();
+$schema        = $dereferencer->dereference('http://json-schema.org/draft-04/schema#');
+$data          = json_decode('{ "id": "json-guard.dev/schema#" }');
+
+$validator     = new League\JsonGuard\Validator($data, $schema);
+
+if ($validator->fails()) {
+    $errors = $validator->errors();
+}
+```
 
 ## Limiting Depth
 

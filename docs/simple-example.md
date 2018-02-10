@@ -6,24 +6,13 @@ title: Simple example
 
 # Simple Example
 
-To demonstrate how to use this package, let's validate some JSON against the JSON that defines the JSON schema itself.
-
-First we create a dereferencer, and dereference the schema.  This resolves any JSON like `{"$ref" "#"}` into reference objects, which are required for the validator to resolve `$ref` keywords properly.  Make sure you installed [league/json-reference](//json-reference.thephpleague.com) if you are using references.
-
-Next we create the validator.  The first argument is the data we are validating.  The second argument is the dereferenced schema.
-
-Once the validator is created you can call `$validator->passes()` or `$validator->fails()` to validate the schema.  If the validator fails, you can view the errors by calling `$validator->errors()`.
+To demonstrate how to use this package, lets write a schema that validates a 'Hello World' greeting.  To validate data against a schema you need to create a `League\JsonGuard\Validator`.  The first argument is the decoded JSON string of the data you want to validate.  The second argument is the decoded JSON string of the Schema you want to validate against.  Once your validator is created you can check the result with `$validator->passes()`.  If it fails you can get the errors by checking `$validator->errors()`.
 
 ```php
-<?php
+$data      = json_decode('"Hello World"');
+$schema    = json_decode('{"type": "string"}');
+$validator = new League\JsonGuard\Validator($data, $schema);
 
-$dereferencer  = League\JsonReference\Dereferencer::draft4();
-$schema        = $dereferencer->dereference('http://json-schema.org/draft-04/schema#');
-$data          = json_decode('{ "id": "json-guard.dev/schema#" }');
-
-$validator     = new League\JsonGuard\Validator($data, $schema);
-
-if ($validator->fails()) {
-    $errors = $validator->errors();
-}
+assert($validator->passes());
+assert(empty($validator->errors()));
 ```

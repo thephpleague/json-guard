@@ -47,6 +47,9 @@
         "ext-curl": "*",
         "peterpostmann/fileuri": "^1.0"
     },
+    "suggest": {
+        "league/json-reference": "Required to use schemas containing JSON references"
+    },
     "autoload": {
         "psr-4": {
             "League\\JsonGuard\\": "src"

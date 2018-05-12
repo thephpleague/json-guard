@@ -6,6 +6,15 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Documentation][ico-docs]][link-docs]
 
+# Unmaintained!
+
+This project is no longer maintained.  Recommended alternatives:
+
+- [opis/json-schema](https://github.com/opis/json-schema)
+- [swaggest/php-json-schema](https://github.com/swaggest/php-json-schema)
+
+-----
+
 This package is a validator for [JSON Schema](http://json-schema.org/).  It fully supports draft 4 of the specification.
 
 Notable Features:
